@@ -7,11 +7,32 @@
     "text": "Preface\nThis is a Quarto book.\nTo learn more about Quarto books visit https://quarto.org/docs/books."
   },
   {
-    "objectID": "01_weather-data.html",
-    "href": "01_weather-data.html",
+    "objectID": "01_weather-data.html#intro",
+    "href": "01_weather-data.html#intro",
     "title": "1  Weather and Climate Data",
-    "section": "",
-    "text": "To compute metrics you need daily or hourly weather data. Either observed (i.e., from weather stations) or modeled (i.e., from climate models) data will work."
+    "section": "1.1 Intro",
+    "text": "1.1 Intro\nTo compute metrics you need daily or hourly weather data. Either observed (i.e., from weather stations) or modeled (i.e., from climate models) data will work.\nMost agroclimate metrics require daily data (daily min temp, daily max temp, daily precip)\nSome require hourly data (e.g., chill portions). If needed, hourly data can be interpolated from daily data (see https://inresgb-lehre.iaas.uni-bonn.de/chillR_book/making-hourly-temperatures.html)\nThings to remember:\n\ndate columns should be converted to R Date class\ndate-time columns should be saved as POSIXct objects\nsee also https://ucanr-igis.github.io/agroclimR/slides/agclimr_slides01.html#(12)\nthink about units"
+  },
+  {
+    "objectID": "01_weather-data.html#cimis-api",
+    "href": "01_weather-data.html#cimis-api",
+    "title": "1  Weather and Climate Data",
+    "section": "1.2 CIMIS API",
+    "text": "1.2 CIMIS API\nHow to get data from CIMIS"
+  },
+  {
+    "objectID": "01_weather-data.html#synoptic-api",
+    "href": "01_weather-data.html#synoptic-api",
+    "title": "1  Weather and Climate Data",
+    "section": "1.3 Synoptic API",
+    "text": "1.3 Synoptic API\nShow how to get weather data from a weather station on Synoptic, including how to create daily summaries from hourly data\nhttps://ucanr-igis.github.io/sketchbook/synoptic-cimis.html"
+  },
+  {
+    "objectID": "01_weather-data.html#gridmet",
+    "href": "01_weather-data.html#gridmet",
+    "title": "1  Weather and Climate Data",
+    "section": "1.4 gridMet",
+    "text": "1.4 gridMet"
   },
   {
     "objectID": "02_metrics-methods.html#load-packages",
@@ -26,6 +47,20 @@
     "title": "2  Methods for Computing Metrics",
     "section": "2.2 Fetch Some Sample Data",
     "text": "2.2 Fetch Some Sample Data\nFor the examples in this chapter, we’ll work with late-century daily temperature data for a location near Bakersfield, CA in the southern San Joaquin Valley.\n\nbkrfld_cap &lt;- ca_loc_pt(coords = c(-119.151062, 35.261321)) |&gt;\n  ca_gcm(gcms[1:4]) |&gt;                                 \n  ca_scenario(c(\"rcp45\", \"rcp85\")) |&gt;\n  ca_period(\"day\") |&gt;\n  ca_years(start = 2070, end = 2099) |&gt;\n  ca_cvar(c(\"tasmin\", \"tasmax\"))\n\nbkrfld_cap |&gt; ca_preflight()\n\nGeneral issues\n - none found\nIssues for querying values\n - none found\nIssues for downloading rasters\n - none found\n\nplot(bkrfld_cap)\n\n\n\n\n\n\n\n\nFetch data:\n\nbkrfld_tbl &lt;- bkrfld_cap |&gt; \n  ca_getvals_tbl(quiet = TRUE) |&gt; \n  mutate(dt = as.Date(dt),\n         temp_f = units::set_units(val, degF))\n\nhead(bkrfld_tbl)\n\n# A tibble: 6 × 9\n     id cvar   period gcm        scenario spag  dt          val temp_f\n  &lt;int&gt; &lt;fct&gt;  &lt;fct&gt;  &lt;fct&gt;      &lt;fct&gt;    &lt;fct&gt; &lt;date&gt;      [K] [degF]\n1     1 tasmin day    HadGEM2-ES rcp45    none  2070-01-01 278.   41.1\n2     1 tasmin day    HadGEM2-ES rcp45    none  2070-01-02 278.   40.6\n3     1 tasmin day    HadGEM2-ES rcp45    none  2070-01-03 284.   51.7\n4     1 tasmin day    HadGEM2-ES rcp45    none  2070-01-04 276.   37.6\n5     1 tasmin day    HadGEM2-ES rcp45    none  2070-01-05 280.   45.0\n6     1 tasmin day    HadGEM2-ES rcp45    none  2070-01-06 280.   44.5"
+  },
+  {
+    "objectID": "02_metrics-methods.html#converting-date-and-time-columns",
+    "href": "02_metrics-methods.html#converting-date-and-time-columns",
+    "title": "2  Methods for Computing Metrics",
+    "section": "2.3 Converting Date and Time Columns",
+    "text": "2.3 Converting Date and Time Columns\nBefore you start computing metrics,\n\nDate columns should be converted to R Date class\nDate-time columns should be saved as POSIXct objects\n\nShow code here. Concatenate date part fields with lubridate::make_date() and lubridate::make_datetime()\nIf you need to save your weather data to disk, use a format that knows how to save dates and times (e.g., geopackage, native R data). If you need to save it in a text format (e.g., csv) or as spreadsheet (e.g., xlsx, Google Sheet), use lubridate::format_ISO8601() to write, and lubridate::ymd_hms() to bring it back in."
+  },
+  {
+    "objectID": "02_metrics-methods.html#units",
+    "href": "02_metrics-methods.html#units",
+    "title": "2  Methods for Computing Metrics",
+    "section": "2.4 Units",
+    "text": "2.4 Units\nShow them the units package"
   },
   {
     "objectID": "02_metrics-methods.html#time-slicing",
@@ -168,62 +203,6 @@
     "text": "Similarities and differences between observed weather data and modeled climate data\nObserved weather data represent a single series of weather outcomes.\n‘Climate’ is the ‘envelope’ or variability of weather. You need at least 30 years of observed weather data to see the envelope.\nModeled climate data are based on simulations of weather (hourly). Just like observed weather data, you need 30 years of simulated weather to characterize the envelope.\nThe simulated weather data from a climate model are not meant to be predictive. But the envelope of many ‘runs’ of the simulation do a good job at predicting the climate envelope.\nYou can compute future agroclimate metrics with projected climate data, provided you have access to the simulated weather (e.g., daily temperature). This is basically the same as computing the metric with observed data.\nThe tricky part comes when analzing the results, because\n\nThere is not one projected climate future, but many (different CGMs, different emissions scenarios, different runs)\nTherefore you have a range of projected agroclimate metrics. You have to characterize them as a group / probabilistically"
   },
   {
-    "objectID": "07_climate-analogues.html",
-    "href": "07_climate-analogues.html",
-    "title": "7  AgroClimate Analogues",
-    "section": "",
-    "text": "The following is just placeholder text, which needs to be updated with some actual definitions and citations.\nClimate analogues refer to locations that have the same climate profile. For example California and Spain might be considered climate analogues, because they both have temperate, moderate climates, with a similar distribution of rainfall.\nA modeled climate analogue is a location that currently has the climate that is projected to occur somewhere else. For example, Sacramento’s climate analog 50 year from now might be Bakersfield. That means Bakersfield already has the weather envelope that Sacromentoians can expect to see 50 years from now.\nClimate analogues are useful because they make the effects of climate change more understandable. For example if I live in Sacramento and want to know what kind of street trees will be viable in 50 years, or what kind of cooling systems will be needed in houses, I don’t have to run fancy models. All I have to do is take a trip to Bakerfield and ‘see the future’.\nBut what does it mean to have “similar” climates? This is where metrics come in, because the answer depends on your use case. If you’re interested in what kind of trees to plant in your orchard, you’d probably want to define ‘similarity’ based on a metric like winter chill. If you’re building an irrigation system, you might want to look at models of evapotranspiration."
-  },
-  {
-    "objectID": "references.html",
-    "href": "references.html",
-    "title": "References",
-    "section": "",
-    "text": "Allen, R. G., and Food and Agriculture Organization of the United\nNations, eds. 1998. Crop Evapotranspiration: Guidelines for\nComputing Crop Water Requirements. FAO Irrigation and\nDrainage Paper 56. Rome: Food; Agriculture Organization of the United\nNations.\n\n\nJha, Prakash Kumar, Ning Zhang, Jhalendra P. Rijal, Lauren E. Parker,\nSteven Ostoja, and Tapan B. Pathak. 2024. “Climate Change Impacts\non Insect Pests for High Value Specialty Crops in\nCalifornia.” Science of The Total\nEnvironment 906 (January): 167605. https://doi.org/10.1016/j.scitotenv.2023.167605.\n\n\nLuedeling, Eike, and Patrick H. Brown. 2011. “A Global Analysis of\nthe Comparability of Winter Chill Models for Fruit and Nut\nTrees.” International Journal of Biometeorology 55 (3):\n411–21. https://doi.org/10.1007/s00484-010-0352-y.\n\n\nMcBride, Joe R., and Igor Laćan. 2018. “The Impact of\nClimate-Change Induced Temperature Increases on the Suitability of\nStreet Tree Species in California (USA)\nCities.” Urban Forestry & Urban Greening 34\n(August): 348–56. https://doi.org/10.1016/j.ufug.2018.07.020.\n\n\nMcMaster, G, and W Wilhelm. 1997. “Growing Degree-Days: One\nEquation, Two Interpretations.” Agricultural and Forest\nMeteorology 87 (4): 291–300. https://doi.org/10.1016/S0168-1923(97)00027-0.\n\n\nParker, Lauren E., Tapan Pathak, and Steven Ostoja. 2021. “Climate\nChange Reduces Frost Exposure for High-Value California\nOrchard Crops.” Science of The Total Environment 762\n(March): 143971. https://doi.org/10.1016/j.scitotenv.2020.143971.\n\n\nParker, Lauren E., Ning Zhang, John T. Abatzoglou, Steven M. Ostoja, and\nTapan B. Pathak. 2022. “Observed Changes in\nAgroclimate Metrics Relevant for\nSpecialty Crop Production in\nCalifornia.” Agronomy 12 (1): 205. https://doi.org/10.3390/agronomy12010205.\n\n\nPathak, Tapan, Mahesh Maskey, and Jhalendra P. Rijal. 2021.\n“Impact of Climate Change on Navel Orangeworm, a Major Pest of\nTree Nuts in California.” Science of The Total\nEnvironment 755 (February): 142657. https://doi.org/10.1016/j.scitotenv.2020.142657."
-  },
-  {
-    "objectID": "01_weather-data.html#intro",
-    "href": "01_weather-data.html#intro",
-    "title": "1  Weather and Climate Data",
-    "section": "1.1 Intro",
-    "text": "1.1 Intro\nTo compute metrics you need daily or hourly weather data. Either observed (i.e., from weather stations) or modeled (i.e., from climate models) data will work.\nMost agroclimate metrics require daily data (daily min temp, daily max temp, daily precip)\nSome require hourly data (e.g., chill portions). If needed, hourly data can be interpolated from daily data (see https://inresgb-lehre.iaas.uni-bonn.de/chillR_book/making-hourly-temperatures.html)\nThings to remember:\n\ndate columns should be converted to R Date class\ndate-time columns should be saved as POSIXct objects\nsee also https://ucanr-igis.github.io/agroclimR/slides/agclimr_slides01.html#(12)\nthink about units"
-  },
-  {
-    "objectID": "01_weather-data.html#cimis-api",
-    "href": "01_weather-data.html#cimis-api",
-    "title": "1  Weather and Climate Data",
-    "section": "1.2 CIMIS API",
-    "text": "1.2 CIMIS API\nHow to get data from CIMIS"
-  },
-  {
-    "objectID": "01_weather-data.html#synoptic-api",
-    "href": "01_weather-data.html#synoptic-api",
-    "title": "1  Weather and Climate Data",
-    "section": "1.3 Synoptic API",
-    "text": "1.3 Synoptic API\nShow how to get weather data from a weather station on Synoptic, including how to create daily summaries from hourly data\nhttps://ucanr-igis.github.io/sketchbook/synoptic-cimis.html"
-  },
-  {
-    "objectID": "01_weather-data.html#gridmet",
-    "href": "01_weather-data.html#gridmet",
-    "title": "1  Weather and Climate Data",
-    "section": "1.4 gridMet",
-    "text": "1.4 gridMet"
-  },
-  {
-    "objectID": "02_metrics-methods.html#converting-date-and-time-columns",
-    "href": "02_metrics-methods.html#converting-date-and-time-columns",
-    "title": "2  Methods for Computing Metrics",
-    "section": "2.3 Converting Date and Time Columns",
-    "text": "2.3 Converting Date and Time Columns\nBefore you start computing metrics,\n\nDate columns should be converted to R Date class\nDate-time columns should be saved as POSIXct objects\n\nShow code here. Concatenate date part fields with lubridate::make_date() and lubridate::make_datetime()\nIf you need to save your weather data to disk, use a format that knows how to save dates and times (e.g., geopackage, native R data). If you need to save it in a text format (e.g., csv) or as spreadsheet (e.g., xlsx, Google Sheet), use lubridate::format_ISO8601() to write, and lubridate::ymd_hms() to bring it back in."
-  },
-  {
-    "objectID": "02_metrics-methods.html#units",
-    "href": "02_metrics-methods.html#units",
-    "title": "2  Methods for Computing Metrics",
-    "section": "2.4 Units",
-    "text": "2.4 Units\nShow them the units package"
-  },
-  {
     "objectID": "07_climate-analogues.html#climate-analogues",
     "href": "07_climate-analogues.html#climate-analogues",
     "title": "7  AgroClimate Analogues",
@@ -245,17 +224,17 @@
     "text": "8.1 Frost\n(Parker, Pathak, and Ostoja 2021)\nThey computed hours # of frost exposure, where temperature thresholds were based on i) crop and ii) temperature range (colder = more exposure. Compared changes in this relative metric past, present, and future.\n\nThe frequency of frost temperatures under observed contemporary and projected future climate conditions were assessed in units of hours of exposure, quantified using daily maximum and minimum temperatures temporally disaggregated to hourly data using a modified sine curve approach (Linvill, 1990)…In assessing frost exposure that is not crop-specific, we highlight the frost exposure (in hours) for three threshold temperatures (T) – -2 °C, 0 °C, and 2 °C – that encapsulate the most frost-tender phase of development for many high-value fruit and nut trees (e.g., Gholipour, 2006; WSU, 2020)."
   },
   {
-    "objectID": "99_other.html#pest-development-under-climate-change",
-    "href": "99_other.html#pest-development-under-climate-change",
-    "title": "8  Other Examples",
-    "section": "8.2 PEST DEVELOPMENT UNDER CLIMATE CHANGE",
-    "text": "8.2 PEST DEVELOPMENT UNDER CLIMATE CHANGE\n(Pathak, Maskey, and Rijal 2021)\n\nThe objective of this study was to quantify changes in the biofix, lifecycle length, and number of generations for these pests for the entire Central Valley of California. Using a well-established growing-degree days (GDD) model calibrated and validated using observations from orchards of California, and climate change projections from the Coupled Model Intercomparison Project phases 5 and 6 (CMIP5 and CMIP6) General Circulation Models, we found that biofix dates of these pests are expected to shift earlier by up to 28 days, and length of generations is expected to be shortened by up to 19 days, and up to 1.4 extra generations of these pests can be added by the end of the century depending on the scenario.\n\n(Jha et al. 2024)\n\nThe objective of this study was to quantify changes in the biofix, lifecycle length, and number of generations for these pests for the entire Central Valley of California. Using a well-established growing-degree days (GDD) model calibrated and validated using observations from orchards of California, and climate change projections from the Coupled Model Intercomparison Project phases 5 and 6 (CMIP5 and CMIP6) General Circulation Models, we found that biofix dates of these pests are expected to shift earlier by up to 28 days, and length of generations is expected to be shortened by up to 19 days, and up to 1.4 extra generations of these pests can be added by the end of the century depending on the scenario.\n\n\n\n\n\nJha, Prakash Kumar, Ning Zhang, Jhalendra P. Rijal, Lauren E. Parker, Steven Ostoja, and Tapan B. Pathak. 2024. “Climate Change Impacts on Insect Pests for High Value Specialty Crops in California.” Science of The Total Environment 906 (January): 167605. https://doi.org/10.1016/j.scitotenv.2023.167605.\n\n\nParker, Lauren E., Tapan Pathak, and Steven Ostoja. 2021. “Climate Change Reduces Frost Exposure for High-Value California Orchard Crops.” Science of The Total Environment 762 (March): 143971. https://doi.org/10.1016/j.scitotenv.2020.143971.\n\n\nPathak, Tapan, Mahesh Maskey, and Jhalendra P. Rijal. 2021. “Impact of Climate Change on Navel Orangeworm, a Major Pest of Tree Nuts in California.” Science of The Total Environment 755 (February): 142657. https://doi.org/10.1016/j.scitotenv.2020.142657."
-  },
-  {
     "objectID": "99_other.html#pest-development",
     "href": "99_other.html#pest-development",
     "title": "8  Other Examples",
     "section": "8.2 Pest Development",
     "text": "8.2 Pest Development\n(Pathak, Maskey, and Rijal 2021)\nThey used degree day models to compare past and future patterns of NOW development (timing, generation length, number of generations).\n\nThe objective of this study was to quantify changes in the biofix, lifecycle length, and number of generations for these pests for the entire Central Valley of California. Using a well-established growing-degree days (GDD) model calibrated and validated using observations from orchards of California, and climate change projections from the Coupled Model Intercomparison Project phases 5 and 6 (CMIP5 and CMIP6) General Circulation Models, we found that biofix dates of these pests are expected to shift earlier by up to 28 days, and length of generations is expected to be shortened by up to 19 days, and up to 1.4 extra generations of these pests can be added by the end of the century depending on the scenario.\n\n\n\n(Jha et al. 2024)\nSimilar to above, but more pests.\n\nThe objective of this study was to quantify changes in the biofix, lifecycle length, and number of generations for these pests for the entire Central Valley of California. Using a well-established growing-degree days (GDD) model calibrated and validated using observations from orchards of California, and climate change projections from the Coupled Model Intercomparison Project phases 5 and 6 (CMIP5 and CMIP6) General Circulation Models, we found that biofix dates of these pests are expected to shift earlier by up to 28 days, and length of generations is expected to be shortened by up to 19 days, and up to 1.4 extra generations of these pests can be added by the end of the century depending on the scenario.\n\n\n\n\n\nJha, Prakash Kumar, Ning Zhang, Jhalendra P. Rijal, Lauren E. Parker, Steven Ostoja, and Tapan B. Pathak. 2024. “Climate Change Impacts on Insect Pests for High Value Specialty Crops in California.” Science of The Total Environment 906 (January): 167605. https://doi.org/10.1016/j.scitotenv.2023.167605.\n\n\nParker, Lauren E., Tapan Pathak, and Steven Ostoja. 2021. “Climate Change Reduces Frost Exposure for High-Value California Orchard Crops.” Science of The Total Environment 762 (March): 143971. https://doi.org/10.1016/j.scitotenv.2020.143971.\n\n\nPathak, Tapan, Mahesh Maskey, and Jhalendra P. Rijal. 2021. “Impact of Climate Change on Navel Orangeworm, a Major Pest of Tree Nuts in California.” Science of The Total Environment 755 (February): 142657. https://doi.org/10.1016/j.scitotenv.2020.142657."
+  },
+  {
+    "objectID": "references.html",
+    "href": "references.html",
+    "title": "References",
+    "section": "",
+    "text": "Allen, R. G., and Food and Agriculture Organization of the United\nNations, eds. 1998. Crop Evapotranspiration: Guidelines for\nComputing Crop Water Requirements. FAO Irrigation and\nDrainage Paper 56. Rome: Food; Agriculture Organization of the United\nNations.\n\n\nJha, Prakash Kumar, Ning Zhang, Jhalendra P. Rijal, Lauren E. Parker,\nSteven Ostoja, and Tapan B. Pathak. 2024. “Climate Change Impacts\non Insect Pests for High Value Specialty Crops in\nCalifornia.” Science of The Total\nEnvironment 906 (January): 167605. https://doi.org/10.1016/j.scitotenv.2023.167605.\n\n\nLuedeling, Eike, and Patrick H. Brown. 2011. “A Global Analysis of\nthe Comparability of Winter Chill Models for Fruit and Nut\nTrees.” International Journal of Biometeorology 55 (3):\n411–21. https://doi.org/10.1007/s00484-010-0352-y.\n\n\nMcBride, Joe R., and Igor Laćan. 2018. “The Impact of\nClimate-Change Induced Temperature Increases on the Suitability of\nStreet Tree Species in California (USA)\nCities.” Urban Forestry & Urban Greening 34\n(August): 348–56. https://doi.org/10.1016/j.ufug.2018.07.020.\n\n\nMcMaster, G, and W Wilhelm. 1997. “Growing Degree-Days: One\nEquation, Two Interpretations.” Agricultural and Forest\nMeteorology 87 (4): 291–300. https://doi.org/10.1016/S0168-1923(97)00027-0.\n\n\nParker, Lauren E., Tapan Pathak, and Steven Ostoja. 2021. “Climate\nChange Reduces Frost Exposure for High-Value California\nOrchard Crops.” Science of The Total Environment 762\n(March): 143971. https://doi.org/10.1016/j.scitotenv.2020.143971.\n\n\nParker, Lauren E., Ning Zhang, John T. Abatzoglou, Steven M. Ostoja, and\nTapan B. Pathak. 2022. “Observed Changes in\nAgroclimate Metrics Relevant for\nSpecialty Crop Production in\nCalifornia.” Agronomy 12 (1): 205. https://doi.org/10.3390/agronomy12010205.\n\n\nPathak, Tapan, Mahesh Maskey, and Jhalendra P. Rijal. 2021.\n“Impact of Climate Change on Navel Orangeworm, a Major Pest of\nTree Nuts in California.” Science of The Total\nEnvironment 755 (February): 142657. https://doi.org/10.1016/j.scitotenv.2020.142657."
   }
 ]

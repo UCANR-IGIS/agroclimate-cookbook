@@ -6,3 +6,5 @@
 .quarto
 ~*
 *.bak
+
+/.quarto/
