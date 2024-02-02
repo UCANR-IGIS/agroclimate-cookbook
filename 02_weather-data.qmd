@@ -1,10 +1,10 @@
-# Weather and Climate Data
+# Weather Data
 
 ## Intro
 
 To compute metrics you need daily or hourly weather data. Either observed (i.e., from weather stations) or modeled (i.e., from climate models) data will work.
 
-Most agroclimate metrics require daily data (daily min temp, daily max temp, daily precip)
+Mot agroclimate metrics require daily data (daily min temp, daily max temp, daily precip)
 
 Some require hourly data (e.g., chill portions). If needed, hourly data can be interpolated from daily data (see <https://inresgb-lehre.iaas.uni-bonn.de/chillR_book/making-hourly-temperatures.html>)
 
@@ -29,6 +29,5 @@ Show how to get weather data from a weather station on Synoptic, including how t
 <https://ucanr-igis.github.io/sketchbook/synoptic-cimis.html>
 
 ## gridMet
-
 
 

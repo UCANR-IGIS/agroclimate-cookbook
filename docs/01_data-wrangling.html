@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>AgroClimate Community Cookbook - 2&nbsp; Methods for Computing Metrics</title>
+<title>AgroClimate Community Cookbook - 1&nbsp; Data Wrangling Techniques</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -83,8 +83,8 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./03_agroclimate-metrics.html" rel="next">
-<link href="./01_weather-data.html" rel="prev">
+<link href="./02_weather-data.html" rel="next">
+<link href="./index.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -138,7 +138,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./02_metrics-methods.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Methods for Computing Metrics</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01_data-wrangling.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Data Wrangling Techniques</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -171,14 +171,14 @@ div.csl-indent {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./01_weather-data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Weather and Climate Data</span></span></a>
+  <a href="./01_data-wrangling.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Data Wrangling Techniques</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./02_metrics-methods.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Methods for Computing Metrics</span></span></a>
+  <a href="./02_weather-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Weather Data</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -233,21 +233,23 @@ div.csl-indent {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#load-packages" id="toc-load-packages" class="nav-link active" data-scroll-target="#load-packages"><span class="header-section-number">2.1</span> Load packages</a></li>
-  <li><a href="#fetch-some-sample-data" id="toc-fetch-some-sample-data" class="nav-link" data-scroll-target="#fetch-some-sample-data"><span class="header-section-number">2.2</span> Fetch Some Sample Data</a></li>
-  <li><a href="#working-with-date-and-time-columns" id="toc-working-with-date-and-time-columns" class="nav-link" data-scroll-target="#working-with-date-and-time-columns"><span class="header-section-number">2.3</span> Working with Date and Time Columns</a>
+  <li><a href="#load-packages" id="toc-load-packages" class="nav-link active" data-scroll-target="#load-packages"><span class="header-section-number">1.1</span> Load packages</a></li>
+  <li><a href="#fetch-some-sample-data" id="toc-fetch-some-sample-data" class="nav-link" data-scroll-target="#fetch-some-sample-data"><span class="header-section-number">1.2</span> Fetch Some Sample Data</a></li>
+  <li><a href="#working-with-date-and-time-data-chloe" id="toc-working-with-date-and-time-data-chloe" class="nav-link" data-scroll-target="#working-with-date-and-time-data-chloe"><span class="header-section-number">1.3</span> Working with Date and Time Data (CHLOE)</a>
   <ul class="collapse">
-  <li><a href="#converting-character-date-and-time-columns" id="toc-converting-character-date-and-time-columns" class="nav-link" data-scroll-target="#converting-character-date-and-time-columns"><span class="header-section-number">2.3.1</span> Converting Character Date and Time Columns</a></li>
-  <li><a href="#combining-separate-date-and-time-part-columns" id="toc-combining-separate-date-and-time-part-columns" class="nav-link" data-scroll-target="#combining-separate-date-and-time-part-columns"><span class="header-section-number">2.3.2</span> Combining Separate Date and Time Part Columns</a></li>
-  <li><a href="#converting-across-time-zones" id="toc-converting-across-time-zones" class="nav-link" data-scroll-target="#converting-across-time-zones"><span class="header-section-number">2.3.3</span> Converting Across Time Zones</a></li>
-  <li><a href="#saving-date-and-time-data-locally" id="toc-saving-date-and-time-data-locally" class="nav-link" data-scroll-target="#saving-date-and-time-data-locally"><span class="header-section-number">2.3.4</span> Saving Date and Time Data Locally</a></li>
+  <li><a href="#converting-character-date-and-time-columns" id="toc-converting-character-date-and-time-columns" class="nav-link" data-scroll-target="#converting-character-date-and-time-columns"><span class="header-section-number">1.3.1</span> Converting Character Date and Time Columns</a></li>
+  <li><a href="#combining-separate-date-and-time-part-columns" id="toc-combining-separate-date-and-time-part-columns" class="nav-link" data-scroll-target="#combining-separate-date-and-time-part-columns"><span class="header-section-number">1.3.2</span> Combining Separate Date and Time Part Columns</a></li>
+  <li><a href="#converting-time-zones" id="toc-converting-time-zones" class="nav-link" data-scroll-target="#converting-time-zones"><span class="header-section-number">1.3.3</span> Converting Time Zones</a></li>
+  <li><a href="#saving-date-and-time-data-locally" id="toc-saving-date-and-time-data-locally" class="nav-link" data-scroll-target="#saving-date-and-time-data-locally"><span class="header-section-number">1.3.4</span> Saving Date and Time Data Locally</a></li>
   </ul></li>
-  <li><a href="#units" id="toc-units" class="nav-link" data-scroll-target="#units"><span class="header-section-number">2.4</span> Units</a></li>
-  <li><a href="#time-slicing" id="toc-time-slicing" class="nav-link" data-scroll-target="#time-slicing"><span class="header-section-number">2.5</span> Time Slicing</a></li>
-  <li><a href="#daily-climate-metrics" id="toc-daily-climate-metrics" class="nav-link" data-scroll-target="#daily-climate-metrics"><span class="header-section-number">2.6</span> Daily Climate Metrics</a></li>
-  <li><a href="#diurnal-temperature-range" id="toc-diurnal-temperature-range" class="nav-link" data-scroll-target="#diurnal-temperature-range"><span class="header-section-number">2.7</span> Diurnal Temperature Range</a></li>
-  <li><a href="#daily-threshhold-events" id="toc-daily-threshhold-events" class="nav-link" data-scroll-target="#daily-threshhold-events"><span class="header-section-number">2.8</span> Daily Threshhold Events</a></li>
-  <li><a href="#counting-consecutive-events" id="toc-counting-consecutive-events" class="nav-link" data-scroll-target="#counting-consecutive-events"><span class="header-section-number">2.9</span> Counting Consecutive Events</a></li>
+  <li><a href="#units" id="toc-units" class="nav-link" data-scroll-target="#units"><span class="header-section-number">1.4</span> Units</a></li>
+  <li><a href="#going-from-long-to-wide" id="toc-going-from-long-to-wide" class="nav-link" data-scroll-target="#going-from-long-to-wide"><span class="header-section-number">1.5</span> Going from Long to Wide</a></li>
+  <li><a href="#time-lumping" id="toc-time-lumping" class="nav-link" data-scroll-target="#time-lumping"><span class="header-section-number">1.6</span> Time Lumping</a></li>
+  <li><a href="#time-filtering-and-slicing" id="toc-time-filtering-and-slicing" class="nav-link" data-scroll-target="#time-filtering-and-slicing"><span class="header-section-number">1.7</span> Time Filtering and Slicing</a></li>
+  <li><a href="#daily-climate-metrics" id="toc-daily-climate-metrics" class="nav-link" data-scroll-target="#daily-climate-metrics"><span class="header-section-number">1.8</span> Daily Climate Metrics</a></li>
+  <li><a href="#diurnal-temperature-range" id="toc-diurnal-temperature-range" class="nav-link" data-scroll-target="#diurnal-temperature-range"><span class="header-section-number">1.9</span> Diurnal Temperature Range</a></li>
+  <li><a href="#threshhold-based-metrics" id="toc-threshhold-based-metrics" class="nav-link" data-scroll-target="#threshhold-based-metrics"><span class="header-section-number">1.10</span> Threshhold Based Metrics</a></li>
+  <li><a href="#counting-consecutive-events" id="toc-counting-consecutive-events" class="nav-link" data-scroll-target="#counting-consecutive-events"><span class="header-section-number">1.11</span> Counting Consecutive Events</a></li>
   </ul>
 </nav>
     </div>
@@ -256,7 +258,7 @@ div.csl-indent {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Methods for Computing Metrics</span></h1>
+<h1 class="title"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Data Wrangling Techniques</span></h1>
 </div>
 
 
@@ -271,20 +273,24 @@ div.csl-indent {
 
 </header>
 
-<p>In this Chapter, we’ll explore some data wrangling techniques that are commonly used in computing climate metrics.</p>
-<section id="load-packages" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="load-packages"><span class="header-section-number">2.1</span> Load packages</h2>
+<p>In this Chapter, we’ll explore some commonly used data wrangling techniques when working with weather data and computing climate metrics.</p>
+<section id="load-packages" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="load-packages"><span class="header-section-number">1.1</span> Load packages</h2>
+<p>The tidyverse provides some generically useful packages for data wrangling.</p>
 <p>As usual, start by loading a bunch of packages into memory and specifying our package preferences for conflicting function names:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caladaptr)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(units)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># MOVE THESE BELOW</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caladaptr)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(units)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Set conflicted preferences:</p>
+<p>We’ll be using functions from <code>dplyr</code> quite a bit. Unfortunately some of the functions from <code>dplyr</code> clash with functions with the same name from other packages. For example several packages have a function called <code>select()</code>.</p>
+<p>An easy way to avoid function name clashes is to use the <code>conflicted</code> package to specify your preferences when commonly named functions are called. Typically you do this at the top of your script, so you don’t have to worry about it after that.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(conflicted)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">conflict_prefer</span>(<span class="st">"filter"</span>, <span class="st">"dplyr"</span>, <span class="at">quiet =</span> <span class="cn">TRUE</span>)</span>
@@ -294,8 +300,9 @@ div.csl-indent {
 <p><br>
 </p>
 </section>
-<section id="fetch-some-sample-data" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="fetch-some-sample-data"><span class="header-section-number">2.2</span> Fetch Some Sample Data</h2>
+<section id="fetch-some-sample-data" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="fetch-some-sample-data"><span class="header-section-number">1.2</span> Fetch Some Sample Data</h2>
+<p>THIS SECTION WILL EITHER GO OUT ENTIRELY (MOVED TO THE CHAPTER ON IMPORTING CLIMATE DATA), OR BE REPLACED WITH A SIMPLE IMPORT CSV FILE</p>
 <p>For the examples in this chapter, we’ll work with late-century daily temperature data for a location near Bakersfield, CA in the southern San Joaquin Valley.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>bkrfld_cap <span class="ot">&lt;-</span> <span class="fu">ca_loc_pt</span>(<span class="at">coords =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">119.151062</span>, <span class="fl">35.261321</span>)) <span class="sc">|&gt;</span></span>
@@ -317,14 +324,14 @@ Issues for downloading rasters
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(bkrfld_cap)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
-<div class="leaflet html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-77a9b1f244c480c60eea" style="width:100%;height:464px;"></div>
-<script type="application/json" data-for="htmlwidget-77a9b1f244c480c60eea">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"createMapPane","args":["tmap401",401]},{"method":"addProviderTiles","args":["Esri.NatGeoWorldMap",null,"Esri.NatGeoWorldMap",{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"pane":"tilePane"}]},{"method":"addCircleMarkers","args":[35.261321,-119.151062,8.944271909999159,"X1","Query Location(s)",{"interactive":true,"className":"","pane":"tmap401","stroke":true,"color":"#666666","weight":1,"opacity":0.5,"fill":true,"fillColor":"#FF0000","fillOpacity":0.8},null,null,"<style> div.leaflet-popup-content {width:auto !important;overflow-y:auto; overflow-x:hidden;}<\/style><div style=\"max-height:25em;padding-right:0px;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>1<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\"><nobr>id<\/nobr><\/td><td align=\"right\"><nobr>1<\/nobr><\/td><\/tr><\/table><\/div>",null,"1",{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addLayersControl","args":[[],"Query Location(s)",{"collapsed":true,"autoZIndex":true,"position":"topleft"}]}],"limits":{"lat":[35.261321,35.261321],"lng":[-119.151062,-119.151062]},"fitBounds":[34.761321,-119.651062,35.761321,-118.651062,[]]},"evals":[],"jsHooks":[]}</script>
+<div class="leaflet html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-76b1027e050109026a7f" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-76b1027e050109026a7f">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"createMapPane","args":["tmap401",401]},{"method":"addProviderTiles","args":["Esri.NatGeoWorldMap",null,"Esri.NatGeoWorldMap",{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"pane":"tilePane"}]},{"method":"addCircleMarkers","args":[35.261321,-119.151062,8.944271909999159,"X1","Query Location(s)",{"interactive":true,"className":"","pane":"tmap401","stroke":true,"color":"#666666","weight":1,"opacity":0.5,"fill":true,"fillColor":"#FF0000","fillOpacity":0.8},null,null,"<style> div.leaflet-popup-content {width:auto !important;overflow-y:auto; overflow-x:hidden;}<\/style><div style=\"max-height:25em;padding-right:0px;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>1<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\"><nobr>id<\/nobr><\/td><td align=\"right\"><nobr>1<\/nobr><\/td><\/tr><\/table><\/div>",null,"1",{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addLayersControl","args":[[],"Query Location(s)",{"collapsed":true,"autoZIndex":true,"position":"topleft"}]}],"limits":{"lat":[35.261321,35.261321],"lng":[-119.151062,-119.151062]},"fitBounds":[34.761321,-119.651062,35.761321,-118.651062,[]]},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p><br>
 </p>
 <p>Fetch data:</p>
-<div class="cell" data-hash="02_metrics-methods_cache/html/bkrfld_tbl_e7f6d4b567b919fe87638516b1c5c87d">
+<div class="cell" data-hash="01_data-wrangling_cache/html/bkrfld_tbl_00b9efdd8a80415d813d3e48306e0178">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>bkrfld_tbl <span class="ot">&lt;-</span> bkrfld_cap <span class="sc">|&gt;</span> </span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ca_getvals_tbl</span>(<span class="at">quiet =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">dt =</span> <span class="fu">as.Date</span>(dt),</span>
@@ -346,42 +353,66 @@ Issues for downloading rasters
 <p><br>
 </p>
 </section>
-<section id="working-with-date-and-time-columns" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="working-with-date-and-time-columns"><span class="header-section-number">2.3</span> Working with Date and Time Columns</h2>
-<p>This is really important. As part of importing weather data, you often have to do some wrangling with date and time columns.</p>
-<p>Before you start computing metrics,</p>
+<section id="working-with-date-and-time-data-chloe" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="working-with-date-and-time-data-chloe"><span class="header-section-number">1.3</span> Working with Date and Time Data (CHLOE)</h2>
+<p>This is really important. As part of importing weather data, you often have to do some wrangling with date and time columns. The goals are to</p>
 <ul>
 <li><p>Date columns should be converted to R Date class</p></li>
 <li><p>Date-time columns should be saved as POSIXct objects</p></li>
 </ul>
-<section id="converting-character-date-and-time-columns" class="level3" data-number="2.3.1">
-<h3 data-number="2.3.1" class="anchored" data-anchor-id="converting-character-date-and-time-columns"><span class="header-section-number">2.3.1</span> Converting Character Date and Time Columns</h3>
+<section id="converting-character-date-and-time-columns" class="level3" data-number="1.3.1">
+<h3 data-number="1.3.1" class="anchored" data-anchor-id="converting-character-date-and-time-columns"><span class="header-section-number">1.3.1</span> Converting Character Date and Time Columns</h3>
+<p>Dates and time are often encoded as characters data types. So you have to convert them to R objects. Although this may seem like a pain in the arse, it will save you a lot of pain and suffering.</p>
+<p>lubridate is your friend.</p>
 <p>Show them all the lubridate functions. (see Lubridate cheatsheet)</p>
 </section>
-<section id="combining-separate-date-and-time-part-columns" class="level3" data-number="2.3.2">
-<h3 data-number="2.3.2" class="anchored" data-anchor-id="combining-separate-date-and-time-part-columns"><span class="header-section-number">2.3.2</span> Combining Separate Date and Time Part Columns</h3>
+<section id="combining-separate-date-and-time-part-columns" class="level3" data-number="1.3.2">
+<h3 data-number="1.3.2" class="anchored" data-anchor-id="combining-separate-date-and-time-part-columns"><span class="header-section-number">1.3.2</span> Combining Separate Date and Time Part Columns</h3>
 <p>Show code here. Concatenate date part fields with <code>lubridate::make_date()</code> and <code>lubridate::make_datetime()</code></p>
+<p>Could use CIMIS data as an example (which has columns for ‘month’, ‘year’, and ‘day’)</p>
 </section>
-<section id="converting-across-time-zones" class="level3" data-number="2.3.3">
-<h3 data-number="2.3.3" class="anchored" data-anchor-id="converting-across-time-zones"><span class="header-section-number">2.3.3</span> Converting Across Time Zones</h3>
+<section id="converting-time-zones" class="level3" data-number="1.3.3">
+<h3 data-number="1.3.3" class="anchored" data-anchor-id="converting-time-zones"><span class="header-section-number">1.3.3</span> Converting Time Zones</h3>
+<p>Pretty common to get datetimes values in UTC.</p>
 <p>Note there’s a difference between assigning time zones and converting POSIXct objects to different time zones.</p>
+<p>“Pacific Time”, “PST”, “PDT”, etc. are not recognized time zone names. To see a list of recognized time zone values, you can run:</p>
+<p>OlsonNames() (there’s also a lubridate function that does the same thing)</p>
+<p>lubridate::ymd_hms(x, tz = “America/Los_Angeles”)<br>
+## this will</p>
+<p>## i) convert x (a character object) to POSIXct. If ‘x’ doesn’t have the time zone represented it will assign the local time zone</p>
+<p>## 2) becase we provided tz, it will then convert (add or subtract) the time value to make it Pacific time</p>
+<p>## 3) assign Pacific Time to the result</p>
+<p>This assigns a time zone, but does not change the value: as.POSIXct(dt, tz=“Africa/Johannesburg”)</p>
 </section>
-<section id="saving-date-and-time-data-locally" class="level3" data-number="2.3.4">
-<h3 data-number="2.3.4" class="anchored" data-anchor-id="saving-date-and-time-data-locally"><span class="header-section-number">2.3.4</span> Saving Date and Time Data Locally</h3>
+<section id="saving-date-and-time-data-locally" class="level3" data-number="1.3.4">
+<h3 data-number="1.3.4" class="anchored" data-anchor-id="saving-date-and-time-data-locally"><span class="header-section-number">1.3.4</span> Saving Date and Time Data Locally</h3>
 <p>If you need to save your weather data to disk, use a format that knows how to save dates and times (e.g., geopackage, native R data file).</p>
 <p>If you need to save it in a text format (e.g., csv) or as spreadsheet (e.g., xlsx, Google Sheet), use <code>lubridate::format_ISO8601()</code> to write, and <code>lubridate::ymd_hms()</code> to bring it back in.</p>
 <p><br>
 </p>
 </section>
 </section>
-<section id="units" class="level2" data-number="2.4">
-<h2 data-number="2.4" class="anchored" data-anchor-id="units"><span class="header-section-number">2.4</span> Units</h2>
+<section id="units" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="units"><span class="header-section-number">1.4</span> Units</h2>
 <p>Show them the units package</p>
+<p>How to convert between F, C, and K</p>
 <p><br>
 </p>
 </section>
-<section id="time-slicing" class="level2" data-number="2.5">
-<h2 data-number="2.5" class="anchored" data-anchor-id="time-slicing"><span class="header-section-number">2.5</span> Time Slicing</h2>
+<section id="going-from-long-to-wide" class="level2" data-number="1.5">
+<h2 data-number="1.5" class="anchored" data-anchor-id="going-from-long-to-wide"><span class="header-section-number">1.5</span> Going from Long to Wide</h2>
+<p>This is very common. Most tidyverse packages are designed to work with “long” data, but sometimes you have to convert it to wide to feed into another package, compute a metric based on column arithmetic</p>
+<p>Use tidyr</p>
+<p>Example: CIMIS Data is long, convert to wide</p>
+</section>
+<section id="time-lumping" class="level2" data-number="1.6">
+<h2 data-number="1.6" class="anchored" data-anchor-id="time-lumping"><span class="header-section-number">1.6</span> Time Lumping</h2>
+<p>going from hourly to daily data</p>
+</section>
+<section id="time-filtering-and-slicing" class="level2" data-number="1.7">
+<h2 data-number="1.7" class="anchored" data-anchor-id="time-filtering-and-slicing"><span class="header-section-number">1.7</span> Time Filtering and Slicing</h2>
+<p>changing how we slice and dice time</p>
+<p>in both cases, it is useful to construct date parts</p>
 <p>Often an analysis requires you to slice climate data into specific periods that are meaningful for a specific study. For example, <a href="https://en.wikipedia.org/wiki/Water_year">water years</a> start on October 1 and run through the following season. Or you might just be interested in the winter months, when tree crops or bugs are particularly sensitive to temperatures. In this section, we’ll look at different techniques for time-slicing climate data.</p>
 <p>The general approach is to add a column in the table that identifies the time slice. (If you’re working with rasters, the idea is similar but you add an attribute value to the layer). Once you have the time-slice identifiers in your table, you can easily filter or group on that column to compute summaries for each time-slice.</p>
 <p><code>lubridate</code> is your ally when it comes to extracting date parts. For example to add columns for date parts like year, month, week, and ordinal date, we can use the standard <code>mutate()</code> with date part functions from lubridate:</p>
@@ -449,7 +480,7 @@ Issues for downloading rasters
 <pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="02_metrics-methods_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
+<p><img src="01_data-wrangling_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p><br>
@@ -470,7 +501,7 @@ Issues for downloading rasters
 <pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="02_metrics-methods_files/figure-html/bkrfld_winter_seasn_tbl-1.png" class="img-fluid" width="672"></p>
+<p><img src="01_data-wrangling_files/figure-html/bkrfld_winter_seasn_tbl-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p><br>
@@ -506,28 +537,30 @@ Issues for downloading rasters
 <pre><code># A tibble: 10 × 6
    dt         water_yr cvar   gcm        scenario temp_f
    &lt;date&gt;        &lt;dbl&gt; &lt;fct&gt;  &lt;fct&gt;      &lt;fct&gt;    [degF]
- 1 2076-05-25     2076 tasmin CNRM-CM5   rcp85      76.3
- 2 2087-02-14     2087 tasmax CanESM2    rcp85      66.1
- 3 2078-07-22     2078 tasmin CNRM-CM5   rcp85      77.5
- 4 2070-10-29     2071 tasmin MIROC5     rcp45      56.4
- 5 2085-06-12     2085 tasmin CNRM-CM5   rcp45      69.9
- 6 2082-05-05     2082 tasmax CanESM2    rcp85      83.9
- 7 2075-06-28     2075 tasmin MIROC5     rcp45      65.5
- 8 2089-10-11     2090 tasmax CanESM2    rcp85      93.7
- 9 2097-04-08     2097 tasmin CNRM-CM5   rcp45      57.1
-10 2085-01-12     2085 tasmin HadGEM2-ES rcp45      44.1</code></pre>
+ 1 2078-11-21     2079 tasmax HadGEM2-ES rcp85      72.0
+ 2 2078-04-14     2078 tasmin CanESM2    rcp85      64.1
+ 3 2097-08-09     2097 tasmin CanESM2    rcp45      65.3
+ 4 2081-02-10     2081 tasmin CanESM2    rcp85      50.2
+ 5 2082-08-20     2082 tasmin CanESM2    rcp45      72.6
+ 6 2078-02-22     2078 tasmin MIROC5     rcp45      41.2
+ 7 2085-06-02     2085 tasmin MIROC5     rcp45      70.7
+ 8 2081-05-07     2081 tasmin CNRM-CM5   rcp85      68.6
+ 9 2088-08-21     2088 tasmax CanESM2    rcp85     109. 
+10 2095-09-14     2095 tasmax MIROC5     rcp85     103. </code></pre>
 </div>
 </div>
 <p><br>
 </p>
 </section>
-<section id="daily-climate-metrics" class="level2" data-number="2.6">
-<h2 data-number="2.6" class="anchored" data-anchor-id="daily-climate-metrics"><span class="header-section-number">2.6</span> Daily Climate Metrics</h2>
+<section id="daily-climate-metrics" class="level2" data-number="1.8">
+<h2 data-number="1.8" class="anchored" data-anchor-id="daily-climate-metrics"><span class="header-section-number">1.8</span> Daily Climate Metrics</h2>
+<p>DELETE THIS</p>
 <p>Many climate analyses require metrics computed on a daily time scale. For example, to see how frost exposure might change over time, we may have to look at the lowest daily temperature. This presents a small conundrum, because climate models are not weather forecasts, and best practices tell us that we don’t look at less than 30 years. But it would be silly to average the daily low temperatures by month or year and use that as a proxy for frost exposure.</p>
 <p>The general approach in these cases is compute the daily metrics as if you were dealing with observed data, but then to aggregate the metrics over bigger periods of time and space. For example, you could classify each individual day in frost / non-frost, and then count the number of predicted frost days over a 30-year interval.</p>
 </section>
-<section id="diurnal-temperature-range" class="level2" data-number="2.7">
-<h2 data-number="2.7" class="anchored" data-anchor-id="diurnal-temperature-range"><span class="header-section-number">2.7</span> Diurnal Temperature Range</h2>
+<section id="diurnal-temperature-range" class="level2" data-number="1.9">
+<h2 data-number="1.9" class="anchored" data-anchor-id="diurnal-temperature-range"><span class="header-section-number">1.9</span> Diurnal Temperature Range</h2>
+<p>DELETE THIS (MOVE TO CHAPTER 3)</p>
 <p>Diurnal Temperature Range (DTR) is the difference between daily min and max temperature <span class="citation" data-cites="parker_observed_2022">(<a href="references.html#ref-parker_observed_2022" role="doc-biblioref">Parker et al. 2022</a>)</span>. The magnitude of DTR can impact wine grape development and taste. In the example below, we calculate DTR from November thru February.</p>
 <p>The first step is to separate the minimum and maximum daily temperatures into separate columns:</p>
 <div class="cell">
@@ -577,15 +610,16 @@ Issues for downloading rasters
 <span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="fu">paste0</span>(<span class="st">"GCMs: "</span>, <span class="fu">paste</span>(gcms[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>], <span class="at">collapse =</span> <span class="st">", "</span>), <span class="st">". Temporal period: Nov-Feb."</span>),</span>
 <span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Emission scenarios"</span>, <span class="at">y =</span> <span class="st">"diurnal temperature range"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="02_metrics-methods_files/figure-html/ggplot_bkrfld_dtr_tbl-1.png" class="img-fluid" width="672"></p>
+<p><img src="01_data-wrangling_files/figure-html/ggplot_bkrfld_dtr_tbl-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p><br>
 </p>
 </section>
-<section id="daily-threshhold-events" class="level2" data-number="2.8">
-<h2 data-number="2.8" class="anchored" data-anchor-id="daily-threshhold-events"><span class="header-section-number">2.8</span> Daily Threshhold Events</h2>
-<p>Many climate analyses involve a threshold event, such as temperature above or below a certain value. These tend to be easy to compute using an expression that returns TRUE or FALSE. Subsequently, you can count the number of threshold events using sum() (when you sum logical values TRUEs become 1 and FALSE becomes 0).</p>
+<section id="threshhold-based-metrics" class="level2" data-number="1.10">
+<h2 data-number="1.10" class="anchored" data-anchor-id="threshhold-based-metrics"><span class="header-section-number">1.10</span> Threshhold Based Metrics</h2>
+<p>Many climate analyses involve a threshold event, such as temperature above or below a certain value. These tend to be easy to compute using an expression that returns TRUE or FALSE. Subsequently, you can count the number of threshold events using sum() (when you sum logical values TRUEs become 1 and FALSE becomes 0). You can also look for ‘runs’ of consecutive TRUE values using <code>rle()</code> (see x.x below).</p>
+<p>TODO: SIMPLY THE EXAMPLE BELOW, BY USING SAMPLE WEATHER DATA ABOVE (NOT MODELED WEATHER DATA FROM CAL-ADAPT)</p>
 <p>Below we compute the number of ‘Hot Days’ per year, where a Hot Day is defined as the maximum temperature over 38 °C (100.4 °F) <span class="citation" data-cites="parker_observed_2022">(<a href="references.html#ref-parker_observed_2022" role="doc-biblioref">Parker et al. 2022</a>)</span>. We need to keep gcm and scenario as we’ll be grouping on those columns next.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>bkrfld_hotday_tbl <span class="ot">&lt;-</span> bkrfld_tbl <span class="sc">|&gt;</span> </span>
@@ -739,8 +773,8 @@ the `.groups` argument.</code></pre>
 <p><br>
 </p>
 </section>
-<section id="counting-consecutive-events" class="level2" data-number="2.9">
-<h2 data-number="2.9" class="anchored" data-anchor-id="counting-consecutive-events"><span class="header-section-number">2.9</span> Counting Consecutive Events</h2>
+<section id="counting-consecutive-events" class="level2" data-number="1.11">
+<h2 data-number="1.11" class="anchored" data-anchor-id="counting-consecutive-events"><span class="header-section-number">1.11</span> Counting Consecutive Events</h2>
 <p>“Heat spells”, “cold spells”, and “extreme precipitation” events are all defined as consecutive days of a threshold event. The number of consecutive days may vary, but the general technique for identifying ‘spells’ is</p>
 <ol type="1">
 <li><p>Run an expression that tests whether the threshhold was passed for each day, returning a series TRUE or FALSE values.</p></li>
@@ -1115,13 +1149,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./01_weather-data.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Weather and Climate Data</span></span>
+      <a href="./index.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Preface</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./03_agroclimate-metrics.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">AgroClimate Metrics</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./02_weather-data.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Weather Data</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

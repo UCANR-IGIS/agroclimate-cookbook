@@ -1,22 +1,28 @@
-# Methods for Computing Metrics
+# Data Wrangling Techniques
 
-In this Chapter, we'll explore some data wrangling techniques that are commonly used in computing climate metrics.
+In this Chapter, we'll explore some commonly used data wrangling techniques when working with weather data and computing climate metrics.
 
 ## Load packages
+
+The tidyverse provides some generically useful packages for data wrangling.
 
 As usual, start by loading a bunch of packages into memory and specifying our package preferences for conflicting function names:
 
 ```{r load_libraries_ch4, message = FALSE, warning = FALSE}
-library(caladaptr)
-library(units)
 library(ggplot2)
 library(dplyr)
 library(tidyr)
 library(lubridate)
+
+# MOVE THESE BELOW
+library(caladaptr)
+library(units)
 library(sf)
 ```
 
-Set conflicted preferences:
+We'll be using functions from `dplyr` quite a bit. Unfortunately some of the functions from `dplyr` clash with functions with the same name from other packages. For example several packages have a function called `select()`.
+
+An easy way to avoid function name clashes is to use the `conflicted` package to specify your preferences when commonly named functions are called. Typically you do this at the top of your script, so you don't have to worry about it after that.
 
 ```{r conflicted_ch4}
 library(conflicted)
@@ -28,6 +34,8 @@ conflict_prefer("select", "dplyr", quiet = TRUE)
 \
 
 ## Fetch Some Sample Data
+
+THIS SECTION WILL EITHER GO OUT ENTIRELY (MOVED TO THE CHAPTER ON IMPORTING CLIMATE DATA), OR BE REPLACED WITH A SIMPLE IMPORT CSV FILE
 
 For the examples in this chapter, we'll work with late-century daily temperature data for a location near Bakersfield, CA in the southern San Joaquin Valley.
 
@@ -59,11 +67,9 @@ head(bkrfld_tbl)
 
 \
 
-## Working with Date and Time Columns
+## Working with Date and Time Data (CHLOE)
 
-This is really important. As part of importing weather data, you often have to do some wrangling with date and time columns.
-
-Before you start computing metrics, 
+This is really important. As part of importing weather data, you often have to do some wrangling with date and time columns. The goals are to 
 
  - Date columns should be converted to R Date class
  
@@ -71,15 +77,41 @@ Before you start computing metrics,
 
 ### Converting Character Date and Time Columns
 
+Dates and time are often encoded as characters data types. So you have to convert them to R objects. Although this may seem like a pain in the arse, it will save you a lot of pain and suffering. 
+
+lubridate is your friend.
+
 Show them all the lubridate functions. (see Lubridate cheatsheet)
 
 ### Combining Separate Date and Time Part Columns
 
 Show code here. Concatenate date part fields with `lubridate::make_date()` and `lubridate::make_datetime()`
 
-### Converting Across Time Zones
+Could use CIMIS data as an example (which has columns for 'month', 'year', and 'day')
+
+### Converting Time Zones
+
+Pretty common to get datetimes values in UTC. 
 
 Note there's a difference between assigning time zones and converting POSIXct objects to different time zones.
+
+"Pacific Time", "PST", "PDT", etc. are not  recognized time zone names. To see a list of recognized time zone values, you can run:
+
+OlsonNames()
+(there's also a lubridate function that does the same thing)
+
+
+lubridate::ymd_hms(x, tz = "America/Los_Angeles")  
+ ## this will 
+ 
+ ## i) convert x (a character object) to POSIXct. If 'x' doesn't have the time zone represented it will assign the local time zone
+ 
+ ## 2) becase we provided tz, it will then convert (add or subtract) the time value to make it Pacific time
+ 
+ ## 3) assign Pacific Time to the result
+
+This assigns a time zone, but does not change the value:
+  as.POSIXct(dt, tz="Africa/Johannesburg")
 
 
 ### Saving Date and Time Data Locally
@@ -94,9 +126,32 @@ If you need to save it in a text format (e.g., csv) or as spreadsheet (e.g., xls
 
 Show them the units package
 
+How to convert between F, C, and K
+
+
+
 \
 
-## Time Slicing
+## Going from Long to Wide
+
+This is very common. Most tidyverse packages are designed to work with "long" data, but sometimes you have to convert it to wide to feed into another package, compute a metric based on column arithmetic
+
+Use tidyr
+
+Example: CIMIS Data is long, convert to wide
+
+
+## Time Lumping
+
+going from hourly to daily data
+
+
+
+## Time Filtering and Slicing
+
+changing how we slice and dice time
+
+in both cases, it is useful to construct date parts
 
 Often an analysis requires you to slice climate data into specific periods that are meaningful for a specific study. For example, [water years](https://en.wikipedia.org/wiki/Water_year) start on October 1 and run through the following season. Or you might just be interested in the winter months, when tree crops or bugs are particularly sensitive to temperatures. In this section, we'll look at different techniques for time-slicing climate data.
 
@@ -190,11 +245,15 @@ bkrfld_wtryr_tbl |> sample_n(10)
 
 ## Daily Climate Metrics
 
+DELETE THIS
+
 Many climate analyses require metrics computed on a daily time scale. For example, to see how frost exposure might change over time, we may have to look at the lowest daily temperature. This presents a small conundrum, because climate models are not weather forecasts, and best practices tell us that we don't look at less than 30 years. But it would be silly to average the daily low temperatures by month or year and use that as a proxy for frost exposure.
 
 The general approach in these cases is compute the daily metrics as if you were dealing with observed data, but then to aggregate the metrics over bigger periods of time and space. For example, you could classify each individual day in frost / non-frost, and then count the number of predicted frost days over a 30-year interval.
 
 ## Diurnal Temperature Range
+
+DELETE THIS (MOVE TO CHAPTER 3)
 
 Diurnal Temperature Range (DTR) is the difference between daily min and max temperature [@parker_observed_2022]. The magnitude of DTR can impact wine grape development and taste. In the example below, we calculate DTR from November thru February.
 
@@ -232,9 +291,11 @@ ggplot(bkrfld_dtr_tbl, aes(x=scenario, y = dtr)) +
 
 \
 
-## Daily Threshhold Events
+## Threshhold Based Metrics
 
-Many climate analyses involve a threshold event, such as temperature above or below a certain value. These tend to be easy to compute using an expression that returns TRUE or FALSE. Subsequently, you can count the number of threshold events using sum() (when you sum logical values TRUEs become 1 and FALSE becomes 0).
+Many climate analyses involve a threshold event, such as temperature above or below a certain value. These tend to be easy to compute using an expression that returns TRUE or FALSE. Subsequently, you can count the number of threshold events using sum() (when you sum logical values TRUEs become 1 and FALSE becomes 0). You can also look for 'runs' of consecutive TRUE values using `rle()` (see x.x below).
+
+TODO: SIMPLY THE EXAMPLE BELOW, BY USING SAMPLE WEATHER DATA ABOVE (NOT MODELED WEATHER DATA FROM CAL-ADAPT)
 
 Below we compute the number of 'Hot Days' per year, where a Hot Day is defined as the maximum temperature over 38 °C (100.4 °F) [@parker_observed_2022]. We need to keep gcm and scenario as we'll be grouping on those columns next.
 

@@ -8,8 +8,8 @@ book:
   date: "1/31/2024"
   chapters:
     - index.qmd
-    - 01_weather-data.qmd
-    - 02_metrics-methods.qmd
+    - 01_data-wrangling.qmd
+    - 02_weather-data.qmd
     - 03_agroclimate-metrics.qmd
     - 04_degday-chill.qmd
     - 05_agroclimate-rasters.qmd
@@ -23,8 +23,9 @@ bibliography: references.bib
 format:
   html:
     theme: cosmo
-  pdf:
-    documentclass: scrreprt
+  # will add support for epub and pdf when it is a little more developed
+  # pdf:
+  #   documentclass: scrreprt
 
 editor: source
 
