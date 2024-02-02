@@ -59,7 +59,9 @@ head(bkrfld_tbl)
 
 \
 
-## Converting Date and Time Columns
+## Working with Date and Time Columns
+
+This is really important. As part of importing weather data, you often have to do some wrangling with date and time columns.
 
 Before you start computing metrics, 
 
@@ -67,9 +69,24 @@ Before you start computing metrics,
  
  - Date-time columns should be saved as POSIXct objects
 
+### Converting Character Date and Time Columns
+
+Show them all the lubridate functions. (see Lubridate cheatsheet)
+
+### Combining Separate Date and Time Part Columns
+
 Show code here. Concatenate date part fields with `lubridate::make_date()` and `lubridate::make_datetime()`
 
-If you need to save your weather data to disk, use a format that knows how to save dates and times (e.g., geopackage, native R data). If you need to save it in a text format (e.g., csv) or as spreadsheet (e.g., xlsx, Google Sheet), use `lubridate::format_ISO8601()` to write, and `lubridate::ymd_hms()` to bring it back in.
+### Converting Across Time Zones
+
+Note there's a difference between assigning time zones and converting POSIXct objects to different time zones.
+
+
+### Saving Date and Time Data Locally
+
+If you need to save your weather data to disk, use a format that knows how to save dates and times (e.g., geopackage, native R data file). 
+
+If you need to save it in a text format (e.g., csv) or as spreadsheet (e.g., xlsx, Google Sheet), use `lubridate::format_ISO8601()` to write, and `lubridate::ymd_hms()` to bring it back in.
 
 \
 

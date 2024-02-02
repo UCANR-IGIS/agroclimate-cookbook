@@ -235,7 +235,13 @@ div.csl-indent {
   <ul>
   <li><a href="#load-packages" id="toc-load-packages" class="nav-link active" data-scroll-target="#load-packages"><span class="header-section-number">2.1</span> Load packages</a></li>
   <li><a href="#fetch-some-sample-data" id="toc-fetch-some-sample-data" class="nav-link" data-scroll-target="#fetch-some-sample-data"><span class="header-section-number">2.2</span> Fetch Some Sample Data</a></li>
-  <li><a href="#converting-date-and-time-columns" id="toc-converting-date-and-time-columns" class="nav-link" data-scroll-target="#converting-date-and-time-columns"><span class="header-section-number">2.3</span> Converting Date and Time Columns</a></li>
+  <li><a href="#working-with-date-and-time-columns" id="toc-working-with-date-and-time-columns" class="nav-link" data-scroll-target="#working-with-date-and-time-columns"><span class="header-section-number">2.3</span> Working with Date and Time Columns</a>
+  <ul class="collapse">
+  <li><a href="#converting-character-date-and-time-columns" id="toc-converting-character-date-and-time-columns" class="nav-link" data-scroll-target="#converting-character-date-and-time-columns"><span class="header-section-number">2.3.1</span> Converting Character Date and Time Columns</a></li>
+  <li><a href="#combining-separate-date-and-time-part-columns" id="toc-combining-separate-date-and-time-part-columns" class="nav-link" data-scroll-target="#combining-separate-date-and-time-part-columns"><span class="header-section-number">2.3.2</span> Combining Separate Date and Time Part Columns</a></li>
+  <li><a href="#converting-across-time-zones" id="toc-converting-across-time-zones" class="nav-link" data-scroll-target="#converting-across-time-zones"><span class="header-section-number">2.3.3</span> Converting Across Time Zones</a></li>
+  <li><a href="#saving-date-and-time-data-locally" id="toc-saving-date-and-time-data-locally" class="nav-link" data-scroll-target="#saving-date-and-time-data-locally"><span class="header-section-number">2.3.4</span> Saving Date and Time Data Locally</a></li>
+  </ul></li>
   <li><a href="#units" id="toc-units" class="nav-link" data-scroll-target="#units"><span class="header-section-number">2.4</span> Units</a></li>
   <li><a href="#time-slicing" id="toc-time-slicing" class="nav-link" data-scroll-target="#time-slicing"><span class="header-section-number">2.5</span> Time Slicing</a></li>
   <li><a href="#daily-climate-metrics" id="toc-daily-climate-metrics" class="nav-link" data-scroll-target="#daily-climate-metrics"><span class="header-section-number">2.6</span> Daily Climate Metrics</a></li>
@@ -311,8 +317,8 @@ Issues for downloading rasters
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(bkrfld_cap)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
-<div class="leaflet html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-6a94f4e57bb40b96a61e" style="width:100%;height:464px;"></div>
-<script type="application/json" data-for="htmlwidget-6a94f4e57bb40b96a61e">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"createMapPane","args":["tmap401",401]},{"method":"addProviderTiles","args":["Esri.NatGeoWorldMap",null,"Esri.NatGeoWorldMap",{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"pane":"tilePane"}]},{"method":"addCircleMarkers","args":[35.261321,-119.151062,8.944271909999159,"X1","Query Location(s)",{"interactive":true,"className":"","pane":"tmap401","stroke":true,"color":"#666666","weight":1,"opacity":0.5,"fill":true,"fillColor":"#FF0000","fillOpacity":0.8},null,null,"<style> div.leaflet-popup-content {width:auto !important;overflow-y:auto; overflow-x:hidden;}<\/style><div style=\"max-height:25em;padding-right:0px;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>1<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\"><nobr>id<\/nobr><\/td><td align=\"right\"><nobr>1<\/nobr><\/td><\/tr><\/table><\/div>",null,"1",{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addLayersControl","args":[[],"Query Location(s)",{"collapsed":true,"autoZIndex":true,"position":"topleft"}]}],"limits":{"lat":[35.261321,35.261321],"lng":[-119.151062,-119.151062]},"fitBounds":[34.761321,-119.651062,35.761321,-118.651062,[]]},"evals":[],"jsHooks":[]}</script>
+<div class="leaflet html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-77a9b1f244c480c60eea" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-77a9b1f244c480c60eea">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"createMapPane","args":["tmap401",401]},{"method":"addProviderTiles","args":["Esri.NatGeoWorldMap",null,"Esri.NatGeoWorldMap",{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"pane":"tilePane"}]},{"method":"addCircleMarkers","args":[35.261321,-119.151062,8.944271909999159,"X1","Query Location(s)",{"interactive":true,"className":"","pane":"tmap401","stroke":true,"color":"#666666","weight":1,"opacity":0.5,"fill":true,"fillColor":"#FF0000","fillOpacity":0.8},null,null,"<style> div.leaflet-popup-content {width:auto !important;overflow-y:auto; overflow-x:hidden;}<\/style><div style=\"max-height:25em;padding-right:0px;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>1<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\"><nobr>id<\/nobr><\/td><td align=\"right\"><nobr>1<\/nobr><\/td><\/tr><\/table><\/div>",null,"1",{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addLayersControl","args":[[],"Query Location(s)",{"collapsed":true,"autoZIndex":true,"position":"topleft"}]}],"limits":{"lat":[35.261321,35.261321],"lng":[-119.151062,-119.151062]},"fitBounds":[34.761321,-119.651062,35.761321,-118.651062,[]]},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p><br>
@@ -340,17 +346,33 @@ Issues for downloading rasters
 <p><br>
 </p>
 </section>
-<section id="converting-date-and-time-columns" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="converting-date-and-time-columns"><span class="header-section-number">2.3</span> Converting Date and Time Columns</h2>
+<section id="working-with-date-and-time-columns" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="working-with-date-and-time-columns"><span class="header-section-number">2.3</span> Working with Date and Time Columns</h2>
+<p>This is really important. As part of importing weather data, you often have to do some wrangling with date and time columns.</p>
 <p>Before you start computing metrics,</p>
 <ul>
 <li><p>Date columns should be converted to R Date class</p></li>
 <li><p>Date-time columns should be saved as POSIXct objects</p></li>
 </ul>
+<section id="converting-character-date-and-time-columns" class="level3" data-number="2.3.1">
+<h3 data-number="2.3.1" class="anchored" data-anchor-id="converting-character-date-and-time-columns"><span class="header-section-number">2.3.1</span> Converting Character Date and Time Columns</h3>
+<p>Show them all the lubridate functions. (see Lubridate cheatsheet)</p>
+</section>
+<section id="combining-separate-date-and-time-part-columns" class="level3" data-number="2.3.2">
+<h3 data-number="2.3.2" class="anchored" data-anchor-id="combining-separate-date-and-time-part-columns"><span class="header-section-number">2.3.2</span> Combining Separate Date and Time Part Columns</h3>
 <p>Show code here. Concatenate date part fields with <code>lubridate::make_date()</code> and <code>lubridate::make_datetime()</code></p>
-<p>If you need to save your weather data to disk, use a format that knows how to save dates and times (e.g., geopackage, native R data). If you need to save it in a text format (e.g., csv) or as spreadsheet (e.g., xlsx, Google Sheet), use <code>lubridate::format_ISO8601()</code> to write, and <code>lubridate::ymd_hms()</code> to bring it back in.</p>
+</section>
+<section id="converting-across-time-zones" class="level3" data-number="2.3.3">
+<h3 data-number="2.3.3" class="anchored" data-anchor-id="converting-across-time-zones"><span class="header-section-number">2.3.3</span> Converting Across Time Zones</h3>
+<p>Note there’s a difference between assigning time zones and converting POSIXct objects to different time zones.</p>
+</section>
+<section id="saving-date-and-time-data-locally" class="level3" data-number="2.3.4">
+<h3 data-number="2.3.4" class="anchored" data-anchor-id="saving-date-and-time-data-locally"><span class="header-section-number">2.3.4</span> Saving Date and Time Data Locally</h3>
+<p>If you need to save your weather data to disk, use a format that knows how to save dates and times (e.g., geopackage, native R data file).</p>
+<p>If you need to save it in a text format (e.g., csv) or as spreadsheet (e.g., xlsx, Google Sheet), use <code>lubridate::format_ISO8601()</code> to write, and <code>lubridate::ymd_hms()</code> to bring it back in.</p>
 <p><br>
 </p>
+</section>
 </section>
 <section id="units" class="level2" data-number="2.4">
 <h2 data-number="2.4" class="anchored" data-anchor-id="units"><span class="header-section-number">2.4</span> Units</h2>
