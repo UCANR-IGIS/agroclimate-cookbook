@@ -1,0 +1,287 @@
+# AgroClimate Metrics
+
+@parker_observed_2022 identify a dozen agroclimate metrics derived 100% from weather data and provide physiologically relevant information for growers. This chapter provides R code to compute most of these agroclimate metrics using historic observed data from Cal-Adapt.
+
+## Load Packages
+
+As usual, we start by loading a bunch of packages into memory and specifying our preferences for conflicting function names:
+
+```{r load_libraries_ch5, message = FALSE, warning = FALSE}
+library(caladaptr)
+library(units)
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(lubridate)
+library(sf)
+```
+
+Set conflicted preferences:
+
+```{r conflicted_ch5}
+library(conflicted)
+conflict_prefer("filter", "dplyr", quiet = TRUE)
+conflict_prefer("count", "dplyr", quiet = TRUE)
+conflict_prefer("select", "dplyr", quiet = TRUE)
+```
+
+## Fetch Some Data
+
+To compute agroclimate metrics, we'll first get 20 years of observed data from the gridMet dataset for a location in Colusa County in the Sacramento Valley.
+
+```{r colusa_cap}
+colusa_cap <- ca_loc_pt(coords = c(-122.159304, 39.289291)) %>%
+  ca_slug(c("tmmn_day_gridmet", "tmmx_day_gridmet")) %>%
+  ca_years(start = 2000, end = 2020) 
+
+colusa_cap
+colusa_cap %>% ca_preflight()
+plot(colusa_cap)
+```
+
+\
+
+Next we fetch the data. While we're at it, we'll add columns for the climate variable (based on the slug), year, and temperature in Fahrenheit:
+
+```{r colusa_tbl}
+colusa_tbl <- colusa_cap %>% 
+  ca_getvals_tbl() %>% 
+  mutate(dt = as.Date(dt),
+         year = year(as.Date(dt)),
+         cvar = substr(slug, 1, 4),
+         temp_f = units::set_units(val, degF)) %>% 
+  select(year, dt, cvar, temp_f)
+
+glimpse(colusa_tbl)
+```
+
+## Growing Degree Days
+
+Growing Degree Days (GDD) are a measure of accumulated heat starting from a specific date / event. You may wonder - what's the point of tracking accumulated heat, given that it cools down every night? The answer is because many plants seem to keep track of accumulated heat units. Research has shown that many phenological events, like the emergence of fruit, are strongly correlated with accumulated heat, also known as thermal time. Insect phenology is likewise strongly correlated with heat units.
+
+There are a few ways of computing GDD. @parker_observed_2022 recommend the simple average method with a base temperature of 10 °C:
+
+<center>$GDD = (temp_{max} - temp_{min}) / 2 - temp_{base}$</center>
+
+Negative GDD values are not biologically meaningful (i.e., plant development generally doesn't go backwards), so negative GDD values are generally converted to 0 (i.e., Method 1 described by @mcmaster_growing_1997).
+
+Computing daily GDD is fairly straight-forward. We just have to remember to zero-out negative GDD values:
+
+```{r colusa_gdd_tbl}
+(tbase_c <- set_units(10, degC))                           ## base temp
+
+colusa_gdd_tbl <- colusa_tbl %>% 
+  mutate(temp_c = set_units(temp_f, degC)) %>%             ## create a degC column
+  pivot_wider(id_cols = c(year, dt),                       ## make min and max temps separate colums
+              names_from = cvar, 
+              values_from = temp_c) %>% 
+  mutate(gdd = as.numeric(((tmmx+tmmn)/2) - tbase_c)) %>%  ## compute gdd as a numeric value
+  mutate(gdd = if_else(gdd < 0, 0, gdd))                   ## zero-out negative values
+
+colusa_gdd_tbl %>% head()
+```
+
+\
+
+Applying GDD to predict crop development requires 1) a start date (also known as a biofix date), and 2) a crop phenology table. These are not shown here, but are not hard to apply (for an example see the [Pistachio Nut Development Decision Support](https://ucanr-igis.shinyapps.io/pist_gdd/){target="_blank" rel="noopener"} tool).
+
+\
+
+## Chill Accumulation
+
+Chill accumulation is similar to growing degree days, but for cold. In other words, there are a few phenological events that appear to be strongly correlated with the accumulated amount of chill. An example of this is flowering for many tree crops. Apparently, the trees keep an internal ledger of how cold its been during the winter, and for how long. They use this internal record use to decide when it's time to come out of their winter dormancy and start flowering. This mechanism probably evolved to help them avoid frost damage.
+
+Researchers have looked at a number of ways to measure accumulated chill, and the one that does the best job at predicting phenology events is called Chill Portions (CP) [@luedeling_global_2011]. The calculations are a bit complicated, but fortunately there's a R-package that will compute chill portions. For more info, see [here](https://ucanr-igis.github.io/caladaptr-res/notebooks/chill.nb.html){target="_blank" rel="noopener"}.
+
+\
+
+## Frost Days
+
+Frost Days (FD) are the number of days per year with minimum temperatures (Tn) ≤ 0 °C [@parker_observed_2022]. They can be computed with:
+
+```{r colusa_fd_tbl}
+colusa_fd_tbl <- colusa_tbl %>% 
+  filter(cvar == "tmmn", temp_f <= set_units(0, degC)) %>% 
+  group_by(year) %>% 
+  summarise(fd = n())
+
+colusa_fd_tbl
+```
+
+\
+
+## Last Spring and First Fall Freeze
+
+The Last Spring Freeze (LSF) is defined as the last day of the calendar year prior to 30 June with a Tn ≤ 0 °C. Conversely the First Fall Freeze (FFF) is defined as the first day of the calendar year commencing 1 July with Tn ≤ 0 °C [@parker_observed_2022].
+
+We can find the last freeze date by chaining together dplyr expressions that i) keep only 'freeze days' from January through June, ii) group the freeze days by year, and iii) taking the max date for each group:
+
+```{r colusa_lf_tbl}
+colusa_lf_tbl <- colusa_tbl %>% 
+  filter(cvar == "tmmn", month(dt) <= 6, temp_f <= set_units(32, degF)) %>% 
+  group_by(year) %>% 
+  summarise(lf = max(dt))
+
+colusa_lf_tbl
+```
+
+\
+
+Similarly, we can find the first fall freeze by keeping only dates from July - December where the temperature dipped below freezing, then taking the minimum date for each year:
+
+```{r colusa_fff_tbl}
+colusa_fff_tbl <- colusa_tbl %>% 
+  filter(cvar == "tmmn", month(dt) >= 7, temp_f <= set_units(32, degF)) %>%
+  group_by(year) %>% 
+  summarise(fff = min(dt))
+
+colusa_fff_tbl
+```
+
+\
+
+## Freeze-Free Season
+
+The Freeze-Free Season (FFS) is calculated as the difference between the LSF and FFF (FFF \[minus\] LSF) [@parker_observed_2022]. Since we already calculated LSF and FFF, computing the Freeze-Free Season can be done with a simple table join:
+
+```{r colusa_lf_fff_tbl}
+colusa_lf_fff_tbl <- colusa_lf_tbl %>% left_join(colusa_fff_tbl, by = "year")
+colusa_lf_fff_tbl %>% head()
+
+colusa_lf_fff_ffs_tbl <- colusa_lf_fff_tbl %>% mutate(ffs = fff - lf)
+colusa_lf_fff_ffs_tbl
+```
+
+\
+
+## Tropical Nights and Hot Days
+
+Tropical Nights (TRN) are calculated as the number of nights per year with Tn \> 20 °C (68 °F) [@parker_observed_2022]. This can be computed with:
+
+```{r colusa_tn_tbl}
+colusa_tn_tbl <- colusa_tbl %>% 
+  filter(cvar == "tmmn", temp_f > set_units(20, degC)) %>% 
+  group_by(year) %>% 
+  summarise(tn = n())
+
+colusa_tn_tbl
+```
+
+\
+
+Hot Days (HD) are defined as when Tx \> 38 °C [@parker_observed_2022]. The number of hot days per year can be computed with:
+
+```{r colusa_hd_tbl}
+colusa_hd_tbl <- colusa_tbl %>% 
+  filter(cvar == "tmmx", temp_f > set_units(38, degC)) %>% 
+  group_by(year) %>% 
+  summarise(hd = n())
+
+colusa_hd_tbl
+```
+
+\
+
+## Extreme Heat Days
+
+Extreme Heat Days (EHD) are the number of days per year with Tx \>98th percentile of summer (June-August) Tx for the 1981--2010 period [@parker_observed_2022]. This is similar to HD, but with a threshold value based on the historic record. We can compute the 98th percentile of daily summertime highs with:
+
+```{r colusa_ehd_thresh}
+colusa_ehd_thresh <- ca_loc_pt(coords = c(-122.159304, 39.289291)) %>%
+  ca_slug("tmmx_day_gridmet") %>%
+  ca_years(start = 1981, end = 2010) %>% 
+  ca_getvals_tbl(quiet = TRUE) %>% 
+  filter(month(as.Date(dt)) %in% c(6,7,8)) %>% 
+  pull(val) %>% 
+  quantile(0.98) %>% 
+  set_units(degF)
+
+colusa_ehd_thresh
+```
+
+\
+
+Once we have that threshold, we can compute Extreme Heat Days with:
+
+```{r colusa_ehd_tbl}
+colusa_ehd_tbl <- colusa_tbl %>% 
+  filter(cvar == "tmmx", temp_f > colusa_ehd_thresh) %>% 
+  group_by(year) %>% 
+  summarise(hd = n())
+
+colusa_ehd_tbl
+```
+
+\
+
+## Heatwaves
+
+Heatwave events (HW) are defined as 3+ consecutive days with Tx \> 98th percentile of 1981--2010 summer Tx (as in EHD) [@parker_observed_2022]. Using the technique described in \[Chapter 4 - Counting Consecutive Events\]\[Counting Consecutive Events\], we can compute the number of heatwaves per year.
+
+1)  Add a column for extreme heat day, then create a grouped tibble (by year):
+
+```{r colusa_grpd_tbl}
+colusa_grpd_tbl <- colusa_tbl %>% 
+  filter(cvar == "tmmx") %>% 
+  mutate(ehd = temp_f > colusa_ehd_thresh) %>%
+  group_by(year) %>% 
+  arrange(dt)
+
+glimpse(colusa_grpd_tbl)
+```
+
+\
+
+2)  Create a function that we can pass to `group_modify()`, will return the number of heatwaves per group (year):
+
+```{r num_hw}
+num_hw <- function(data_tbl, key_tbl, num_days = 3) {
+  rle_lst <- rle(data_tbl$ehd)
+  tibble(num_hw = sum(rle_lst$values & rle_lst$lengths >= num_days))
+}
+```
+
+ 
+
+3.  Apply the heatwave function to the grouped tibble:
+
+```{r colusa_hw_tbl}
+colusa_hw_tbl <- colusa_grpd_tbl %>% 
+  group_modify(.f = num_hw, num_days = 3)
+
+colusa_hw_tbl
+```
+
+\
+
+## Diurnal Temperature Range
+
+Diurnal Temperature Range (DTR) is the difference between daily Tx and Tn [@parker_observed_2022]. Below we calculate DTR over 1 March to 1 November.
+
+```{r colusa_wide_tbl}
+colusa_dtr_tbl <- colusa_tbl %>% 
+  filter(month(dt) %in% 3:10) %>% 
+  pivot_wider(id_cols = c(year, dt), names_from = cvar, values_from = temp_f) %>% 
+  mutate(dtr = tmmx - tmmn)
+
+head(colusa_dtr_tbl)
+```
+
+```{r ggplot_colusa_dtr_tbl}
+ggplot(colusa_dtr_tbl %>% mutate(year = as.factor(year)), aes(x=year, y = dtr)) + 
+  geom_boxplot() + 
+  labs(title = "Diurnal Temperature Range, 2000-2020",
+       subtitle = "Colusa, CA", 
+       caption = "Dataset: gridMet. Temporal period: March - October",
+       x = "", y = "daily temperature range")
+```
+
+## Reference Evapotranspiration
+
+ETo is calculated following the FAO Penman--Monteith method [@allen_crop_1998]. We calculate summer (June-August) average ETo for each year 1981--2020 for our analysis. ETo units are mm [@parker_observed_2022].
+
+<p style="font-size:150%; font-style:italic;">
+
+More coming soon...
+
+</p>

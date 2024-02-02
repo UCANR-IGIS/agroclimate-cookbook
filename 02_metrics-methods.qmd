@@ -1,0 +1,391 @@
+# Methods for Computing Metrics
+
+In this Chapter, we'll explore some data wrangling techniques that are commonly used in computing climate metrics.
+
+## Load packages
+
+As usual, start by loading a bunch of packages into memory and specifying our package preferences for conflicting function names:
+
+```{r load_libraries_ch4, message = FALSE, warning = FALSE}
+library(caladaptr)
+library(units)
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(lubridate)
+library(sf)
+```
+
+Set conflicted preferences:
+
+```{r conflicted_ch4}
+library(conflicted)
+conflict_prefer("filter", "dplyr", quiet = TRUE)
+conflict_prefer("count", "dplyr", quiet = TRUE)
+conflict_prefer("select", "dplyr", quiet = TRUE)
+```
+
+\
+
+## Fetch Some Sample Data
+
+For the examples in this chapter, we'll work with late-century daily temperature data for a location near Bakersfield, CA in the southern San Joaquin Valley.
+
+```{r bkrfld_cap}
+bkrfld_cap <- ca_loc_pt(coords = c(-119.151062, 35.261321)) |>
+  ca_gcm(gcms[1:4]) |>                                 
+  ca_scenario(c("rcp45", "rcp85")) |>
+  ca_period("day") |>
+  ca_years(start = 2070, end = 2099) |>
+  ca_cvar(c("tasmin", "tasmax"))
+
+bkrfld_cap |> ca_preflight()
+
+plot(bkrfld_cap)
+```
+
+\
+
+Fetch data:
+
+```{r bkrfld_tbl, cache=TRUE}
+bkrfld_tbl <- bkrfld_cap |> 
+  ca_getvals_tbl(quiet = TRUE) |> 
+  mutate(dt = as.Date(dt),
+         temp_f = units::set_units(val, degF))
+
+head(bkrfld_tbl)
+```
+
+\
+
+## Converting Date and Time Columns
+
+Before you start computing metrics, 
+
+ - Date columns should be converted to R Date class
+ 
+ - Date-time columns should be saved as POSIXct objects
+
+Show code here. Concatenate date part fields with `lubridate::make_date()` and `lubridate::make_datetime()`
+
+If you need to save your weather data to disk, use a format that knows how to save dates and times (e.g., geopackage, native R data). If you need to save it in a text format (e.g., csv) or as spreadsheet (e.g., xlsx, Google Sheet), use `lubridate::format_ISO8601()` to write, and `lubridate::ymd_hms()` to bring it back in.
+
+\
+
+## Units
+
+Show them the units package
+
+\
+
+## Time Slicing
+
+Often an analysis requires you to slice climate data into specific periods that are meaningful for a specific study. For example, [water years](https://en.wikipedia.org/wiki/Water_year) start on October 1 and run through the following season. Or you might just be interested in the winter months, when tree crops or bugs are particularly sensitive to temperatures. In this section, we'll look at different techniques for time-slicing climate data.
+
+The general approach is to add a column in the table that identifies the time slice. (If you're working with rasters, the idea is similar but you add an attribute value to the layer). Once you have the time-slice identifiers in your table, you can easily filter or group on that column to compute summaries for each time-slice.
+
+`lubridate` is your ally when it comes to extracting date parts. For example to add columns for date parts like year, month, week, and ordinal date, we can use the standard `mutate()` with date part functions from lubridate:
+
+```{r}
+bkrfld_dtprts_tbl <- bkrfld_tbl |> 
+  mutate(year = lubridate::year(dt),
+         month = lubridate::month(dt),
+         week = lubridate::week(dt),
+         yday = lubridate::yday(dt)) |> 
+  select(dt, year, month, week, yday, cvar, gcm, scenario, temp_f)
+
+bkrfld_dtprts_tbl |> slice(1:20)
+```
+
+\
+
+To plot the distribution of winter time daily minimum temperatures (i.e., to identify frost days), we could use the month column to get only dates in December, January, and February:
+
+```{r}
+bkrfld_wintrmth_lows_tbl <- bkrfld_dtprts_tbl |> 
+  filter(cvar == "tasmin", month %in% c(12, 1, 2))
+  
+table(bkrfld_wintrmth_lows_tbl$month)
+```
+
+\
+
+Plot histogram:
+
+```{r}
+ggplot(bkrfld_wintrmth_lows_tbl, aes(x=temp_f)) + 
+  geom_histogram() +
+  facet_grid(scenario ~ .) +
+  labs(title = "Distribution of Winter Nightime Lows, 2070-2099",
+       subtitle = "Bakersfield, CA",
+       caption = paste0("GCMs: ", paste(gcms[1:4], collapse = ", "), ". Months: Dec, Jan, and Feb."),
+       x = "night time low (F)", y = "count")
+
+
+```
+
+\
+
+If we want use the standard definition of the winter season, we could alternately filter winter days by their ordinal date number (aka Julian date). Winter starts on December 21 (day 355 of non-leap years) and ends on March 20 (day 79).
+
+```{r bkrfld_winter_seasn_tbl}
+bkrfld_wintrssn_tbl <- bkrfld_dtprts_tbl |> 
+  filter(cvar == "tasmin", yday >= 355 | yday <= 79)
+
+ggplot(bkrfld_wintrssn_tbl, aes(x=temp_f)) + 
+  geom_histogram() +
+  facet_grid(scenario ~ .) +
+  labs(title = "Distribution of Winter Nightime Lows, 2070-2099",
+       subtitle = "Bakersfield, CA",
+       caption = paste0("GCMs: ", paste(gcms[1:4], collapse = ", "), ". December 21 - March 20."),
+       x = "night time low (F)", y = "count")
+```
+
+\
+
+Time slices can also be used for grouping. The following expression computes the average nightly low for the summer months for each RCP (all GCMs and years combined):
+
+```{r bkrfld_dtprts_tbl_smry}
+bkrfld_dtprts_tbl |> 
+  filter(month %in% 6:8, cvar == "tasmin") |> 
+  group_by(month, scenario) |> 
+  summarise(avg_temp = mean(temp_f), .groups = "drop") |> 
+  mutate(month = month.name[month]) |> 
+  tidyr::pivot_wider(id_cols = month, names_from = scenario, values_from = avg_temp)
+```
+
+\
+
+Sometimes the time period of interest spans two calendar years. A [water year](https://en.wikipedia.org/wiki/Water_year){target="_blank" rel="noopener"} for example starts on October 1 and goes thru the end of September the following year. Some agricultural periods (such as winter dormancy) may also start in the fall and continue into the new year.
+
+Slicing your data by a time period that spans calendar years is done in the same manner - you add a column to the table for period identifier. Below we add a column for water year (which conventionally are designated by the calendar year in which it ends):
+
+```{r bkrfld_wtryr_tbl}
+bkrfld_wtryr_tbl <- bkrfld_tbl |> 
+  mutate(water_yr = year(dt) + if_else(month(dt) >= 10, 1, 0)) |> 
+  select(dt, water_yr, cvar, gcm, scenario, temp_f)
+
+bkrfld_wtryr_tbl |> sample_n(10)
+```
+
+\
+
+## Daily Climate Metrics
+
+Many climate analyses require metrics computed on a daily time scale. For example, to see how frost exposure might change over time, we may have to look at the lowest daily temperature. This presents a small conundrum, because climate models are not weather forecasts, and best practices tell us that we don't look at less than 30 years. But it would be silly to average the daily low temperatures by month or year and use that as a proxy for frost exposure.
+
+The general approach in these cases is compute the daily metrics as if you were dealing with observed data, but then to aggregate the metrics over bigger periods of time and space. For example, you could classify each individual day in frost / non-frost, and then count the number of predicted frost days over a 30-year interval.
+
+## Diurnal Temperature Range
+
+Diurnal Temperature Range (DTR) is the difference between daily min and max temperature [@parker_observed_2022]. The magnitude of DTR can impact wine grape development and taste. In the example below, we calculate DTR from November thru February.
+
+The first step is to separate the minimum and maximum daily temperatures into separate columns:
+
+```{r bkrfld_wide_tbl}
+bkrfld_wide_tbl <- bkrfld_tbl |> 
+  filter(month(dt) %in% c(11,12,1,2)) |> 
+  tidyr::pivot_wider(id_cols = c(dt, gcm, scenario), names_from = cvar, values_from = temp_f)
+
+head(bkrfld_wide_tbl)
+```
+
+Now we can compute DTR:
+
+```{r bkrfld_dtr_tbl}
+bkrfld_dtr_tbl <- bkrfld_wide_tbl |> 
+  mutate(dtr = tasmax - tasmin)
+
+bkrfld_dtr_tbl |> head()
+```
+
+\
+
+We can show the results with a box plot:
+
+```{r ggplot_bkrfld_dtr_tbl}
+ggplot(bkrfld_dtr_tbl, aes(x=scenario, y = dtr)) + 
+  geom_boxplot() + 
+  labs(title = "Diurnal Temperature Range, 2070-2099",
+       subtitle = "Bakersfield, CA", 
+       caption = paste0("GCMs: ", paste(gcms[1:4], collapse = ", "), ". Temporal period: Nov-Feb."),
+       x = "Emission scenarios", y = "diurnal temperature range")
+```
+
+\
+
+## Daily Threshhold Events
+
+Many climate analyses involve a threshold event, such as temperature above or below a certain value. These tend to be easy to compute using an expression that returns TRUE or FALSE. Subsequently, you can count the number of threshold events using sum() (when you sum logical values TRUEs become 1 and FALSE becomes 0).
+
+Below we compute the number of 'Hot Days' per year, where a Hot Day is defined as the maximum temperature over 38 °C (100.4 °F) [@parker_observed_2022]. We need to keep gcm and scenario as we'll be grouping on those columns next.
+
+```{r bkrfld_hotday_tbl}
+bkrfld_hotday_tbl <- bkrfld_tbl |> 
+  filter(cvar == "tasmax") |> 
+  mutate(hotday_yn = temp_f >= units::set_units(38, degC),
+         year = year(dt)) |> 
+  select(dt, year, cvar, scenario, gcm, temp_f, hotday_yn)
+
+bkrfld_hotday_tbl |> head()
+```
+
+\
+
+Now we can group by year and scenario to compare how the average number of hot days per year looks for each RCP.
+
+```{r bkrfld_numhd_tbl_groupby}
+bkrfld_numhd_tbl <- bkrfld_hotday_tbl |> 
+  group_by(year, scenario, gcm) |> 
+  summarise(num_hotday = sum(hotday_yn))
+
+bkrfld_numhd_tbl |> head()
+
+bkrfld_numhd_tbl |> 
+  group_by(year, scenario) |> 
+  summarize(avg_hd = mean(num_hotday), .groups = "drop") |> 
+  tidyr::pivot_wider(id_cols = year, names_from = scenario, values_from = avg_hd)
+```
+
+Sometimes you want to know the number of threshold events during a particular time of the year. For example tree crops are particularly susceptible to frost damage right after they've bloomed.
+
+Let's compute the **number of hot days in June, July and August**, which can be particularly bad for nut development. Because we have daily data from 4 GCMs, we have to count the number of hot days for each GCM, and then average those together for each emissions scenario.
+
+```{r bkrfld_sumrhd_tbl}
+bkrfld_sumrhd_tbl <- bkrfld_tbl |> 
+  filter(cvar == "tasmax", month(dt) %in% c(6,7,8)) |> 
+  mutate(hd = temp_f >= units::set_units(38, degC),
+         year = year(dt)) |> 
+  select(dt, year, cvar, scenario, gcm, temp_f, hd)
+
+bkrfld_sumrhd_tbl |> head()
+```
+
+\
+
+```{r bkrfld_numsumrhd_tbl}
+bkrfld_numsumrhd_tbl <- bkrfld_sumrhd_tbl |> 
+  group_by(year, scenario, gcm) |> 
+  summarise(num_sumrhd = sum(hd), .groups = "drop") 
+
+bkrfld_numsumrhd_tbl |> head()
+```
+
+\
+
+```{r}
+bkrfld_avgnumsumrhd_tbl <- bkrfld_numsumrhd_tbl |> 
+  group_by(year, scenario) |> 
+  summarise(avg_num_sumrhd = mean(num_sumrhd), .groups = "drop")
+
+bkrfld_avgnumsumrhd_tbl |> head()
+```
+
+\
+
+```{r bkrfld_avgnumsumrhd_tbl}
+bkrfld_avgnumsumrhd_tbl |> 
+  tidyr::pivot_wider(id_cols = year, names_from = scenario, values_from = avg_num_sumrhd)
+```
+
+\
+
+## Counting Consecutive Events
+
+"Heat spells", "cold spells", and "extreme precipitation" events are all defined as consecutive days of a threshold event. The number of consecutive days may vary, but the general technique for identifying 'spells' is
+
+1.  Run an expression that tests whether the threshhold was passed for each day, returning a series TRUE or FALSE values.
+
+2.  Pass the TRUE / FALSE values into the rle(), which identifies 'runs' of TRUE and FALSE values
+
+3.  Count the number of runs that meet the minimum duration
+
+To illustrate this, take the following series of 30 temperature values. We'll compute the number of heat spells where the temperature was 100 or more for three or more days in a row:
+
+```{r x_temp}
+x_temp <- c(96,97,101,98,100,102,101,99,94,89,97,102,104,101,103,99,92,94,88,90,98,101,99,103,104,102,98,97,98,99)
+```
+
+Step 1 is to check to see if each value exceeds the threshold):
+
+```{r x_hot}
+x_hot <- x_temp >= 100
+x_hot
+```
+
+Next, feed the 30 TRUE/FALSE values into `rle()` (run-length encoding):
+
+```{r rle_lst}
+rle_lst <- rle(x_hot)
+rle_lst
+```
+
+`rle()` returns a list with two elements. Both elements are vectors of the same length. The `lengths` element contains the number of contiguous identical elements found in a 'run' in the original data. The `values` element contains the corresponding value of the run (in this case TRUE/FALSE values. Using this info, we can see our original data started with two FALSE values, followed by one TRUE value, followed by one FALSE value, followed by three TRUE values, and so on.
+
+To count the number of 'TRUE' runs (aka spells) equal to or longer than *n* days, we can apply a simple expression:
+
+```{r sum_rle_lst}
+sum(rle_lst$values & rle_lst$lengths >= 3)
+```
+
+\
+
+Using these techniques, below we compute the number of heat spells where the temperature was 100 °F or more for three or more days in a row:
+
+```{r bkrfld_sumrhd_htspl_tbl}
+bkrfld_sumrhd_tbl <- bkrfld_tbl |> 
+  filter(cvar == "tasmax", month(dt) %in% c(6,7,8)) |> 
+  mutate(hd = temp_f >= units::set_units(38, degC),
+         year = year(dt)) |> 
+  select(dt, year, cvar, scenario, gcm, temp_f, hd)
+
+bkrfld_sumrhd_tbl |> head()
+```
+
+We have to be a little creative to apply `rle()` in a data frame that has many time series in it (e.g., multiple years, GCMs, and emission scenarios). Each of the series needs to be fed into `rle()` individually, and the list returned by rle() will have different lengths. But what we can do is set up a list structure to store the results of `rle()`.
+
+First, we create a grouped tibble. A group tibble is still a tibble, but also has groups of rows invisibly defined. As we shall see shortly, other functions know what to do with those groups.
+
+```{r bkrfld_grps_tbl}
+bkrfld_grps_tbl <- bkrfld_sumrhd_tbl |> 
+  group_by(year, scenario, gcm) |> 
+  arrange(dt)
+
+glimpse(bkrfld_grps_tbl)
+```
+
+\
+
+Next, we have to write a function that we can feed into `group_modify()`. If you read the documentation for group_modify(), it says the first two arguments of the function should accept i) a group of rows (as a tibble), ii) the properties of the group (e.g., which year, scenario, and gcm) as a 1-row tibble. our function should also return a tibble, that will be stacked for all the groups. In addition, `group_modify()` will also automatically include columns for the grouping variables.
+
+In our case, all we need is the number of heatspells so the function only has to return a 1x1 tibble.
+
+```{r num_heatspells}
+num_heatspells <- function(data_tbl, key_tbl, num_days = 3) {
+  ## Feed the hd column into rle()
+  rle_lst <- rle(data_tbl$hd)
+  
+  ## Return a tibble with one row
+  tibble(num_spells = sum(rle_lst$values & rle_lst$lengths >= num_days))
+}
+```
+
+\
+
+Now we can apply this function to every group:
+
+```{r bkrfld_numspells_tbl}
+bkrfld_numspells_tbl <- bkrfld_grps_tbl |> 
+  group_modify(.f = num_heatspells, num_days = 3)
+
+bkrfld_numspells_tbl |> head()
+```
+
+Lastly, we can compute the average number of heatspells per emissions scenario:
+
+```{r mean_bkrfld_numspells_tbl}
+bkrfld_numspells_tbl |> 
+  group_by(scenario) |> 
+  summarise(avg_spells = mean(num_spells)) 
+```

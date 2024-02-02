@@ -1,0 +1,17 @@
+# Degree Days
+
+A common application of weather and climate data is predicting phenological events like egg laying for insects, or fruit ripening for tree crops. These predictions are possible due to research which has modeled the relationship between phenology and accumulated heat, or degree days.
+
+The researchers who study the relationship between phenology and accumulated heat use several calculations to measure degree days. Many of the most common degree day formulas can be found in the `degday` R package.
+
+<https://ucanr-igis.github.io/degday/>
+
+All you need after that are the phenology tables.
+
+Example: https://ucanr-igis.shinyapps.io/noworm/
+
+<p style="font-style:italic; font-size:150%;">
+
+More coming soon...
+
+</p>

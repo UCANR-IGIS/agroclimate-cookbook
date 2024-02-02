@@ -1,0 +1,27 @@
+# Other Examples
+
+## Frost
+
+[@parker_climate_2021]
+
+They computed hours # of frost exposure, where temperature thresholds were based on i) crop and ii) temperature range (colder = more exposure. Compared changes in this relative metric past, present, and future.
+
+> The frequency of frost temperatures under observed contemporary and projected future climate conditions were assessed in units of hours of exposure, quantified using daily maximum and minimum temperatures temporally disaggregated to hourly data using a modified sine curve approach (Linvill, 1990)...In assessing frost exposure that is not crop-specific, we highlight the frost exposure (in hours) for three threshold temperatures (T) – -2 °C, 0 °C, and 2 °C – that encapsulate the most frost-tender phase of development for many high-value fruit and nut trees (e.g., Gholipour, 2006; WSU, 2020).
+    
+
+## Pest Development
+
+[@pathak_impact_2021]
+
+They used degree day models to compare past and future patterns of NOW development (timing, generation length, number of generations).
+
+> The objective of this study was to quantify changes in the biofix, lifecycle length, and number of generations for these pests for the entire Central Valley of California. Using a well-established growing-degree days (GDD) model calibrated and validated using observations from orchards of California, and climate change projections from the Coupled Model Intercomparison Project phases 5 and 6 (CMIP5 and CMIP6) General Circulation Models, we found that biofix dates of these pests are expected to shift earlier by up to 28 days, and length of generations is expected to be shortened by up to 19 days, and up to 1.4 extra generations of these pests can be added by the end of the century depending on the scenario.
+
+\
+
+[@jha_climate_2024]
+
+Similar to above, but more pests.
+
+> The objective of this study was to quantify changes in the biofix, lifecycle length, and number of generations for these pests for the entire Central Valley of California. Using a well-established growing-degree days (GDD) model calibrated and validated using observations from orchards of California, and climate change projections from the Coupled Model Intercomparison Project phases 5 and 6 (CMIP5 and CMIP6) General Circulation Models, we found that biofix dates of these pests are expected to shift earlier by up to 28 days, and length of generations is expected to be shortened by up to 19 days, and up to 1.4 extra generations of these pests can be added by the end of the century depending on the scenario.
+

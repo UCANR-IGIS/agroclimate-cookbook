@@ -1,0 +1,21 @@
+# AgroClimate Analogues
+
+## Climate Analogues
+
+*The following is just placeholder text, which needs to be updated with some actual definitions and citations.*
+
+Climate analogues refer to locations that have the same climate profile. For example California and Spain might be considered climate analogues, because they both have temperate, moderate climates, with a similar distribution of rainfall.
+
+A modeled climate analogue is a location that currently has the climate that is projected to occur somewhere else. For example, Sacramento's climate analog 50 year from now might be Bakersfield. That means Bakersfield already has the weather envelope that Sacromentons can expect to see 50 years from now.
+
+Climate analogues are useful because they make the effects of climate change more understandable. For example if I live in Sacramento and want to know what kind of street trees will be viable in 50 years, or what kind of cooling systems will be needed in houses, I don't have to run fancy models. All I have to do is take a trip to Bakerfield and 'see the future'.
+
+But what does it mean to have "similar" climates? This is where metrics come in, because the answer depends on your use case. If you're interested in what kind of trees to plant in your orchard, you'd probably want to define 'similarity' based on a metric like winter chill. If you're building an irrigation system, you might want to look at models of evapotranspiration.
+
+## Example
+
+see @mcbride_impact_2018 (they used the temperature of hottest day in July as a metric for urban tree species viability)
+
+use CalAdaptR to compare historical modeled July temps with future historic modeled July temps
+
+do this for all preset areas of interest the CalAdapt server - Or I could use a place names layer

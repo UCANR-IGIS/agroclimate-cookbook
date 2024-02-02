@@ -1,0 +1,23 @@
+# Agroclimate Rasters
+
+This chapter will show how to
+
+1) take a raster time series of observed (or modeled) weather data
+
+- Spatial CIMIS
+- gridMet
+- PRISM
+
+2) Convert it to stars (see caladaptr)
+
+3) Teach them how to use sapply to compute the agroclimate metric pixel-by-pixel
+
+   - key thing is to reduce the computation to a function that takes a timeseries vector
+ and spits out the agroclimate metric
+ 
+Example: Compute the number of days > 105 degF for one growing season (Apr - Sep) for a small county
+
+Visualize multi-year agroclimate metric rasters with animation, or a slideshow kind of thing
+ 
+ 
+ 

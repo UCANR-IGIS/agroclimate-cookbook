@@ -1,0 +1,30 @@
+# Modeled Climate Data
+
+Similarities and differences between observed weather data and modeled climate data
+
+Observed weather data represent a single series of weather outcomes.
+
+'Climate' is the 'envelope' or variability of weather. You need at least 30 years of observed weather data to see the envelope.
+
+Modeled climate data are based on simulations of weather (hourly). Just like observed weather data, you need 30 years of simulated weather to characterize the envelope.
+
+The simulated weather data from a climate model are not meant to be predictive. But the envelope of many 'runs' of the simulation do a good job at predicting the climate envelope.
+
+You can compute future agroclimate metrics with projected climate data, provided you have access to the simulated weather (e.g., daily temperature). This is basically the same as computing the metric with observed data.
+
+The tricky part comes when analzing the results, because
+
+1) There is not one projected climate future, but many (different CGMs, different emissions scenarios, different runs)
+
+2) Therefore you have a range of projected agroclimate metrics. You have to characterize them as a group / probabilistically
+
+
+
+
+
+
+
+
+
+
+

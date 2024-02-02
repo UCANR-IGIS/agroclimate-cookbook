@@ -1,0 +1,34 @@
+# Weather and Climate Data
+
+## Intro
+
+To compute metrics you need daily or hourly weather data. Either observed (i.e., from weather stations) or modeled (i.e., from climate models) data will work.
+
+Most agroclimate metrics require daily data (daily min temp, daily max temp, daily precip)
+
+Some require hourly data (e.g., chill portions). If needed, hourly data can be interpolated from daily data (see <https://inresgb-lehre.iaas.uni-bonn.de/chillR_book/making-hourly-temperatures.html>)
+
+Things to remember:
+ 
+ - date columns should be converted to R Date class
+ 
+ - date-time columns should be saved as POSIXct objects
+
+ - see also <https://ucanr-igis.github.io/agroclimR/slides/agclimr_slides01.html#(12)>
+ 
+ - think about units
+
+## CIMIS API
+
+How to get data from CIMIS
+
+## Synoptic API
+
+Show how to get weather data from a weather station on Synoptic, including how to create daily summaries from hourly data
+
+<https://ucanr-igis.github.io/sketchbook/synoptic-cimis.html>
+
+## gridMet
+
+
+
