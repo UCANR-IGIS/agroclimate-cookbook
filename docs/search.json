@@ -88,7 +88,7 @@
     "href": "02_weather-data.html#intro",
     "title": "2  Weather Data",
     "section": "2.1 Intro",
-    "text": "2.1 Intro\nTo compute metrics you need daily or hourly weather data. Either observed (i.e., from weather stations) or modeled (i.e., from climate models) data will work.\nMot agroclimate metrics require daily data (daily min temp, daily max temp, daily precip)\nSome require hourly data (e.g., chill portions). If needed, hourly data can be interpolated from daily data (see https://inresgb-lehre.iaas.uni-bonn.de/chillR_book/making-hourly-temperatures.html)\nThings to remember:\n\ndate columns should be converted to R Date class\ndate-time columns should be saved as POSIXct objects\nsee also https://ucanr-igis.github.io/agroclimR/slides/agclimr_slides01.html#(12)\nthink about units"
+    "text": "2.1 Intro\n\nsee also https://ucanr-igis.github.io/agroclimR/slides/agclimr_slides01.html#(12)\n\nTo compute metrics you need daily or hourly weather data. Either observed (i.e., from weather stations) or modeled (i.e., from climate models) data will work.\nMot agroclimate metrics require daily data (daily min temp, daily max temp, daily precip)\nSome require hourly data (e.g., chill portions). If needed, hourly data can be interpolated from daily data (see https://inresgb-lehre.iaas.uni-bonn.de/chillR_book/making-hourly-temperatures.html)\nThings to remember:\n\ndate columns should be converted to R Date class\ndate-time columns should be saved as POSIXct objects\nthink about units"
   },
   {
     "objectID": "02_weather-data.html#cimis-api",
@@ -112,137 +112,144 @@
     "text": "2.4 gridMet"
   },
   {
-    "objectID": "03_agroclimate-metrics.html#load-packages",
-    "href": "03_agroclimate-metrics.html#load-packages",
-    "title": "3  AgroClimate Metrics",
+    "objectID": "03_simple-agroclim-metrics.html#load-packages",
+    "href": "03_simple-agroclim-metrics.html#load-packages",
+    "title": "3  Simple AgroClimate Metrics",
     "section": "3.1 Load Packages",
     "text": "3.1 Load Packages\nAs usual, we start by loading a bunch of packages into memory and specifying our preferences for conflicting function names:\n\nlibrary(caladaptr)\nlibrary(units)\nlibrary(ggplot2)\nlibrary(dplyr)\nlibrary(tidyr)\nlibrary(lubridate)\nlibrary(sf)\n\nSet conflicted preferences:\n\nlibrary(conflicted)\nconflict_prefer(\"filter\", \"dplyr\", quiet = TRUE)\nconflict_prefer(\"count\", \"dplyr\", quiet = TRUE)\nconflict_prefer(\"select\", \"dplyr\", quiet = TRUE)"
   },
   {
-    "objectID": "03_agroclimate-metrics.html#fetch-some-data",
-    "href": "03_agroclimate-metrics.html#fetch-some-data",
-    "title": "3  AgroClimate Metrics",
+    "objectID": "03_simple-agroclim-metrics.html#fetch-some-data",
+    "href": "03_simple-agroclim-metrics.html#fetch-some-data",
+    "title": "3  Simple AgroClimate Metrics",
     "section": "3.2 Fetch Some Data",
     "text": "3.2 Fetch Some Data\nTo compute agroclimate metrics, we’ll first get 20 years of observed data from the gridMet dataset for a location in Colusa County in the Sacramento Valley.\n\ncolusa_cap &lt;- ca_loc_pt(coords = c(-122.159304, 39.289291)) %&gt;%\n  ca_slug(c(\"tmmn_day_gridmet\", \"tmmx_day_gridmet\")) %&gt;%\n  ca_years(start = 2000, end = 2020) \n\ncolusa_cap\n\nCal-Adapt API Request\nLocation(s): \n  x: -122.159\n  y: 39.289\nSlug(s): tmmn_day_gridmet, tmmx_day_gridmet\nDates: 2000-01-01 to 2020-12-31\n \n\ncolusa_cap %&gt;% ca_preflight()\n\nGeneral issues\n - none found\nIssues for querying values\n - none found\nIssues for downloading rasters\n - none found\n\nplot(colusa_cap)\n\n\n\n\n\n\n\n\nNext we fetch the data. While we’re at it, we’ll add columns for the climate variable (based on the slug), year, and temperature in Fahrenheit:\n\ncolusa_tbl &lt;- colusa_cap %&gt;% \n  ca_getvals_tbl() %&gt;% \n  mutate(dt = as.Date(dt),\n         year = year(as.Date(dt)),\n         cvar = substr(slug, 1, 4),\n         temp_f = units::set_units(val, degF)) %&gt;% \n  select(year, dt, cvar, temp_f)\n\nglimpse(colusa_tbl)\n\nRows: 15,342\nColumns: 4\n$ year   &lt;dbl&gt; 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 200…\n$ dt     &lt;date&gt; 2000-01-01, 2000-01-02, 2000-01-03, 2000-01-04, 2000-01-05, 20…\n$ cvar   &lt;chr&gt; \"tmmn\", \"tmmn\", \"tmmn\", \"tmmn\", \"tmmn\", \"tmmn\", \"tmmn\", \"tmmn\",…\n$ temp_f [degF] 32.45 [degF], 30.11 [degF], 32.09 [degF], 39.11 [degF], 32.27 …"
   },
   {
-    "objectID": "03_agroclimate-metrics.html#growing-degree-days",
-    "href": "03_agroclimate-metrics.html#growing-degree-days",
-    "title": "3  AgroClimate Metrics",
+    "objectID": "03_simple-agroclim-metrics.html#growing-degree-days",
+    "href": "03_simple-agroclim-metrics.html#growing-degree-days",
+    "title": "3  Simple AgroClimate Metrics",
     "section": "3.3 Growing Degree Days",
     "text": "3.3 Growing Degree Days\nGrowing Degree Days (GDD) are a measure of accumulated heat starting from a specific date / event. You may wonder - what’s the point of tracking accumulated heat, given that it cools down every night? The answer is because many plants seem to keep track of accumulated heat units. Research has shown that many phenological events, like the emergence of fruit, are strongly correlated with accumulated heat, also known as thermal time. Insect phenology is likewise strongly correlated with heat units.\nThere are a few ways of computing GDD. Parker et al. (2022) recommend the simple average method with a base temperature of 10 °C:\n\n\\(GDD = (temp_{max} - temp_{min}) / 2 - temp_{base}\\)\n\nNegative GDD values are not biologically meaningful (i.e., plant development generally doesn’t go backwards), so negative GDD values are generally converted to 0 (i.e., Method 1 described by McMaster and Wilhelm (1997)).\nComputing daily GDD is fairly straight-forward. We just have to remember to zero-out negative GDD values:\n\n(tbase_c &lt;- set_units(10, degC))                           ## base temp\n\n10 [°C]\n\ncolusa_gdd_tbl &lt;- colusa_tbl %&gt;% \n  mutate(temp_c = set_units(temp_f, degC)) %&gt;%             ## create a degC column\n  pivot_wider(id_cols = c(year, dt),                       ## make min and max temps separate colums\n              names_from = cvar, \n              values_from = temp_c) %&gt;% \n  mutate(gdd = as.numeric(((tmmx+tmmn)/2) - tbase_c)) %&gt;%  ## compute gdd as a numeric value\n  mutate(gdd = if_else(gdd &lt; 0, 0, gdd))                   ## zero-out negative values\n\ncolusa_gdd_tbl %&gt;% head()\n\n# A tibble: 6 × 5\n   year dt            tmmn  tmmx   gdd\n  &lt;dbl&gt; &lt;date&gt;        [°C]  [°C] &lt;dbl&gt;\n1  2000 2000-01-01  0.250  12.7      0\n2  2000 2000-01-02 -1.05   12.2      0\n3  2000 2000-01-03  0.0500 14.2      0\n4  2000 2000-01-04  3.95    9.65     0\n5  2000 2000-01-05  0.150  14.2      0\n6  2000 2000-01-06 -1.35   12.6      0\n\n\n\n\nApplying GDD to predict crop development requires 1) a start date (also known as a biofix date), and 2) a crop phenology table. These are not shown here, but are not hard to apply (for an example see the Pistachio Nut Development Decision Support tool)."
   },
   {
-    "objectID": "03_agroclimate-metrics.html#chill-accumulation",
-    "href": "03_agroclimate-metrics.html#chill-accumulation",
-    "title": "3  AgroClimate Metrics",
+    "objectID": "03_simple-agroclim-metrics.html#chill-accumulation",
+    "href": "03_simple-agroclim-metrics.html#chill-accumulation",
+    "title": "3  Simple AgroClimate Metrics",
     "section": "3.4 Chill Accumulation",
     "text": "3.4 Chill Accumulation\nChill accumulation is similar to growing degree days, but for cold. In other words, there are a few phenological events that appear to be strongly correlated with the accumulated amount of chill. An example of this is flowering for many tree crops. Apparently, the trees keep an internal ledger of how cold its been during the winter, and for how long. They use this internal record use to decide when it’s time to come out of their winter dormancy and start flowering. This mechanism probably evolved to help them avoid frost damage.\nResearchers have looked at a number of ways to measure accumulated chill, and the one that does the best job at predicting phenology events is called Chill Portions (CP) (Luedeling and Brown 2011). The calculations are a bit complicated, but fortunately there’s a R-package that will compute chill portions. For more info, see here."
   },
   {
-    "objectID": "03_agroclimate-metrics.html#frost-days",
-    "href": "03_agroclimate-metrics.html#frost-days",
-    "title": "3  AgroClimate Metrics",
+    "objectID": "03_simple-agroclim-metrics.html#frost-days",
+    "href": "03_simple-agroclim-metrics.html#frost-days",
+    "title": "3  Simple AgroClimate Metrics",
     "section": "3.5 Frost Days",
     "text": "3.5 Frost Days\nFrost Days (FD) are the number of days per year with minimum temperatures (Tn) ≤ 0 °C (Parker et al. 2022). They can be computed with:\n\ncolusa_fd_tbl &lt;- colusa_tbl %&gt;% \n  filter(cvar == \"tmmn\", temp_f &lt;= set_units(0, degC)) %&gt;% \n  group_by(year) %&gt;% \n  summarise(fd = n())\n\ncolusa_fd_tbl\n\n# A tibble: 21 × 2\n    year    fd\n   &lt;dbl&gt; &lt;int&gt;\n 1  2000     9\n 2  2001    14\n 3  2002    16\n 4  2003    10\n 5  2004     9\n 6  2005     5\n 7  2006    11\n 8  2007    23\n 9  2008     8\n10  2009    24\n# ℹ 11 more rows"
   },
   {
-    "objectID": "03_agroclimate-metrics.html#last-spring-and-first-fall-freeze",
-    "href": "03_agroclimate-metrics.html#last-spring-and-first-fall-freeze",
-    "title": "3  AgroClimate Metrics",
+    "objectID": "03_simple-agroclim-metrics.html#last-spring-and-first-fall-freeze",
+    "href": "03_simple-agroclim-metrics.html#last-spring-and-first-fall-freeze",
+    "title": "3  Simple AgroClimate Metrics",
     "section": "3.6 Last Spring and First Fall Freeze",
     "text": "3.6 Last Spring and First Fall Freeze\nThe Last Spring Freeze (LSF) is defined as the last day of the calendar year prior to 30 June with a Tn ≤ 0 °C. Conversely the First Fall Freeze (FFF) is defined as the first day of the calendar year commencing 1 July with Tn ≤ 0 °C (Parker et al. 2022).\nWe can find the last freeze date by chaining together dplyr expressions that i) keep only ‘freeze days’ from January through June, ii) group the freeze days by year, and iii) taking the max date for each group:\n\ncolusa_lf_tbl &lt;- colusa_tbl %&gt;% \n  filter(cvar == \"tmmn\", month(dt) &lt;= 6, temp_f &lt;= set_units(32, degF)) %&gt;% \n  group_by(year) %&gt;% \n  summarise(lf = max(dt))\n\ncolusa_lf_tbl\n\n# A tibble: 20 × 2\n    year lf        \n   &lt;dbl&gt; &lt;date&gt;    \n 1  2000 2000-01-28\n 2  2001 2001-04-10\n 3  2002 2002-03-18\n 4  2003 2003-02-08\n 5  2004 2004-01-05\n 6  2005 2005-01-30\n 7  2006 2006-02-20\n 8  2007 2007-03-01\n 9  2008 2008-04-20\n10  2009 2009-03-23\n11  2011 2011-02-28\n12  2012 2012-03-23\n13  2013 2013-02-26\n14  2014 2014-02-04\n15  2015 2015-01-03\n16  2016 2016-01-01\n17  2017 2017-02-28\n18  2018 2018-03-05\n19  2019 2019-01-04\n20  2020 2020-01-04\n\n\n\n\nSimilarly, we can find the first fall freeze by keeping only dates from July - December where the temperature dipped below freezing, then taking the minimum date for each year:\n\ncolusa_fff_tbl &lt;- colusa_tbl %&gt;% \n  filter(cvar == \"tmmn\", month(dt) &gt;= 7, temp_f &lt;= set_units(32, degF)) %&gt;%\n  group_by(year) %&gt;% \n  summarise(fff = min(dt))\n\ncolusa_fff_tbl\n\n# A tibble: 20 × 2\n    year fff       \n   &lt;dbl&gt; &lt;date&gt;    \n 1  2000 2000-11-12\n 2  2001 2001-11-27\n 3  2002 2002-12-23\n 4  2003 2003-11-22\n 5  2004 2004-11-29\n 6  2005 2005-12-04\n 7  2006 2006-11-28\n 8  2007 2007-12-01\n 9  2008 2008-12-10\n10  2009 2009-11-13\n11  2010 2010-11-23\n12  2011 2011-12-04\n13  2012 2012-12-15\n14  2013 2013-11-24\n15  2015 2015-11-25\n16  2016 2016-12-06\n17  2017 2017-12-11\n18  2018 2018-11-14\n19  2019 2019-11-24\n20  2020 2020-11-10"
   },
   {
-    "objectID": "03_agroclimate-metrics.html#freeze-free-season",
-    "href": "03_agroclimate-metrics.html#freeze-free-season",
-    "title": "3  AgroClimate Metrics",
+    "objectID": "03_simple-agroclim-metrics.html#freeze-free-season",
+    "href": "03_simple-agroclim-metrics.html#freeze-free-season",
+    "title": "3  Simple AgroClimate Metrics",
     "section": "3.7 Freeze-Free Season",
     "text": "3.7 Freeze-Free Season\nThe Freeze-Free Season (FFS) is calculated as the difference between the LSF and FFF (FFF [minus] LSF) (Parker et al. 2022). Since we already calculated LSF and FFF, computing the Freeze-Free Season can be done with a simple table join:\n\ncolusa_lf_fff_tbl &lt;- colusa_lf_tbl %&gt;% left_join(colusa_fff_tbl, by = \"year\")\ncolusa_lf_fff_tbl %&gt;% head()\n\n# A tibble: 6 × 3\n   year lf         fff       \n  &lt;dbl&gt; &lt;date&gt;     &lt;date&gt;    \n1  2000 2000-01-28 2000-11-12\n2  2001 2001-04-10 2001-11-27\n3  2002 2002-03-18 2002-12-23\n4  2003 2003-02-08 2003-11-22\n5  2004 2004-01-05 2004-11-29\n6  2005 2005-01-30 2005-12-04\n\ncolusa_lf_fff_ffs_tbl &lt;- colusa_lf_fff_tbl %&gt;% mutate(ffs = fff - lf)\ncolusa_lf_fff_ffs_tbl\n\n# A tibble: 20 × 4\n    year lf         fff        ffs     \n   &lt;dbl&gt; &lt;date&gt;     &lt;date&gt;     &lt;drtn&gt;  \n 1  2000 2000-01-28 2000-11-12 289 days\n 2  2001 2001-04-10 2001-11-27 231 days\n 3  2002 2002-03-18 2002-12-23 280 days\n 4  2003 2003-02-08 2003-11-22 287 days\n 5  2004 2004-01-05 2004-11-29 329 days\n 6  2005 2005-01-30 2005-12-04 308 days\n 7  2006 2006-02-20 2006-11-28 281 days\n 8  2007 2007-03-01 2007-12-01 275 days\n 9  2008 2008-04-20 2008-12-10 234 days\n10  2009 2009-03-23 2009-11-13 235 days\n11  2011 2011-02-28 2011-12-04 279 days\n12  2012 2012-03-23 2012-12-15 267 days\n13  2013 2013-02-26 2013-11-24 271 days\n14  2014 2014-02-04 NA          NA days\n15  2015 2015-01-03 2015-11-25 326 days\n16  2016 2016-01-01 2016-12-06 340 days\n17  2017 2017-02-28 2017-12-11 286 days\n18  2018 2018-03-05 2018-11-14 254 days\n19  2019 2019-01-04 2019-11-24 324 days\n20  2020 2020-01-04 2020-11-10 311 days"
   },
   {
-    "objectID": "03_agroclimate-metrics.html#tropical-nights-and-hot-days",
-    "href": "03_agroclimate-metrics.html#tropical-nights-and-hot-days",
-    "title": "3  AgroClimate Metrics",
+    "objectID": "03_simple-agroclim-metrics.html#tropical-nights-and-hot-days",
+    "href": "03_simple-agroclim-metrics.html#tropical-nights-and-hot-days",
+    "title": "3  Simple AgroClimate Metrics",
     "section": "3.8 Tropical Nights and Hot Days",
     "text": "3.8 Tropical Nights and Hot Days\nTropical Nights (TRN) are calculated as the number of nights per year with Tn &gt; 20 °C (68 °F) (Parker et al. 2022). This can be computed with:\n\ncolusa_tn_tbl &lt;- colusa_tbl %&gt;% \n  filter(cvar == \"tmmn\", temp_f &gt; set_units(20, degC)) %&gt;% \n  group_by(year) %&gt;% \n  summarise(tn = n())\n\ncolusa_tn_tbl\n\n# A tibble: 18 × 2\n    year    tn\n   &lt;dbl&gt; &lt;int&gt;\n 1  2000    10\n 2  2001     8\n 3  2002     3\n 4  2003    10\n 5  2004     1\n 6  2005     4\n 7  2006    12\n 8  2007     6\n 9  2008     6\n10  2009     3\n11  2011     2\n12  2012     3\n13  2013    13\n14  2015    10\n15  2017    15\n16  2018     2\n17  2019     3\n18  2020    13\n\n\n\n\nHot Days (HD) are defined as when Tx &gt; 38 °C (Parker et al. 2022). The number of hot days per year can be computed with:\n\ncolusa_hd_tbl &lt;- colusa_tbl %&gt;% \n  filter(cvar == \"tmmx\", temp_f &gt; set_units(38, degC)) %&gt;% \n  group_by(year) %&gt;% \n  summarise(hd = n())\n\ncolusa_hd_tbl\n\n# A tibble: 21 × 2\n    year    hd\n   &lt;dbl&gt; &lt;int&gt;\n 1  2000    15\n 2  2001    17\n 3  2002    15\n 4  2003    14\n 5  2004     7\n 6  2005    20\n 7  2006    20\n 8  2007     8\n 9  2008    21\n10  2009    26\n# ℹ 11 more rows"
   },
   {
-    "objectID": "03_agroclimate-metrics.html#extreme-heat-days",
-    "href": "03_agroclimate-metrics.html#extreme-heat-days",
-    "title": "3  AgroClimate Metrics",
+    "objectID": "03_simple-agroclim-metrics.html#extreme-heat-days",
+    "href": "03_simple-agroclim-metrics.html#extreme-heat-days",
+    "title": "3  Simple AgroClimate Metrics",
     "section": "3.9 Extreme Heat Days",
     "text": "3.9 Extreme Heat Days\nExtreme Heat Days (EHD) are the number of days per year with Tx &gt;98th percentile of summer (June-August) Tx for the 1981–2010 period (Parker et al. 2022). This is similar to HD, but with a threshold value based on the historic record. We can compute the 98th percentile of daily summertime highs with:\n\ncolusa_ehd_thresh &lt;- ca_loc_pt(coords = c(-122.159304, 39.289291)) %&gt;%\n  ca_slug(\"tmmx_day_gridmet\") %&gt;%\n  ca_years(start = 1981, end = 2010) %&gt;% \n  ca_getvals_tbl(quiet = TRUE) %&gt;% \n  filter(month(as.Date(dt)) %in% c(6,7,8)) %&gt;% \n  pull(val) %&gt;% \n  quantile(0.98) %&gt;% \n  set_units(degF)\n\ncolusa_ehd_thresh\n\n106.2176 [degF]\n\n\n\n\nOnce we have that threshold, we can compute Extreme Heat Days with:\n\ncolusa_ehd_tbl &lt;- colusa_tbl %&gt;% \n  filter(cvar == \"tmmx\", temp_f &gt; colusa_ehd_thresh) %&gt;% \n  group_by(year) %&gt;% \n  summarise(hd = n())\n\ncolusa_ehd_tbl\n\n# A tibble: 17 × 2\n    year    hd\n   &lt;dbl&gt; &lt;int&gt;\n 1  2001     1\n 2  2002     1\n 3  2003     4\n 4  2005     2\n 5  2006     7\n 6  2007     1\n 7  2008     4\n 8  2009     3\n 9  2010     1\n10  2012    10\n11  2013    12\n12  2014     2\n13  2015     1\n14  2017     8\n15  2018     1\n16  2019     1\n17  2020     3"
   },
   {
-    "objectID": "03_agroclimate-metrics.html#heatwaves",
-    "href": "03_agroclimate-metrics.html#heatwaves",
-    "title": "3  AgroClimate Metrics",
+    "objectID": "03_simple-agroclim-metrics.html#heatwaves",
+    "href": "03_simple-agroclim-metrics.html#heatwaves",
+    "title": "3  Simple AgroClimate Metrics",
     "section": "3.10 Heatwaves",
     "text": "3.10 Heatwaves\nHeatwave events (HW) are defined as 3+ consecutive days with Tx &gt; 98th percentile of 1981–2010 summer Tx (as in EHD) (Parker et al. 2022). Using the technique described in [Chapter 4 - Counting Consecutive Events][Counting Consecutive Events], we can compute the number of heatwaves per year.\n\nAdd a column for extreme heat day, then create a grouped tibble (by year):\n\n\ncolusa_grpd_tbl &lt;- colusa_tbl %&gt;% \n  filter(cvar == \"tmmx\") %&gt;% \n  mutate(ehd = temp_f &gt; colusa_ehd_thresh) %&gt;%\n  group_by(year) %&gt;% \n  arrange(dt)\n\nglimpse(colusa_grpd_tbl)\n\nRows: 7,671\nColumns: 5\nGroups: year [21]\n$ year   &lt;dbl&gt; 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 200…\n$ dt     &lt;date&gt; 2000-01-01, 2000-01-02, 2000-01-03, 2000-01-04, 2000-01-05, 20…\n$ cvar   &lt;chr&gt; \"tmmx\", \"tmmx\", \"tmmx\", \"tmmx\", \"tmmx\", \"tmmx\", \"tmmx\", \"tmmx\",…\n$ temp_f [degF] 54.95 [degF], 53.87 [degF], 57.65 [degF], 49.37 [degF], 57.47 …\n$ ehd    &lt;lgl&gt; FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, …\n\n\n\n\n\nCreate a function that we can pass to group_modify(), will return the number of heatwaves per group (year):\n\n\nnum_hw &lt;- function(data_tbl, key_tbl, num_days = 3) {\n  rle_lst &lt;- rle(data_tbl$ehd)\n  tibble(num_hw = sum(rle_lst$values & rle_lst$lengths &gt;= num_days))\n}\n\n \n\nApply the heatwave function to the grouped tibble:\n\n\ncolusa_hw_tbl &lt;- colusa_grpd_tbl %&gt;% \n  group_modify(.f = num_hw, num_days = 3)\n\ncolusa_hw_tbl\n\n# A tibble: 21 × 2\n# Groups:   year [21]\n    year num_hw\n   &lt;dbl&gt;  &lt;int&gt;\n 1  2000      0\n 2  2001      0\n 3  2002      0\n 4  2003      0\n 5  2004      0\n 6  2005      0\n 7  2006      1\n 8  2007      0\n 9  2008      1\n10  2009      0\n# ℹ 11 more rows"
   },
   {
-    "objectID": "03_agroclimate-metrics.html#diurnal-temperature-range",
-    "href": "03_agroclimate-metrics.html#diurnal-temperature-range",
-    "title": "3  AgroClimate Metrics",
+    "objectID": "03_simple-agroclim-metrics.html#diurnal-temperature-range",
+    "href": "03_simple-agroclim-metrics.html#diurnal-temperature-range",
+    "title": "3  Simple AgroClimate Metrics",
     "section": "3.11 Diurnal Temperature Range",
     "text": "3.11 Diurnal Temperature Range\nDiurnal Temperature Range (DTR) is the difference between daily Tx and Tn (Parker et al. 2022). Below we calculate DTR over 1 March to 1 November.\n\ncolusa_dtr_tbl &lt;- colusa_tbl %&gt;% \n  filter(month(dt) %in% 3:10) %&gt;% \n  pivot_wider(id_cols = c(year, dt), names_from = cvar, values_from = temp_f) %&gt;% \n  mutate(dtr = tmmx - tmmn)\n\nhead(colusa_dtr_tbl)\n\n# A tibble: 6 × 5\n   year dt           tmmn   tmmx    dtr\n  &lt;dbl&gt; &lt;date&gt;     [degF] [degF] [degF]\n1  2000 2000-03-01   35.7   62.7  27.0 \n2  2000 2000-03-02   45.9   55.5   9.54\n3  2000 2000-03-03   36.6   68.6  32.0 \n4  2000 2000-03-04   41.1   62.1  21.1 \n5  2000 2000-03-05   46.3   55.5   9.18\n6  2000 2000-03-06   43.6   56.4  12.8 \n\n\n\nggplot(colusa_dtr_tbl %&gt;% mutate(year = as.factor(year)), aes(x=year, y = dtr)) + \n  geom_boxplot() + \n  labs(title = \"Diurnal Temperature Range, 2000-2020\",\n       subtitle = \"Colusa, CA\", \n       caption = \"Dataset: gridMet. Temporal period: March - October\",\n       x = \"\", y = \"daily temperature range\")"
   },
   {
-    "objectID": "03_agroclimate-metrics.html#reference-evapotranspiration",
-    "href": "03_agroclimate-metrics.html#reference-evapotranspiration",
-    "title": "3  AgroClimate Metrics",
+    "objectID": "03_simple-agroclim-metrics.html#reference-evapotranspiration",
+    "href": "03_simple-agroclim-metrics.html#reference-evapotranspiration",
+    "title": "3  Simple AgroClimate Metrics",
     "section": "3.12 Reference Evapotranspiration",
     "text": "3.12 Reference Evapotranspiration\nETo is calculated following the FAO Penman–Monteith method (Allen and United Nations 1998). We calculate summer (June-August) average ETo for each year 1981–2020 for our analysis. ETo units are mm (Parker et al. 2022).\n\nMore coming soon…\n\n\n\n\n\nAllen, R. G., and Food and Agriculture Organization of the United Nations, eds. 1998. Crop Evapotranspiration: Guidelines for Computing Crop Water Requirements. FAO Irrigation and Drainage Paper 56. Rome: Food; Agriculture Organization of the United Nations.\n\n\nLuedeling, Eike, and Patrick H. Brown. 2011. “A Global Analysis of the Comparability of Winter Chill Models for Fruit and Nut Trees.” International Journal of Biometeorology 55 (3): 411–21. https://doi.org/10.1007/s00484-010-0352-y.\n\n\nMcMaster, G, and W Wilhelm. 1997. “Growing Degree-Days: One Equation, Two Interpretations.” Agricultural and Forest Meteorology 87 (4): 291–300. https://doi.org/10.1016/S0168-1923(97)00027-0.\n\n\nParker, Lauren E., Ning Zhang, John T. Abatzoglou, Steven M. Ostoja, and Tapan B. Pathak. 2022. “Observed Changes in Agroclimate Metrics Relevant for Specialty Crop Production in California.” Agronomy 12 (1): 205. https://doi.org/10.3390/agronomy12010205."
   },
   {
-    "objectID": "04_degday-chill.html",
-    "href": "04_degday-chill.html",
+    "objectID": "04_degday.html#which-one-to-use",
+    "href": "04_degday.html#which-one-to-use",
     "title": "4  Degree Days",
-    "section": "",
-    "text": "A common application of weather and climate data is predicting phenological events like egg laying for insects, or fruit ripening for tree crops. These predictions are possible due to research which has modeled the relationship between phenology and accumulated heat, or degree days.\nThe researchers who study the relationship between phenology and accumulated heat use several calculations to measure degree days. Many of the most common degree day formulas can be found in the degday R package.\nhttps://ucanr-igis.github.io/degday/\nAll you need after that are the phenology tables.\nExample: https://ucanr-igis.shinyapps.io/noworm/\n\nMore coming soon…"
+    "section": "4.1 Which one to use?",
+    "text": "4.1 Which one to use?\nIf you’re using published phenology tables or a degree day model, use the same method as the author used.\nIf you’re a researcher, note:\n\"Since no advantages were noted in the more complicated double\nand corrected methods, the single triangle and single sine\nmethods are preferred since they are less complicated\nprocedures.\" \n(Roltsch et al 1999)\nsummarized at &lt;https://ipm.ucanr.edu/WEATHER/ddeval.html&gt;\nMore coming soon…"
   },
   {
-    "objectID": "05_agroclimate-rasters.html",
-    "href": "05_agroclimate-rasters.html",
-    "title": "5  Agroclimate Rasters",
+    "objectID": "05_chill.html",
+    "href": "05_chill.html",
+    "title": "5  Chill",
+    "section": "",
+    "text": "More coming soon…"
+  },
+  {
+    "objectID": "06_agroclimate-rasters.html",
+    "href": "06_agroclimate-rasters.html",
+    "title": "6  Agroclimate Rasters",
     "section": "",
     "text": "This chapter will show how to\n\ntake a raster time series of observed (or modeled) weather data\n\n\nSpatial CIMIS\ngridMet\nPRISM\n\n\nConvert it to stars (see caladaptr)\nTeach them how to use sapply to compute the agroclimate metric pixel-by-pixel\n\nkey thing is to reduce the computation to a function that takes a timeseries vector and spits out the agroclimate metric\n\n\nExample: Compute the number of days &gt; 105 degF for one growing season (Apr - Sep) for a small county\nVisualize multi-year agroclimate metric rasters with animation, or a slideshow kind of thing"
   },
   {
-    "objectID": "06_modeled-climate-data.html",
-    "href": "06_modeled-climate-data.html",
-    "title": "6  Modeled Climate Data",
+    "objectID": "07_modeled-climate-data.html",
+    "href": "07_modeled-climate-data.html",
+    "title": "7  Modeled Climate Data",
     "section": "",
     "text": "Similarities and differences between observed weather data and modeled climate data\nObserved weather data represent a single series of weather outcomes.\n‘Climate’ is the ‘envelope’ or variability of weather. You need at least 30 years of observed weather data to see the envelope.\nModeled climate data are based on simulations of weather (hourly). Just like observed weather data, you need 30 years of simulated weather to characterize the envelope.\nThe simulated weather data from a climate model are not meant to be predictive. But the envelope of many ‘runs’ of the simulation do a good job at predicting the climate envelope.\nYou can compute future agroclimate metrics with projected climate data, provided you have access to the simulated weather (e.g., daily temperature). This is basically the same as computing the metric with observed data.\nThe tricky part comes when analzing the results, because\n\nThere is not one projected climate future, but many (different CGMs, different emissions scenarios, different runs)\nTherefore you have a range of projected agroclimate metrics. You have to characterize them as a group / probabilistically"
   },
   {
-    "objectID": "07_climate-analogues.html#climate-analogues",
-    "href": "07_climate-analogues.html#climate-analogues",
-    "title": "7  AgroClimate Analogues",
-    "section": "7.1 Climate Analogues",
-    "text": "7.1 Climate Analogues\nThe following is just placeholder text, which needs to be updated with some actual definitions and citations.\nClimate analogues refer to locations that have the same climate profile. For example California and Spain might be considered climate analogues, because they both have temperate, moderate climates, with a similar distribution of rainfall.\nA modeled climate analogue is a location that currently has the climate that is projected to occur somewhere else. For example, Sacramento’s climate analog 50 year from now might be Bakersfield. That means Bakersfield already has the weather envelope that Sacromentons can expect to see 50 years from now.\nClimate analogues are useful because they make the effects of climate change more understandable. For example if I live in Sacramento and want to know what kind of street trees will be viable in 50 years, or what kind of cooling systems will be needed in houses, I don’t have to run fancy models. All I have to do is take a trip to Bakerfield and ‘see the future’.\nBut what does it mean to have “similar” climates? This is where metrics come in, because the answer depends on your use case. If you’re interested in what kind of trees to plant in your orchard, you’d probably want to define ‘similarity’ based on a metric like winter chill. If you’re building an irrigation system, you might want to look at models of evapotranspiration."
+    "objectID": "08_climate-analogues.html#climate-analogues",
+    "href": "08_climate-analogues.html#climate-analogues",
+    "title": "8  AgroClimate Analogues",
+    "section": "8.1 Climate Analogues",
+    "text": "8.1 Climate Analogues\nThe following is just placeholder text, which needs to be updated with some actual definitions and citations.\nClimate analogues refer to locations that have the same climate profile. For example California and Spain might be considered climate analogues, because they both have temperate, moderate climates, with a similar distribution of rainfall.\nA modeled climate analogue is a location that currently has the climate that is projected to occur somewhere else. For example, Sacramento’s climate analog 50 year from now might be Bakersfield. That means Bakersfield already has the weather envelope that Sacromentons can expect to see 50 years from now.\nClimate analogues are useful because they make the effects of climate change more understandable. For example if I live in Sacramento and want to know what kind of street trees will be viable in 50 years, or what kind of cooling systems will be needed in houses, I don’t have to run fancy models. All I have to do is take a trip to Bakerfield and ‘see the future’.\nBut what does it mean to have “similar” climates? This is where metrics come in, because the answer depends on your use case. If you’re interested in what kind of trees to plant in your orchard, you’d probably want to define ‘similarity’ based on a metric like winter chill. If you’re building an irrigation system, you might want to look at models of evapotranspiration."
   },
   {
-    "objectID": "07_climate-analogues.html#example",
-    "href": "07_climate-analogues.html#example",
-    "title": "7  AgroClimate Analogues",
-    "section": "7.2 Example",
-    "text": "7.2 Example\nsee McBride and Laćan (2018) (they used the temperature of hottest day in July as a metric for urban tree species viability)\nuse CalAdaptR to compare historical modeled July temps with future historic modeled July temps\ndo this for all preset areas of interest the CalAdapt server - Or I could use a place names layer\n\n\n\n\nMcBride, Joe R., and Igor Laćan. 2018. “The Impact of Climate-Change Induced Temperature Increases on the Suitability of Street Tree Species in California (USA) Cities.” Urban Forestry & Urban Greening 34 (August): 348–56. https://doi.org/10.1016/j.ufug.2018.07.020."
+    "objectID": "08_climate-analogues.html#example",
+    "href": "08_climate-analogues.html#example",
+    "title": "8  AgroClimate Analogues",
+    "section": "8.2 Example",
+    "text": "8.2 Example\nsee McBride and Laćan (2018) (they used the temperature of hottest day in July as a metric for urban tree species viability)\nuse CalAdaptR to compare historical modeled July temps with future historic modeled July temps\ndo this for all preset areas of interest the CalAdapt server - Or I could use a place names layer\n\n\n\n\nMcBride, Joe R., and Igor Laćan. 2018. “The Impact of Climate-Change Induced Temperature Increases on the Suitability of Street Tree Species in California (USA) Cities.” Urban Forestry & Urban Greening 34 (August): 348–56. https://doi.org/10.1016/j.ufug.2018.07.020."
   },
   {
     "objectID": "99_other.html#frost",
     "href": "99_other.html#frost",
-    "title": "8  Other Examples",
-    "section": "8.1 Frost",
-    "text": "8.1 Frost\n(Parker, Pathak, and Ostoja 2021)\nThey computed hours # of frost exposure, where temperature thresholds were based on i) crop and ii) temperature range (colder = more exposure. Compared changes in this relative metric past, present, and future.\n\nThe frequency of frost temperatures under observed contemporary and projected future climate conditions were assessed in units of hours of exposure, quantified using daily maximum and minimum temperatures temporally disaggregated to hourly data using a modified sine curve approach (Linvill, 1990)…In assessing frost exposure that is not crop-specific, we highlight the frost exposure (in hours) for three threshold temperatures (T) – -2 °C, 0 °C, and 2 °C – that encapsulate the most frost-tender phase of development for many high-value fruit and nut trees (e.g., Gholipour, 2006; WSU, 2020)."
+    "title": "9  Other Examples",
+    "section": "9.1 Frost",
+    "text": "9.1 Frost\n(Parker, Pathak, and Ostoja 2021)\nThey computed hours # of frost exposure, where temperature thresholds were based on i) crop and ii) temperature range (colder = more exposure. Compared changes in this relative metric past, present, and future.\n\nThe frequency of frost temperatures under observed contemporary and projected future climate conditions were assessed in units of hours of exposure, quantified using daily maximum and minimum temperatures temporally disaggregated to hourly data using a modified sine curve approach (Linvill, 1990)…In assessing frost exposure that is not crop-specific, we highlight the frost exposure (in hours) for three threshold temperatures (T) – -2 °C, 0 °C, and 2 °C – that encapsulate the most frost-tender phase of development for many high-value fruit and nut trees (e.g., Gholipour, 2006; WSU, 2020)."
   },
   {
     "objectID": "99_other.html#pest-development",
     "href": "99_other.html#pest-development",
-    "title": "8  Other Examples",
-    "section": "8.2 Pest Development",
-    "text": "8.2 Pest Development\n(Pathak, Maskey, and Rijal 2021)\nThey used degree day models to compare past and future patterns of NOW development (timing, generation length, number of generations).\n\nThe objective of this study was to quantify changes in the biofix, lifecycle length, and number of generations for these pests for the entire Central Valley of California. Using a well-established growing-degree days (GDD) model calibrated and validated using observations from orchards of California, and climate change projections from the Coupled Model Intercomparison Project phases 5 and 6 (CMIP5 and CMIP6) General Circulation Models, we found that biofix dates of these pests are expected to shift earlier by up to 28 days, and length of generations is expected to be shortened by up to 19 days, and up to 1.4 extra generations of these pests can be added by the end of the century depending on the scenario.\n\n\n\n(Jha et al. 2024)\nSimilar to above, but more pests.\n\nThe objective of this study was to quantify changes in the biofix, lifecycle length, and number of generations for these pests for the entire Central Valley of California. Using a well-established growing-degree days (GDD) model calibrated and validated using observations from orchards of California, and climate change projections from the Coupled Model Intercomparison Project phases 5 and 6 (CMIP5 and CMIP6) General Circulation Models, we found that biofix dates of these pests are expected to shift earlier by up to 28 days, and length of generations is expected to be shortened by up to 19 days, and up to 1.4 extra generations of these pests can be added by the end of the century depending on the scenario.\n\n\n\n\n\nJha, Prakash Kumar, Ning Zhang, Jhalendra P. Rijal, Lauren E. Parker, Steven Ostoja, and Tapan B. Pathak. 2024. “Climate Change Impacts on Insect Pests for High Value Specialty Crops in California.” Science of The Total Environment 906 (January): 167605. https://doi.org/10.1016/j.scitotenv.2023.167605.\n\n\nParker, Lauren E., Tapan Pathak, and Steven Ostoja. 2021. “Climate Change Reduces Frost Exposure for High-Value California Orchard Crops.” Science of The Total Environment 762 (March): 143971. https://doi.org/10.1016/j.scitotenv.2020.143971.\n\n\nPathak, Tapan, Mahesh Maskey, and Jhalendra P. Rijal. 2021. “Impact of Climate Change on Navel Orangeworm, a Major Pest of Tree Nuts in California.” Science of The Total Environment 755 (February): 142657. https://doi.org/10.1016/j.scitotenv.2020.142657."
+    "title": "9  Other Examples",
+    "section": "9.2 Pest Development",
+    "text": "9.2 Pest Development\n(Pathak, Maskey, and Rijal 2021)\nThey used degree day models to compare past and future patterns of NOW development (timing, generation length, number of generations).\n\nThe objective of this study was to quantify changes in the biofix, lifecycle length, and number of generations for these pests for the entire Central Valley of California. Using a well-established growing-degree days (GDD) model calibrated and validated using observations from orchards of California, and climate change projections from the Coupled Model Intercomparison Project phases 5 and 6 (CMIP5 and CMIP6) General Circulation Models, we found that biofix dates of these pests are expected to shift earlier by up to 28 days, and length of generations is expected to be shortened by up to 19 days, and up to 1.4 extra generations of these pests can be added by the end of the century depending on the scenario.\n\n\n\n(Jha et al. 2024)\nSimilar to above, but more pests.\n\nThe objective of this study was to quantify changes in the biofix, lifecycle length, and number of generations for these pests for the entire Central Valley of California. Using a well-established growing-degree days (GDD) model calibrated and validated using observations from orchards of California, and climate change projections from the Coupled Model Intercomparison Project phases 5 and 6 (CMIP5 and CMIP6) General Circulation Models, we found that biofix dates of these pests are expected to shift earlier by up to 28 days, and length of generations is expected to be shortened by up to 19 days, and up to 1.4 extra generations of these pests can be added by the end of the century depending on the scenario.\n\n\n\n\n\nJha, Prakash Kumar, Ning Zhang, Jhalendra P. Rijal, Lauren E. Parker, Steven Ostoja, and Tapan B. Pathak. 2024. “Climate Change Impacts on Insect Pests for High Value Specialty Crops in California.” Science of The Total Environment 906 (January): 167605. https://doi.org/10.1016/j.scitotenv.2023.167605.\n\n\nParker, Lauren E., Tapan Pathak, and Steven Ostoja. 2021. “Climate Change Reduces Frost Exposure for High-Value California Orchard Crops.” Science of The Total Environment 762 (March): 143971. https://doi.org/10.1016/j.scitotenv.2020.143971.\n\n\nPathak, Tapan, Mahesh Maskey, and Jhalendra P. Rijal. 2021. “Impact of Climate Change on Navel Orangeworm, a Major Pest of Tree Nuts in California.” Science of The Total Environment 755 (February): 142657. https://doi.org/10.1016/j.scitotenv.2020.142657."
   },
   {
     "objectID": "references.html",

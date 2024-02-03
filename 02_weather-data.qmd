@@ -1,6 +1,15 @@
 # Weather Data
 
+THIS CHAPTER IS AN INTRO TO WEATHER STATION DATA, WITH CODE EXAMPLES FOR IMPORTING STATION DATA.
+
+INTERPOLTED WEATHER RASTER DATA WILL BE COVERED IN CH 6. AGROCLIMATE RASTERS
+
+MODELED WEATHER / CLIMATE DATA (RASTER) WILL BE COVERED IN CH 7. MODELED CLIMATE DATA.
+
+
 ## Intro
+
+- see also <https://ucanr-igis.github.io/agroclimR/slides/agclimr_slides01.html#(12)>
 
 To compute metrics you need daily or hourly weather data. Either observed (i.e., from weather stations) or modeled (i.e., from climate models) data will work.
 
@@ -14,13 +23,12 @@ Things to remember:
  
  - date-time columns should be saved as POSIXct objects
 
- - see also <https://ucanr-igis.github.io/agroclimR/slides/agclimr_slides01.html#(12)>
- 
  - think about units
 
 ## CIMIS API
 
 How to get data from CIMIS
+
 
 ## Synoptic API
 

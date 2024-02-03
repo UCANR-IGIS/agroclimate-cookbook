@@ -30,7 +30,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./03_agroclimate-metrics.html" rel="next">
+<link href="./03_simple-agroclim-metrics.html" rel="next">
 <link href="./01_data-wrangling.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -119,38 +119,44 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./03_agroclimate-metrics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">AgroClimate Metrics</span></span></a>
+  <a href="./03_simple-agroclim-metrics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Simple AgroClimate Metrics</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./04_degday-chill.html" class="sidebar-item-text sidebar-link">
+  <a href="./04_degday.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Degree Days</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./05_agroclimate-rasters.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Agroclimate Rasters</span></span></a>
+  <a href="./05_chill.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Chill</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./06_modeled-climate-data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Modeled Climate Data</span></span></a>
+  <a href="./06_agroclimate-rasters.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Agroclimate Rasters</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./07_climate-analogues.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">AgroClimate Analogues</span></span></a>
+  <a href="./07_modeled-climate-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Modeled Climate Data</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08_climate-analogues.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">AgroClimate Analogues</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./99_other.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Other Examples</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Other Examples</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -196,8 +202,14 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
+<p>THIS CHAPTER IS AN INTRO TO WEATHER STATION DATA, WITH CODE EXAMPLES FOR IMPORTING STATION DATA.</p>
+<p>INTERPOLTED WEATHER RASTER DATA WILL BE COVERED IN CH 6. AGROCLIMATE RASTERS</p>
+<p>MODELED WEATHER / CLIMATE DATA (RASTER) WILL BE COVERED IN CH 7. MODELED CLIMATE DATA.</p>
 <section id="intro" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="intro"><span class="header-section-number">2.1</span> Intro</h2>
+<ul>
+<li>see also <a href="https://ucanr-igis.github.io/agroclimR/slides/agclimr_slides01.html#(12)" class="uri">https://ucanr-igis.github.io/agroclimR/slides/agclimr_slides01.html#(12)</a></li>
+</ul>
 <p>To compute metrics you need daily or hourly weather data. Either observed (i.e., from weather stations) or modeled (i.e., from climate models) data will work.</p>
 <p>Mot agroclimate metrics require daily data (daily min temp, daily max temp, daily precip)</p>
 <p>Some require hourly data (e.g., chill portions). If needed, hourly data can be interpolated from daily data (see <a href="https://inresgb-lehre.iaas.uni-bonn.de/chillR_book/making-hourly-temperatures.html" class="uri">https://inresgb-lehre.iaas.uni-bonn.de/chillR_book/making-hourly-temperatures.html</a>)</p>
@@ -205,7 +217,6 @@ ul.task-list li input[type="checkbox"] {
 <ul>
 <li><p>date columns should be converted to R Date class</p></li>
 <li><p>date-time columns should be saved as POSIXct objects</p></li>
-<li><p>see also <a href="https://ucanr-igis.github.io/agroclimR/slides/agclimr_slides01.html#(12)" class="uri">https://ucanr-igis.github.io/agroclimR/slides/agclimr_slides01.html#(12)</a></p></li>
 <li><p>think about units</p></li>
 </ul>
 </section>
@@ -465,8 +476,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./03_agroclimate-metrics.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">AgroClimate Metrics</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./03_simple-agroclim-metrics.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Simple AgroClimate Metrics</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

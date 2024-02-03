@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>AgroClimate Community Cookbook - 7&nbsp; AgroClimate Analogues</title>
+<title>AgroClimate Community Cookbook - 4&nbsp; Degree Days</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,26 +20,7 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -49,8 +30,8 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./99_other.html" rel="next">
-<link href="./06_modeled-climate-data.html" rel="prev">
+<link href="./05_chill.html" rel="next">
+<link href="./03_simple-agroclim-metrics.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -93,7 +74,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./07_climate-analogues.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">AgroClimate Analogues</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./04_degday.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Degree Days</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -138,38 +119,44 @@ div.csl-indent {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./03_agroclimate-metrics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">AgroClimate Metrics</span></span></a>
+  <a href="./03_simple-agroclim-metrics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Simple AgroClimate Metrics</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./04_degday-chill.html" class="sidebar-item-text sidebar-link">
+  <a href="./04_degday.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Degree Days</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./05_agroclimate-rasters.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Agroclimate Rasters</span></span></a>
+  <a href="./05_chill.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Chill</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./06_modeled-climate-data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Modeled Climate Data</span></span></a>
+  <a href="./06_agroclimate-rasters.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Agroclimate Rasters</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./07_climate-analogues.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">AgroClimate Analogues</span></span></a>
+  <a href="./07_modeled-climate-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Modeled Climate Data</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08_climate-analogues.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">AgroClimate Analogues</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./99_other.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Other Examples</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Other Examples</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -188,8 +175,7 @@ div.csl-indent {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#climate-analogues" id="toc-climate-analogues" class="nav-link active" data-scroll-target="#climate-analogues"><span class="header-section-number">7.1</span> Climate Analogues</a></li>
-  <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example"><span class="header-section-number">7.2</span> Example</a></li>
+  <li><a href="#which-one-to-use" id="toc-which-one-to-use" class="nav-link active" data-scroll-target="#which-one-to-use"><span class="header-section-number">4.1</span> Which one to use?</a></li>
   </ul>
 </nav>
     </div>
@@ -198,7 +184,7 @@ div.csl-indent {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">AgroClimate Analogues</span></h1>
+<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Degree Days</span></h1>
 </div>
 
 
@@ -213,26 +199,24 @@ div.csl-indent {
 
 </header>
 
-<section id="climate-analogues" class="level2" data-number="7.1">
-<h2 data-number="7.1" class="anchored" data-anchor-id="climate-analogues"><span class="header-section-number">7.1</span> Climate Analogues</h2>
-<p><em>The following is just placeholder text, which needs to be updated with some actual definitions and citations.</em></p>
-<p>Climate analogues refer to locations that have the same climate profile. For example California and Spain might be considered climate analogues, because they both have temperate, moderate climates, with a similar distribution of rainfall.</p>
-<p>A modeled climate analogue is a location that currently has the climate that is projected to occur somewhere else. For example, Sacramento’s climate analog 50 year from now might be Bakersfield. That means Bakersfield already has the weather envelope that Sacromentons can expect to see 50 years from now.</p>
-<p>Climate analogues are useful because they make the effects of climate change more understandable. For example if I live in Sacramento and want to know what kind of street trees will be viable in 50 years, or what kind of cooling systems will be needed in houses, I don’t have to run fancy models. All I have to do is take a trip to Bakerfield and ‘see the future’.</p>
-<p>But what does it mean to have “similar” climates? This is where metrics come in, because the answer depends on your use case. If you’re interested in what kind of trees to plant in your orchard, you’d probably want to define ‘similarity’ based on a metric like winter chill. If you’re building an irrigation system, you might want to look at models of evapotranspiration.</p>
-</section>
-<section id="example" class="level2" data-number="7.2">
-<h2 data-number="7.2" class="anchored" data-anchor-id="example"><span class="header-section-number">7.2</span> Example</h2>
-<p>see <span class="citation" data-cites="mcbride_impact_2018">McBride and Laćan (<a href="references.html#ref-mcbride_impact_2018" role="doc-biblioref">2018</a>)</span> (they used the temperature of hottest day in July as a metric for urban tree species viability)</p>
-<p>use CalAdaptR to compare historical modeled July temps with future historic modeled July temps</p>
-<p>do this for all preset areas of interest the CalAdapt server - Or I could use a place names layer</p>
+<p>A common application of weather and climate data is predicting phenological events like egg laying for insects, or fruit ripening for tree crops. These predictions are possible due to research which has modeled the relationship between phenology and accumulated heat, or degree days.</p>
+<p>The researchers who study the relationship between phenology and accumulated heat use several calculations to measure degree days. Many of the most common degree day formulas can be found in the <code>degday</code> R package.</p>
+<p><a href="https://ucanr-igis.github.io/degday/" class="uri">https://ucanr-igis.github.io/degday/</a></p>
+<p>All you need after that are the phenology tables.</p>
+<p>Example: https://ucanr-igis.shinyapps.io/noworm/</p>
+<section id="which-one-to-use" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="which-one-to-use"><span class="header-section-number">4.1</span> Which one to use?</h2>
+<p>If you’re using published phenology tables or a degree day model, use the same method as the author used.</p>
+<p>If you’re a researcher, note:</p>
+<pre><code>"Since no advantages were noted in the more complicated double
+and corrected methods, the single triangle and single sine
+methods are preferred since they are less complicated
+procedures." 
+(Roltsch et al 1999)
+summarized at &lt;https://ipm.ucanr.edu/WEATHER/ddeval.html&gt;</code></pre>
+<p><em>More coming soon…</em></p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
-<div id="ref-mcbride_impact_2018" class="csl-entry" role="listitem">
-McBride, Joe R., and Igor Laćan. 2018. <span>“The Impact of Climate-Change Induced Temperature Increases on the Suitability of Street Tree Species in <span>California</span> (<span>USA</span>) Cities.”</span> <em>Urban Forestry &amp; Urban Greening</em> 34 (August): 348–56. <a href="https://doi.org/10.1016/j.ufug.2018.07.020">https://doi.org/10.1016/j.ufug.2018.07.020</a>.
-</div>
-</div>
 </section>
 
 </main> <!-- /main -->
@@ -471,13 +455,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./06_modeled-climate-data.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Modeled Climate Data</span></span>
+      <a href="./03_simple-agroclim-metrics.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Simple AgroClimate Metrics</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./99_other.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Other Examples</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./05_chill.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Chill</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>AgroClimate Community Cookbook - 6&nbsp; Modeled Climate Data</title>
+<title>AgroClimate Community Cookbook - 8&nbsp; AgroClimate Analogues</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,7 +20,26 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -30,8 +49,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./07_climate-analogues.html" rel="next">
-<link href="./05_agroclimate-rasters.html" rel="prev">
+<link href="./99_other.html" rel="next">
+<link href="./07_modeled-climate-data.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -74,7 +93,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./06_modeled-climate-data.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Modeled Climate Data</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./08_climate-analogues.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">AgroClimate Analogues</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -119,38 +138,44 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./03_agroclimate-metrics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">AgroClimate Metrics</span></span></a>
+  <a href="./03_simple-agroclim-metrics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Simple AgroClimate Metrics</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./04_degday-chill.html" class="sidebar-item-text sidebar-link">
+  <a href="./04_degday.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Degree Days</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./05_agroclimate-rasters.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Agroclimate Rasters</span></span></a>
+  <a href="./05_chill.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Chill</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./06_modeled-climate-data.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Modeled Climate Data</span></span></a>
+  <a href="./06_agroclimate-rasters.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Agroclimate Rasters</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./07_climate-analogues.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">AgroClimate Analogues</span></span></a>
+  <a href="./07_modeled-climate-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Modeled Climate Data</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08_climate-analogues.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">AgroClimate Analogues</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./99_other.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Other Examples</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Other Examples</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -165,14 +190,21 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#climate-analogues" id="toc-climate-analogues" class="nav-link active" data-scroll-target="#climate-analogues"><span class="header-section-number">8.1</span> Climate Analogues</a></li>
+  <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example"><span class="header-section-number">8.2</span> Example</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Modeled Climate Data</span></h1>
+<h1 class="title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">AgroClimate Analogues</span></h1>
 </div>
 
 
@@ -187,19 +219,27 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>Similarities and differences between observed weather data and modeled climate data</p>
-<p>Observed weather data represent a single series of weather outcomes.</p>
-<p>‘Climate’ is the ‘envelope’ or variability of weather. You need at least 30 years of observed weather data to see the envelope.</p>
-<p>Modeled climate data are based on simulations of weather (hourly). Just like observed weather data, you need 30 years of simulated weather to characterize the envelope.</p>
-<p>The simulated weather data from a climate model are not meant to be predictive. But the envelope of many ‘runs’ of the simulation do a good job at predicting the climate envelope.</p>
-<p>You can compute future agroclimate metrics with projected climate data, provided you have access to the simulated weather (e.g., daily temperature). This is basically the same as computing the metric with observed data.</p>
-<p>The tricky part comes when analzing the results, because</p>
-<ol type="1">
-<li><p>There is not one projected climate future, but many (different CGMs, different emissions scenarios, different runs)</p></li>
-<li><p>Therefore you have a range of projected agroclimate metrics. You have to characterize them as a group / probabilistically</p></li>
-</ol>
+<section id="climate-analogues" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="climate-analogues"><span class="header-section-number">8.1</span> Climate Analogues</h2>
+<p><em>The following is just placeholder text, which needs to be updated with some actual definitions and citations.</em></p>
+<p>Climate analogues refer to locations that have the same climate profile. For example California and Spain might be considered climate analogues, because they both have temperate, moderate climates, with a similar distribution of rainfall.</p>
+<p>A modeled climate analogue is a location that currently has the climate that is projected to occur somewhere else. For example, Sacramento’s climate analog 50 year from now might be Bakersfield. That means Bakersfield already has the weather envelope that Sacromentons can expect to see 50 years from now.</p>
+<p>Climate analogues are useful because they make the effects of climate change more understandable. For example if I live in Sacramento and want to know what kind of street trees will be viable in 50 years, or what kind of cooling systems will be needed in houses, I don’t have to run fancy models. All I have to do is take a trip to Bakerfield and ‘see the future’.</p>
+<p>But what does it mean to have “similar” climates? This is where metrics come in, because the answer depends on your use case. If you’re interested in what kind of trees to plant in your orchard, you’d probably want to define ‘similarity’ based on a metric like winter chill. If you’re building an irrigation system, you might want to look at models of evapotranspiration.</p>
+</section>
+<section id="example" class="level2" data-number="8.2">
+<h2 data-number="8.2" class="anchored" data-anchor-id="example"><span class="header-section-number">8.2</span> Example</h2>
+<p>see <span class="citation" data-cites="mcbride_impact_2018">McBride and Laćan (<a href="references.html#ref-mcbride_impact_2018" role="doc-biblioref">2018</a>)</span> (they used the temperature of hottest day in July as a metric for urban tree species viability)</p>
+<p>use CalAdaptR to compare historical modeled July temps with future historic modeled July temps</p>
+<p>do this for all preset areas of interest the CalAdapt server - Or I could use a place names layer</p>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-mcbride_impact_2018" class="csl-entry" role="listitem">
+McBride, Joe R., and Igor Laćan. 2018. <span>“The Impact of Climate-Change Induced Temperature Increases on the Suitability of Street Tree Species in <span>California</span> (<span>USA</span>) Cities.”</span> <em>Urban Forestry &amp; Urban Greening</em> 34 (August): 348–56. <a href="https://doi.org/10.1016/j.ufug.2018.07.020">https://doi.org/10.1016/j.ufug.2018.07.020</a>.
+</div>
+</div>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -437,13 +477,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./05_agroclimate-rasters.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Agroclimate Rasters</span></span>
+      <a href="./07_modeled-climate-data.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Modeled Climate Data</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./07_climate-analogues.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">AgroClimate Analogues</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./99_other.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Other Examples</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

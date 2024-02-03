@@ -18,8 +18,6 @@ Add multiple authors in the YAML
 
 How to get it to *not* to re-render certain chapters (look at <https://quarto.org/docs/projects/code-execution.html>)
 
-
-
 ## Zotero Tips
 
 To copy-paste a citation from Zotero into references.bib, 
@@ -28,5 +26,11 @@ To copy-paste a citation from Zotero into references.bib,
 2. Select the reference  
 3. Edit > Copy as BibTeX  
 4. reference.bib > Paste  
+
+# To Do
+
+find-replace `%>%` with `|>`
+
+
 
 

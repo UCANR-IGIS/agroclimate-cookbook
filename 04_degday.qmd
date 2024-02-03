@@ -10,8 +10,19 @@ All you need after that are the phenology tables.
 
 Example: https://ucanr-igis.shinyapps.io/noworm/
 
-<p style="font-style:italic; font-size:150%;">
+## Which one to use?
 
-More coming soon...
+If you're using published phenology tables or a degree day model, use the same method as the author used.
 
-</p>
+If you're a researcher, note:
+
+    "Since no advantages were noted in the more complicated double
+    and corrected methods, the single triangle and single sine
+    methods are preferred since they are less complicated
+    procedures." 
+    (Roltsch et al 1999)
+    summarized at <https://ipm.ucanr.edu/WEATHER/ddeval.html>
+
+
+*More coming soon...*
+
