@@ -1,15 +1,15 @@
-# Other Examples
+# Other Content, Future Work
 
-## Frost
+## Frost Exposure
 
-[@parker_climate_2021]
-
-They computed hours # of frost exposure, where temperature thresholds were based on i) crop and ii) temperature range (colder = more exposure. Compared changes in this relative metric past, present, and future.
+[@parker_climate_2021] computed frost exposure based on the number of hours within temperature ranges defined by each crop (e.g., 28-30, 30-32, 32-34). They used this metric to compare changes over time.
 
 > The frequency of frost temperatures under observed contemporary and projected future climate conditions were assessed in units of hours of exposure, quantified using daily maximum and minimum temperatures temporally disaggregated to hourly data using a modified sine curve approach (Linvill, 1990)...In assessing frost exposure that is not crop-specific, we highlight the frost exposure (in hours) for three threshold temperatures (T) – -2 °C, 0 °C, and 2 °C – that encapsulate the most frost-tender phase of development for many high-value fruit and nut trees (e.g., Gholipour, 2006; WSU, 2020).
     
 
-## Pest Development
+## Pest Development - Chained Analyses
+
+These authors looked at generation times, number of generations per season, biofix events, and phenology stages. These analyses are based on chaining degree day models. 
 
 [@pathak_impact_2021]
 
@@ -24,4 +24,24 @@ They used degree day models to compare past and future patterns of NOW developme
 Similar to above, but more pests.
 
 > The objective of this study was to quantify changes in the biofix, lifecycle length, and number of generations for these pests for the entire Central Valley of California. Using a well-established growing-degree days (GDD) model calibrated and validated using observations from orchards of California, and climate change projections from the Coupled Model Intercomparison Project phases 5 and 6 (CMIP5 and CMIP6) General Circulation Models, we found that biofix dates of these pests are expected to shift earlier by up to 28 days, and length of generations is expected to be shortened by up to 19 days, and up to 1.4 extra generations of these pests can be added by the end of the century depending on the scenario.
+
+## Making Info Actionable
+
+TURNING VALUES INTO PROBABILITY STATEMENTS
+
+Probability statements are more actionable for growers, planners, policy makers. 
+
+Probability statement are intrinsic to making sense of our multiple climate futures
+
+What is the likelihood of...
+
+i) average temp greater than X between two dates
+
+ii) *not* getting a frost (that might kill vineyard pests) within two Julian dates, hence you might need more pest management
+
+iii) extreme heat events (defined by maximum daily temp exceeding X degrees Y days in a row)
+
+See also the [chill portions calculator](https://ucanr-igis.shinyapps.io/chill/) - computes the probability of getting sufficient chill at least 9 years out of 10 (which is what you need for economic viability of an orchard operation)
+
+
 
