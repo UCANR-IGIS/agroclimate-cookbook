@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>AgroClimate Community Cookbook - 3&nbsp; Simple AgroClimate Metrics</title>
+<title>AgroClimate Cookbook - 3&nbsp; Simple AgroClimate Metrics</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -114,6 +114,7 @@ div.csl-indent {
     "search-label": "Search"
   }
 }</script>
+
 <script src="site_libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <link href="site_libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
@@ -125,6 +126,8 @@ div.csl-indent {
 <script src="site_libs/leaflet-binding-2.2.0/leaflet.js"></script>
 <script src="site_libs/leaflet-providers-2.0.0/leaflet-providers_2.0.0.js"></script>
 <script src="site_libs/leaflet-providers-plugin-2.2.0/leaflet-providers-plugin.js"></script>
+<link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet">
+<script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
 
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -155,7 +158,7 @@ div.csl-indent {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">AgroClimate Community Cookbook</a> 
+      <a href="./">AgroClimate Cookbook</a> 
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -174,7 +177,7 @@ div.csl-indent {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./01_data-wrangling.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Data Wrangling Techniques</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Data Wrangling Methods</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -222,7 +225,7 @@ div.csl-indent {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./99_other.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Other Examples</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Other Content, Future Work</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -237,7 +240,7 @@ div.csl-indent {
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="4">
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
@@ -261,7 +264,7 @@ div.csl-indent {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Simple AgroClimate Metrics</span></h1>
+<h1 class="title"><span id="sec-simple-metrics" class="quarto-section-identifier"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Simple AgroClimate Metrics</span></span></h1>
 </div>
 
 
@@ -327,8 +330,8 @@ Issues for downloading rasters
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(colusa_cap)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
-<div class="leaflet html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-5c55df4fa1c225766c28" style="width:100%;height:464px;"></div>
-<script type="application/json" data-for="htmlwidget-5c55df4fa1c225766c28">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"createMapPane","args":["tmap401",401]},{"method":"addProviderTiles","args":["Esri.NatGeoWorldMap",null,"Esri.NatGeoWorldMap",{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"pane":"tilePane"}]},{"method":"addCircleMarkers","args":[39.28929099999999,-122.159304,8.944271909999159,"X1","Query Location(s)",{"interactive":true,"className":"","pane":"tmap401","stroke":true,"color":"#666666","weight":1,"opacity":0.5,"fill":true,"fillColor":"#FF0000","fillOpacity":0.8},null,null,"<style> div.leaflet-popup-content {width:auto !important;overflow-y:auto; overflow-x:hidden;}<\/style><div style=\"max-height:25em;padding-right:0px;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>1<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\"><nobr>id<\/nobr><\/td><td align=\"right\"><nobr>1<\/nobr><\/td><\/tr><\/table><\/div>",null,"1",{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addLayersControl","args":[[],"Query Location(s)",{"collapsed":true,"autoZIndex":true,"position":"topleft"}]}],"limits":{"lat":[39.28929099999999,39.28929099999999],"lng":[-122.159304,-122.159304]},"fitBounds":[38.78929099999999,-122.659304,39.78929099999999,-121.659304,[]]},"evals":[],"jsHooks":[]}</script>
+<div class="leaflet html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-f25cbd74d58fe932ac04" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-f25cbd74d58fe932ac04">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"createMapPane","args":["tmap401",401]},{"method":"addProviderTiles","args":["Esri.NatGeoWorldMap",null,"Esri.NatGeoWorldMap",{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"pane":"tilePane"}]},{"method":"addCircleMarkers","args":[39.28929099999999,-122.159304,8.944271909999159,"X1","Query Location(s)",{"interactive":true,"className":"","pane":"tmap401","stroke":true,"color":"#666666","weight":1,"opacity":0.5,"fill":true,"fillColor":"#FF0000","fillOpacity":0.8},null,null,"<style> div.leaflet-popup-content {width:auto !important;overflow-y:auto; overflow-x:hidden;}<\/style><div style=\"max-height:25em;padding-right:0px;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>1<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\"><nobr>id<\/nobr><\/td><td align=\"right\"><nobr>1<\/nobr><\/td><\/tr><\/table><\/div>",null,"1",{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addLayersControl","args":[[],"Query Location(s)",{"collapsed":true,"autoZIndex":true,"position":"topleft"}]}],"limits":{"lat":[39.28929099999999,39.28929099999999],"lng":[-122.159304,-122.159304]},"fitBounds":[38.78929099999999,-122.659304,39.78929099999999,-121.659304,[]]},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p><br>
@@ -377,28 +380,25 @@ $ temp_f [degF] 32.45 [degF], 30.11 [degF], 32.09 [degF], 39.11 [degF], 32.27 �
 <span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gdd =</span> <span class="fu">if_else</span>(gdd <span class="sc">&lt;</span> <span class="dv">0</span>, <span class="dv">0</span>, gdd))                   <span class="do">## zero-out negative values</span></span>
 <span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>colusa_gdd_tbl <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 5
-   year dt            tmmn  tmmx   gdd
-  &lt;dbl&gt; &lt;date&gt;        [°C]  [°C] &lt;dbl&gt;
-1  2000 2000-01-01  0.250  12.7      0
-2  2000 2000-01-02 -1.05   12.2      0
-3  2000 2000-01-03  0.0500 14.2      0
-4  2000 2000-01-04  3.95    9.65     0
-5  2000 2000-01-05  0.150  14.2      0
-6  2000 2000-01-06 -1.35   12.6      0</code></pre>
+<div class="cell-output-display">
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["year"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["dt"],"name":[2],"type":["date"],"align":["right"]},{"label":["tmmn"],"name":[3],"type":["units"],"align":["right"]},{"label":["tmmx"],"name":[4],"type":["units"],"align":["right"]},{"label":["gdd"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"2000","2":"2000-01-01","3":"0.25 [°C]","4":"12.75 [°C]","5":"0"},{"1":"2000","2":"2000-01-02","3":"-1.05 [°C]","4":"12.15 [°C]","5":"0"},{"1":"2000","2":"2000-01-03","3":"0.05 [°C]","4":"14.25 [°C]","5":"0"},{"1":"2000","2":"2000-01-04","3":"3.95 [°C]","4":"9.65 [°C]","5":"0"},{"1":"2000","2":"2000-01-05","3":"0.15 [°C]","4":"14.15 [°C]","5":"0"},{"1":"2000","2":"2000-01-06","3":"-1.35 [°C]","4":"12.65 [°C]","5":"0"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 </div>
 </div>
 <p><br>
 </p>
-<p>Applying GDD to predict crop development requires 1) a start date (also known as a biofix date), and 2) a crop phenology table. These are not shown here, but are not hard to apply (for an example see the <a href="https://ucanr-igis.shinyapps.io/pist_gdd/" target="_blank" rel="noopener">Pistachio Nut Development Decision Support</a> tool).</p>
+<p>Applying GDD to predict crop development requires 1) a start date (also known as a biofix date), and 2) a crop phenology table. These are not shown here, but are not hard to apply (for an example see the <a href="https://ucanr-igis.shinyapps.io/pist_gdd/">Pistachio Nut Development Decision Support</a> tool).</p>
 <p><br>
 </p>
 </section>
 <section id="chill-accumulation" class="level2" data-number="3.4">
 <h2 data-number="3.4" class="anchored" data-anchor-id="chill-accumulation"><span class="header-section-number">3.4</span> Chill Accumulation</h2>
 <p>Chill accumulation is similar to growing degree days, but for cold. In other words, there are a few phenological events that appear to be strongly correlated with the accumulated amount of chill. An example of this is flowering for many tree crops. Apparently, the trees keep an internal ledger of how cold its been during the winter, and for how long. They use this internal record use to decide when it’s time to come out of their winter dormancy and start flowering. This mechanism probably evolved to help them avoid frost damage.</p>
-<p>Researchers have looked at a number of ways to measure accumulated chill, and the one that does the best job at predicting phenology events is called Chill Portions (CP) <span class="citation" data-cites="luedeling_global_2011">(<a href="references.html#ref-luedeling_global_2011" role="doc-biblioref">Luedeling and Brown 2011</a>)</span>. The calculations are a bit complicated, but fortunately there’s a R-package that will compute chill portions. For more info, see <a href="https://ucanr-igis.github.io/caladaptr-res/notebooks/chill.nb.html" target="_blank" rel="noopener">here</a>.</p>
+<p>Researchers have looked at a number of ways to measure accumulated chill, and the one that does the best job at predicting phenology events is called Chill Portions (CP) <span class="citation" data-cites="luedeling_global_2011">(<a href="references.html#ref-luedeling_global_2011" role="doc-biblioref">Luedeling and Brown 2011</a>)</span>. The calculations are a bit complicated, but fortunately there’s a R-package that will compute chill portions. For more info, see <a href="https://ucanr-igis.github.io/caladaptr-res/notebooks/chill.nb.html">here</a>.</p>
 <p><br>
 </p>
 </section>
@@ -406,27 +406,19 @@ $ temp_f [degF] 32.45 [degF], 30.11 [degF], 32.09 [degF], 39.11 [degF], 32.27 �
 <h2 data-number="3.5" class="anchored" data-anchor-id="frost-days"><span class="header-section-number">3.5</span> Frost Days</h2>
 <p>Frost Days (FD) are the number of days per year with minimum temperatures (Tn) ≤ 0 °C <span class="citation" data-cites="parker_observed_2022">(<a href="references.html#ref-parker_observed_2022" role="doc-biblioref">Parker et al. 2022</a>)</span>. They can be computed with:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>colusa_fd_tbl <span class="ot">&lt;-</span> colusa_tbl <span class="sc">%&gt;%</span> </span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(cvar <span class="sc">==</span> <span class="st">"tmmn"</span>, temp_f <span class="sc">&lt;=</span> <span class="fu">set_units</span>(<span class="dv">0</span>, degC)) <span class="sc">%&gt;%</span> </span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span> </span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">fd =</span> <span class="fu">n</span>())</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>colusa_fd_tbl</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 21 × 2
-    year    fd
-   &lt;dbl&gt; &lt;int&gt;
- 1  2000     9
- 2  2001    14
- 3  2002    16
- 4  2003    10
- 5  2004     9
- 6  2005     5
- 7  2006    11
- 8  2007    23
- 9  2008     8
-10  2009    24
-# ℹ 11 more rows</code></pre>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>colusa_fd_tbl <span class="ot">&lt;-</span> colusa_tbl <span class="sc">%&gt;%</span> </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(cvar <span class="sc">==</span> <span class="st">"tmmn"</span>, temp_f <span class="sc">&lt;=</span> <span class="fu">set_units</span>(<span class="dv">0</span>, degC)) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">fd =</span> <span class="fu">n</span>())</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>colusa_fd_tbl</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["year"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["fd"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"2000","2":"9"},{"1":"2001","2":"14"},{"1":"2002","2":"16"},{"1":"2003","2":"10"},{"1":"2004","2":"9"},{"1":"2005","2":"5"},{"1":"2006","2":"11"},{"1":"2007","2":"23"},{"1":"2008","2":"8"},{"1":"2009","2":"24"},{"1":"2010","2":"8"},{"1":"2011","2":"31"},{"1":"2012","2":"22"},{"1":"2013","2":"38"},{"1":"2014","2":"2"},{"1":"2015","2":"12"},{"1":"2016","2":"7"},{"1":"2017","2":"9"},{"1":"2018","2":"14"},{"1":"2019","2":"7"},{"1":"2020","2":"10"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 </div>
 </div>
 <p><br>
@@ -437,72 +429,38 @@ $ temp_f [degF] 32.45 [degF], 30.11 [degF], 32.09 [degF], 39.11 [degF], 32.27 �
 <p>The Last Spring Freeze (LSF) is defined as the last day of the calendar year prior to 30 June with a Tn ≤ 0 °C. Conversely the First Fall Freeze (FFF) is defined as the first day of the calendar year commencing 1 July with Tn ≤ 0 °C <span class="citation" data-cites="parker_observed_2022">(<a href="references.html#ref-parker_observed_2022" role="doc-biblioref">Parker et al. 2022</a>)</span>.</p>
 <p>We can find the last freeze date by chaining together dplyr expressions that i) keep only ‘freeze days’ from January through June, ii) group the freeze days by year, and iii) taking the max date for each group:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>colusa_lf_tbl <span class="ot">&lt;-</span> colusa_tbl <span class="sc">%&gt;%</span> </span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(cvar <span class="sc">==</span> <span class="st">"tmmn"</span>, <span class="fu">month</span>(dt) <span class="sc">&lt;=</span> <span class="dv">6</span>, temp_f <span class="sc">&lt;=</span> <span class="fu">set_units</span>(<span class="dv">32</span>, degF)) <span class="sc">%&gt;%</span> </span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span> </span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">lf =</span> <span class="fu">max</span>(dt))</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>colusa_lf_tbl</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 20 × 2
-    year lf        
-   &lt;dbl&gt; &lt;date&gt;    
- 1  2000 2000-01-28
- 2  2001 2001-04-10
- 3  2002 2002-03-18
- 4  2003 2003-02-08
- 5  2004 2004-01-05
- 6  2005 2005-01-30
- 7  2006 2006-02-20
- 8  2007 2007-03-01
- 9  2008 2008-04-20
-10  2009 2009-03-23
-11  2011 2011-02-28
-12  2012 2012-03-23
-13  2013 2013-02-26
-14  2014 2014-02-04
-15  2015 2015-01-03
-16  2016 2016-01-01
-17  2017 2017-02-28
-18  2018 2018-03-05
-19  2019 2019-01-04
-20  2020 2020-01-04</code></pre>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>colusa_lf_tbl <span class="ot">&lt;-</span> colusa_tbl <span class="sc">%&gt;%</span> </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(cvar <span class="sc">==</span> <span class="st">"tmmn"</span>, <span class="fu">month</span>(dt) <span class="sc">&lt;=</span> <span class="dv">6</span>, temp_f <span class="sc">&lt;=</span> <span class="fu">set_units</span>(<span class="dv">32</span>, degF)) <span class="sc">%&gt;%</span> </span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span> </span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">lf =</span> <span class="fu">max</span>(dt))</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>colusa_lf_tbl</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["year"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["lf"],"name":[2],"type":["date"],"align":["right"]}],"data":[{"1":"2000","2":"2000-01-28"},{"1":"2001","2":"2001-04-10"},{"1":"2002","2":"2002-03-18"},{"1":"2003","2":"2003-02-08"},{"1":"2004","2":"2004-01-05"},{"1":"2005","2":"2005-01-30"},{"1":"2006","2":"2006-02-20"},{"1":"2007","2":"2007-03-01"},{"1":"2008","2":"2008-04-20"},{"1":"2009","2":"2009-03-23"},{"1":"2011","2":"2011-02-28"},{"1":"2012","2":"2012-03-23"},{"1":"2013","2":"2013-02-26"},{"1":"2014","2":"2014-02-04"},{"1":"2015","2":"2015-01-03"},{"1":"2016","2":"2016-01-01"},{"1":"2017","2":"2017-02-28"},{"1":"2018","2":"2018-03-05"},{"1":"2019","2":"2019-01-04"},{"1":"2020","2":"2020-01-04"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 </div>
 </div>
 <p><br>
 </p>
 <p>Similarly, we can find the first fall freeze by keeping only dates from July - December where the temperature dipped below freezing, then taking the minimum date for each year:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>colusa_fff_tbl <span class="ot">&lt;-</span> colusa_tbl <span class="sc">%&gt;%</span> </span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(cvar <span class="sc">==</span> <span class="st">"tmmn"</span>, <span class="fu">month</span>(dt) <span class="sc">&gt;=</span> <span class="dv">7</span>, temp_f <span class="sc">&lt;=</span> <span class="fu">set_units</span>(<span class="dv">32</span>, degF)) <span class="sc">%&gt;%</span></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span> </span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">fff =</span> <span class="fu">min</span>(dt))</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>colusa_fff_tbl</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 20 × 2
-    year fff       
-   &lt;dbl&gt; &lt;date&gt;    
- 1  2000 2000-11-12
- 2  2001 2001-11-27
- 3  2002 2002-12-23
- 4  2003 2003-11-22
- 5  2004 2004-11-29
- 6  2005 2005-12-04
- 7  2006 2006-11-28
- 8  2007 2007-12-01
- 9  2008 2008-12-10
-10  2009 2009-11-13
-11  2010 2010-11-23
-12  2011 2011-12-04
-13  2012 2012-12-15
-14  2013 2013-11-24
-15  2015 2015-11-25
-16  2016 2016-12-06
-17  2017 2017-12-11
-18  2018 2018-11-14
-19  2019 2019-11-24
-20  2020 2020-11-10</code></pre>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>colusa_fff_tbl <span class="ot">&lt;-</span> colusa_tbl <span class="sc">%&gt;%</span> </span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(cvar <span class="sc">==</span> <span class="st">"tmmn"</span>, <span class="fu">month</span>(dt) <span class="sc">&gt;=</span> <span class="dv">7</span>, temp_f <span class="sc">&lt;=</span> <span class="fu">set_units</span>(<span class="dv">32</span>, degF)) <span class="sc">%&gt;%</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span> </span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">fff =</span> <span class="fu">min</span>(dt))</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>colusa_fff_tbl</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["year"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["fff"],"name":[2],"type":["date"],"align":["right"]}],"data":[{"1":"2000","2":"2000-11-12"},{"1":"2001","2":"2001-11-27"},{"1":"2002","2":"2002-12-23"},{"1":"2003","2":"2003-11-22"},{"1":"2004","2":"2004-11-29"},{"1":"2005","2":"2005-12-04"},{"1":"2006","2":"2006-11-28"},{"1":"2007","2":"2007-12-01"},{"1":"2008","2":"2008-12-10"},{"1":"2009","2":"2009-11-13"},{"1":"2010","2":"2010-11-23"},{"1":"2011","2":"2011-12-04"},{"1":"2012","2":"2012-12-15"},{"1":"2013","2":"2013-11-24"},{"1":"2015","2":"2015-11-25"},{"1":"2016","2":"2016-12-06"},{"1":"2017","2":"2017-12-11"},{"1":"2018","2":"2018-11-14"},{"1":"2019","2":"2019-11-24"},{"1":"2020","2":"2020-11-10"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 </div>
 </div>
 <p><br>
@@ -512,45 +470,25 @@ $ temp_f [degF] 32.45 [degF], 30.11 [degF], 32.09 [degF], 39.11 [degF], 32.27 �
 <h2 data-number="3.7" class="anchored" data-anchor-id="freeze-free-season"><span class="header-section-number">3.7</span> Freeze-Free Season</h2>
 <p>The Freeze-Free Season (FFS) is calculated as the difference between the LSF and FFF (FFF [minus] LSF) <span class="citation" data-cites="parker_observed_2022">(<a href="references.html#ref-parker_observed_2022" role="doc-biblioref">Parker et al. 2022</a>)</span>. Since we already calculated LSF and FFF, computing the Freeze-Free Season can be done with a simple table join:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>colusa_lf_fff_tbl <span class="ot">&lt;-</span> colusa_lf_tbl <span class="sc">%&gt;%</span> <span class="fu">left_join</span>(colusa_fff_tbl, <span class="at">by =</span> <span class="st">"year"</span>)</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>colusa_lf_fff_tbl <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 3
-   year lf         fff       
-  &lt;dbl&gt; &lt;date&gt;     &lt;date&gt;    
-1  2000 2000-01-28 2000-11-12
-2  2001 2001-04-10 2001-11-27
-3  2002 2002-03-18 2002-12-23
-4  2003 2003-02-08 2003-11-22
-5  2004 2004-01-05 2004-11-29
-6  2005 2005-01-30 2005-12-04</code></pre>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>colusa_lf_fff_tbl <span class="ot">&lt;-</span> colusa_lf_tbl <span class="sc">%&gt;%</span> <span class="fu">left_join</span>(colusa_fff_tbl, <span class="at">by =</span> <span class="st">"year"</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>colusa_lf_fff_tbl <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["year"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["lf"],"name":[2],"type":["date"],"align":["right"]},{"label":["fff"],"name":[3],"type":["date"],"align":["right"]}],"data":[{"1":"2000","2":"2000-01-28","3":"2000-11-12"},{"1":"2001","2":"2001-04-10","3":"2001-11-27"},{"1":"2002","2":"2002-03-18","3":"2002-12-23"},{"1":"2003","2":"2003-02-08","3":"2003-11-22"},{"1":"2004","2":"2004-01-05","3":"2004-11-29"},{"1":"2005","2":"2005-01-30","3":"2005-12-04"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
 </div>
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>colusa_lf_fff_ffs_tbl <span class="ot">&lt;-</span> colusa_lf_fff_tbl <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">ffs =</span> fff <span class="sc">-</span> lf)</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>colusa_lf_fff_ffs_tbl</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 20 × 4
-    year lf         fff        ffs     
-   &lt;dbl&gt; &lt;date&gt;     &lt;date&gt;     &lt;drtn&gt;  
- 1  2000 2000-01-28 2000-11-12 289 days
- 2  2001 2001-04-10 2001-11-27 231 days
- 3  2002 2002-03-18 2002-12-23 280 days
- 4  2003 2003-02-08 2003-11-22 287 days
- 5  2004 2004-01-05 2004-11-29 329 days
- 6  2005 2005-01-30 2005-12-04 308 days
- 7  2006 2006-02-20 2006-11-28 281 days
- 8  2007 2007-03-01 2007-12-01 275 days
- 9  2008 2008-04-20 2008-12-10 234 days
-10  2009 2009-03-23 2009-11-13 235 days
-11  2011 2011-02-28 2011-12-04 279 days
-12  2012 2012-03-23 2012-12-15 267 days
-13  2013 2013-02-26 2013-11-24 271 days
-14  2014 2014-02-04 NA          NA days
-15  2015 2015-01-03 2015-11-25 326 days
-16  2016 2016-01-01 2016-12-06 340 days
-17  2017 2017-02-28 2017-12-11 286 days
-18  2018 2018-03-05 2018-11-14 254 days
-19  2019 2019-01-04 2019-11-24 324 days
-20  2020 2020-01-04 2020-11-10 311 days</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>colusa_lf_fff_ffs_tbl <span class="ot">&lt;-</span> colusa_lf_fff_tbl <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">ffs =</span> fff <span class="sc">-</span> lf)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>colusa_lf_fff_ffs_tbl</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["year"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["lf"],"name":[2],"type":["date"],"align":["right"]},{"label":["fff"],"name":[3],"type":["date"],"align":["right"]},{"label":["ffs"],"name":[4],"type":["drtn"],"align":["right"]}],"data":[{"1":"2000","2":"2000-01-28","3":"2000-11-12","4":"289 days"},{"1":"2001","2":"2001-04-10","3":"2001-11-27","4":"231 days"},{"1":"2002","2":"2002-03-18","3":"2002-12-23","4":"280 days"},{"1":"2003","2":"2003-02-08","3":"2003-11-22","4":"287 days"},{"1":"2004","2":"2004-01-05","3":"2004-11-29","4":"329 days"},{"1":"2005","2":"2005-01-30","3":"2005-12-04","4":"308 days"},{"1":"2006","2":"2006-02-20","3":"2006-11-28","4":"281 days"},{"1":"2007","2":"2007-03-01","3":"2007-12-01","4":"275 days"},{"1":"2008","2":"2008-04-20","3":"2008-12-10","4":"234 days"},{"1":"2009","2":"2009-03-23","3":"2009-11-13","4":"235 days"},{"1":"2011","2":"2011-02-28","3":"2011-12-04","4":"279 days"},{"1":"2012","2":"2012-03-23","3":"2012-12-15","4":"267 days"},{"1":"2013","2":"2013-02-26","3":"2013-11-24","4":"271 days"},{"1":"2014","2":"2014-02-04","3":"<NA>","4":"NA days"},{"1":"2015","2":"2015-01-03","3":"2015-11-25","4":"326 days"},{"1":"2016","2":"2016-01-01","3":"2016-12-06","4":"340 days"},{"1":"2017","2":"2017-02-28","3":"2017-12-11","4":"286 days"},{"1":"2018","2":"2018-03-05","3":"2018-11-14","4":"254 days"},{"1":"2019","2":"2019-01-04","3":"2019-11-24","4":"324 days"},{"1":"2020","2":"2020-01-04","3":"2020-11-10","4":"311 days"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 </div>
 </div>
 <p><br>
@@ -560,61 +498,38 @@ $ temp_f [degF] 32.45 [degF], 30.11 [degF], 32.09 [degF], 39.11 [degF], 32.27 �
 <h2 data-number="3.8" class="anchored" data-anchor-id="tropical-nights-and-hot-days"><span class="header-section-number">3.8</span> Tropical Nights and Hot Days</h2>
 <p>Tropical Nights (TRN) are calculated as the number of nights per year with Tn &gt; 20 °C (68 °F) <span class="citation" data-cites="parker_observed_2022">(<a href="references.html#ref-parker_observed_2022" role="doc-biblioref">Parker et al. 2022</a>)</span>. This can be computed with:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>colusa_tn_tbl <span class="ot">&lt;-</span> colusa_tbl <span class="sc">%&gt;%</span> </span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(cvar <span class="sc">==</span> <span class="st">"tmmn"</span>, temp_f <span class="sc">&gt;</span> <span class="fu">set_units</span>(<span class="dv">20</span>, degC)) <span class="sc">%&gt;%</span> </span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span> </span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">tn =</span> <span class="fu">n</span>())</span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>colusa_tn_tbl</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 18 × 2
-    year    tn
-   &lt;dbl&gt; &lt;int&gt;
- 1  2000    10
- 2  2001     8
- 3  2002     3
- 4  2003    10
- 5  2004     1
- 6  2005     4
- 7  2006    12
- 8  2007     6
- 9  2008     6
-10  2009     3
-11  2011     2
-12  2012     3
-13  2013    13
-14  2015    10
-15  2017    15
-16  2018     2
-17  2019     3
-18  2020    13</code></pre>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>colusa_tn_tbl <span class="ot">&lt;-</span> colusa_tbl <span class="sc">%&gt;%</span> </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(cvar <span class="sc">==</span> <span class="st">"tmmn"</span>, temp_f <span class="sc">&gt;</span> <span class="fu">set_units</span>(<span class="dv">20</span>, degC)) <span class="sc">%&gt;%</span> </span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span> </span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">tn =</span> <span class="fu">n</span>())</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>colusa_tn_tbl</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["year"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["tn"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"2000","2":"10"},{"1":"2001","2":"8"},{"1":"2002","2":"3"},{"1":"2003","2":"10"},{"1":"2004","2":"1"},{"1":"2005","2":"4"},{"1":"2006","2":"12"},{"1":"2007","2":"6"},{"1":"2008","2":"6"},{"1":"2009","2":"3"},{"1":"2011","2":"2"},{"1":"2012","2":"3"},{"1":"2013","2":"13"},{"1":"2015","2":"10"},{"1":"2017","2":"15"},{"1":"2018","2":"2"},{"1":"2019","2":"3"},{"1":"2020","2":"13"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 </div>
 </div>
 <p><br>
 </p>
 <p>Hot Days (HD) are defined as when Tx &gt; 38 °C <span class="citation" data-cites="parker_observed_2022">(<a href="references.html#ref-parker_observed_2022" role="doc-biblioref">Parker et al. 2022</a>)</span>. The number of hot days per year can be computed with:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>colusa_hd_tbl <span class="ot">&lt;-</span> colusa_tbl <span class="sc">%&gt;%</span> </span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(cvar <span class="sc">==</span> <span class="st">"tmmx"</span>, temp_f <span class="sc">&gt;</span> <span class="fu">set_units</span>(<span class="dv">38</span>, degC)) <span class="sc">%&gt;%</span> </span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span> </span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">hd =</span> <span class="fu">n</span>())</span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>colusa_hd_tbl</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 21 × 2
-    year    hd
-   &lt;dbl&gt; &lt;int&gt;
- 1  2000    15
- 2  2001    17
- 3  2002    15
- 4  2003    14
- 5  2004     7
- 6  2005    20
- 7  2006    20
- 8  2007     8
- 9  2008    21
-10  2009    26
-# ℹ 11 more rows</code></pre>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>colusa_hd_tbl <span class="ot">&lt;-</span> colusa_tbl <span class="sc">%&gt;%</span> </span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(cvar <span class="sc">==</span> <span class="st">"tmmx"</span>, temp_f <span class="sc">&gt;</span> <span class="fu">set_units</span>(<span class="dv">38</span>, degC)) <span class="sc">%&gt;%</span> </span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span> </span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">hd =</span> <span class="fu">n</span>())</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>colusa_hd_tbl</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["year"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["hd"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"2000","2":"15"},{"1":"2001","2":"17"},{"1":"2002","2":"15"},{"1":"2003","2":"14"},{"1":"2004","2":"7"},{"1":"2005","2":"20"},{"1":"2006","2":"20"},{"1":"2007","2":"8"},{"1":"2008","2":"21"},{"1":"2009","2":"26"},{"1":"2010","2":"13"},{"1":"2011","2":"3"},{"1":"2012","2":"33"},{"1":"2013","2":"26"},{"1":"2014","2":"19"},{"1":"2015","2":"18"},{"1":"2016","2":"21"},{"1":"2017","2":"27"},{"1":"2018","2":"15"},{"1":"2019","2":"9"},{"1":"2020","2":"12"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 </div>
 </div>
 <p><br>
@@ -624,16 +539,16 @@ $ temp_f [degF] 32.45 [degF], 30.11 [degF], 32.09 [degF], 39.11 [degF], 32.27 �
 <h2 data-number="3.9" class="anchored" data-anchor-id="extreme-heat-days"><span class="header-section-number">3.9</span> Extreme Heat Days</h2>
 <p>Extreme Heat Days (EHD) are the number of days per year with Tx &gt;98th percentile of summer (June-August) Tx for the 1981–2010 period <span class="citation" data-cites="parker_observed_2022">(<a href="references.html#ref-parker_observed_2022" role="doc-biblioref">Parker et al. 2022</a>)</span>. This is similar to HD, but with a threshold value based on the historic record. We can compute the 98th percentile of daily summertime highs with:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>colusa_ehd_thresh <span class="ot">&lt;-</span> <span class="fu">ca_loc_pt</span>(<span class="at">coords =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">122.159304</span>, <span class="fl">39.289291</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ca_slug</span>(<span class="st">"tmmx_day_gridmet"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ca_years</span>(<span class="at">start =</span> <span class="dv">1981</span>, <span class="at">end =</span> <span class="dv">2010</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ca_getvals_tbl</span>(<span class="at">quiet =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">month</span>(<span class="fu">as.Date</span>(dt)) <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(val) <span class="sc">%&gt;%</span> </span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">quantile</span>(<span class="fl">0.98</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_units</span>(degF)</span>
-<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>colusa_ehd_thresh</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>colusa_ehd_thresh <span class="ot">&lt;-</span> <span class="fu">ca_loc_pt</span>(<span class="at">coords =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">122.159304</span>, <span class="fl">39.289291</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ca_slug</span>(<span class="st">"tmmx_day_gridmet"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ca_years</span>(<span class="at">start =</span> <span class="dv">1981</span>, <span class="at">end =</span> <span class="dv">2010</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ca_getvals_tbl</span>(<span class="at">quiet =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">month</span>(<span class="fu">as.Date</span>(dt)) <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(val) <span class="sc">%&gt;%</span> </span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">quantile</span>(<span class="fl">0.98</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_units</span>(degF)</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>colusa_ehd_thresh</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>106.2176 [degF]</code></pre>
 </div>
@@ -642,33 +557,19 @@ $ temp_f [degF] 32.45 [degF], 30.11 [degF], 32.09 [degF], 39.11 [degF], 32.27 �
 </p>
 <p>Once we have that threshold, we can compute Extreme Heat Days with:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>colusa_ehd_tbl <span class="ot">&lt;-</span> colusa_tbl <span class="sc">%&gt;%</span> </span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(cvar <span class="sc">==</span> <span class="st">"tmmx"</span>, temp_f <span class="sc">&gt;</span> colusa_ehd_thresh) <span class="sc">%&gt;%</span> </span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span> </span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">hd =</span> <span class="fu">n</span>())</span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>colusa_ehd_tbl</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 17 × 2
-    year    hd
-   &lt;dbl&gt; &lt;int&gt;
- 1  2001     1
- 2  2002     1
- 3  2003     4
- 4  2005     2
- 5  2006     7
- 6  2007     1
- 7  2008     4
- 8  2009     3
- 9  2010     1
-10  2012    10
-11  2013    12
-12  2014     2
-13  2015     1
-14  2017     8
-15  2018     1
-16  2019     1
-17  2020     3</code></pre>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>colusa_ehd_tbl <span class="ot">&lt;-</span> colusa_tbl <span class="sc">%&gt;%</span> </span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(cvar <span class="sc">==</span> <span class="st">"tmmx"</span>, temp_f <span class="sc">&gt;</span> colusa_ehd_thresh) <span class="sc">%&gt;%</span> </span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span> </span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">hd =</span> <span class="fu">n</span>())</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>colusa_ehd_tbl</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["year"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["hd"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"2001","2":"1"},{"1":"2002","2":"1"},{"1":"2003","2":"4"},{"1":"2005","2":"2"},{"1":"2006","2":"7"},{"1":"2007","2":"1"},{"1":"2008","2":"4"},{"1":"2009","2":"3"},{"1":"2010","2":"1"},{"1":"2012","2":"10"},{"1":"2013","2":"12"},{"1":"2014","2":"2"},{"1":"2015","2":"1"},{"1":"2017","2":"8"},{"1":"2018","2":"1"},{"1":"2019","2":"1"},{"1":"2020","2":"3"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 </div>
 </div>
 <p><br>
@@ -681,13 +582,13 @@ $ temp_f [degF] 32.45 [degF], 30.11 [degF], 32.09 [degF], 39.11 [degF], 32.27 �
 <li>Add a column for extreme heat day, then create a grouped tibble (by year):</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>colusa_grpd_tbl <span class="ot">&lt;-</span> colusa_tbl <span class="sc">%&gt;%</span> </span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(cvar <span class="sc">==</span> <span class="st">"tmmx"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ehd =</span> temp_f <span class="sc">&gt;</span> colusa_ehd_thresh) <span class="sc">%&gt;%</span></span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span> </span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(dt)</span>
-<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(colusa_grpd_tbl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>colusa_grpd_tbl <span class="ot">&lt;-</span> colusa_tbl <span class="sc">%&gt;%</span> </span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(cvar <span class="sc">==</span> <span class="st">"tmmx"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ehd =</span> temp_f <span class="sc">&gt;</span> colusa_ehd_thresh) <span class="sc">%&gt;%</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span> </span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(dt)</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(colusa_grpd_tbl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 7,671
 Columns: 5
@@ -705,36 +606,27 @@ $ ehd    &lt;lgl&gt; FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FAL
 <li>Create a function that we can pass to <code>group_modify()</code>, will return the number of heatwaves per group (year):</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>num_hw <span class="ot">&lt;-</span> <span class="cf">function</span>(data_tbl, key_tbl, <span class="at">num_days =</span> <span class="dv">3</span>) {</span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  rle_lst <span class="ot">&lt;-</span> <span class="fu">rle</span>(data_tbl<span class="sc">$</span>ehd)</span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">num_hw =</span> <span class="fu">sum</span>(rle_lst<span class="sc">$</span>values <span class="sc">&amp;</span> rle_lst<span class="sc">$</span>lengths <span class="sc">&gt;=</span> num_days))</span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>num_hw <span class="ot">&lt;-</span> <span class="cf">function</span>(data_tbl, key_tbl, <span class="at">num_days =</span> <span class="dv">3</span>) {</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  rle_lst <span class="ot">&lt;-</span> <span class="fu">rle</span>(data_tbl<span class="sc">$</span>ehd)</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">num_hw =</span> <span class="fu">sum</span>(rle_lst<span class="sc">$</span>values <span class="sc">&amp;</span> rle_lst<span class="sc">$</span>lengths <span class="sc">&gt;=</span> num_days))</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>&nbsp;</p>
 <ol start="3" type="1">
 <li>Apply the heatwave function to the grouped tibble:</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>colusa_hw_tbl <span class="ot">&lt;-</span> colusa_grpd_tbl <span class="sc">%&gt;%</span> </span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_modify</span>(<span class="at">.f =</span> num_hw, <span class="at">num_days =</span> <span class="dv">3</span>)</span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>colusa_hw_tbl</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 21 × 2
-# Groups:   year [21]
-    year num_hw
-   &lt;dbl&gt;  &lt;int&gt;
- 1  2000      0
- 2  2001      0
- 3  2002      0
- 4  2003      0
- 5  2004      0
- 6  2005      0
- 7  2006      1
- 8  2007      0
- 9  2008      1
-10  2009      0
-# ℹ 11 more rows</code></pre>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>colusa_hw_tbl <span class="ot">&lt;-</span> colusa_grpd_tbl <span class="sc">%&gt;%</span> </span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_modify</span>(<span class="at">.f =</span> num_hw, <span class="at">num_days =</span> <span class="dv">3</span>)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>colusa_hw_tbl</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["year"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["num_hw"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"2000","2":"0"},{"1":"2001","2":"0"},{"1":"2002","2":"0"},{"1":"2003","2":"0"},{"1":"2004","2":"0"},{"1":"2005","2":"0"},{"1":"2006","2":"1"},{"1":"2007","2":"0"},{"1":"2008","2":"1"},{"1":"2009","2":"0"},{"1":"2010","2":"0"},{"1":"2011","2":"0"},{"1":"2012","2":"1"},{"1":"2013","2":"2"},{"1":"2014","2":"0"},{"1":"2015","2":"0"},{"1":"2016","2":"0"},{"1":"2017","2":"0"},{"1":"2018","2":"0"},{"1":"2019","2":"0"},{"1":"2020","2":"0"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 </div>
 </div>
 <p><br>
@@ -744,31 +636,28 @@ $ ehd    &lt;lgl&gt; FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FAL
 <h2 data-number="3.11" class="anchored" data-anchor-id="diurnal-temperature-range"><span class="header-section-number">3.11</span> Diurnal Temperature Range</h2>
 <p>Diurnal Temperature Range (DTR) is the difference between daily Tx and Tn <span class="citation" data-cites="parker_observed_2022">(<a href="references.html#ref-parker_observed_2022" role="doc-biblioref">Parker et al. 2022</a>)</span>. Below we calculate DTR over 1 March to 1 November.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>colusa_dtr_tbl <span class="ot">&lt;-</span> colusa_tbl <span class="sc">%&gt;%</span> </span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">month</span>(dt) <span class="sc">%in%</span> <span class="dv">3</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">id_cols =</span> <span class="fu">c</span>(year, dt), <span class="at">names_from =</span> cvar, <span class="at">values_from =</span> temp_f) <span class="sc">%&gt;%</span> </span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">dtr =</span> tmmx <span class="sc">-</span> tmmn)</span>
-<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(colusa_dtr_tbl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 5
-   year dt           tmmn   tmmx    dtr
-  &lt;dbl&gt; &lt;date&gt;     [degF] [degF] [degF]
-1  2000 2000-03-01   35.7   62.7  27.0 
-2  2000 2000-03-02   45.9   55.5   9.54
-3  2000 2000-03-03   36.6   68.6  32.0 
-4  2000 2000-03-04   41.1   62.1  21.1 
-5  2000 2000-03-05   46.3   55.5   9.18
-6  2000 2000-03-06   43.6   56.4  12.8 </code></pre>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>colusa_dtr_tbl <span class="ot">&lt;-</span> colusa_tbl <span class="sc">%&gt;%</span> </span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">month</span>(dt) <span class="sc">%in%</span> <span class="dv">3</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">id_cols =</span> <span class="fu">c</span>(year, dt), <span class="at">names_from =</span> cvar, <span class="at">values_from =</span> temp_f) <span class="sc">%&gt;%</span> </span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">dtr =</span> tmmx <span class="sc">-</span> tmmn)</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(colusa_dtr_tbl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["year"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["dt"],"name":[2],"type":["date"],"align":["right"]},{"label":["tmmn"],"name":[3],"type":["units"],"align":["right"]},{"label":["tmmx"],"name":[4],"type":["units"],"align":["right"]},{"label":["dtr"],"name":[5],"type":["units"],"align":["right"]}],"data":[{"1":"2000","2":"2000-03-01","3":"35.69 [degF]","4":"62.69 [degF]","5":"27.00 [degF]"},{"1":"2000","2":"2000-03-02","3":"45.95 [degF]","4":"55.49 [degF]","5":"9.54 [degF]"},{"1":"2000","2":"2000-03-03","3":"36.59 [degF]","4":"68.63 [degF]","5":"32.04 [degF]"},{"1":"2000","2":"2000-03-04","3":"41.09 [degF]","4":"62.15 [degF]","5":"21.06 [degF]"},{"1":"2000","2":"2000-03-05","3":"46.31 [degF]","4":"55.49 [degF]","5":"9.18 [degF]"},{"1":"2000","2":"2000-03-06","3":"43.61 [degF]","4":"56.39 [degF]","5":"12.78 [degF]"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(colusa_dtr_tbl <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">as.factor</span>(year)), <span class="fu">aes</span>(<span class="at">x=</span>year, <span class="at">y =</span> dtr)) <span class="sc">+</span> </span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span> </span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Diurnal Temperature Range, 2000-2020"</span>,</span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Colusa, CA"</span>, </span>
-<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">"Dataset: gridMet. Temporal period: March - October"</span>,</span>
-<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> <span class="st">"daily temperature range"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(colusa_dtr_tbl <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">as.factor</span>(year)), <span class="fu">aes</span>(<span class="at">x=</span>year, <span class="at">y =</span> dtr)) <span class="sc">+</span> </span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span> </span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Diurnal Temperature Range, 2000-2020"</span>,</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Colusa, CA"</span>, </span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">"Dataset: gridMet. Temporal period: March - October"</span>,</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> <span class="st">"daily temperature range"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="03_simple-agroclim-metrics_files/figure-html/ggplot_colusa_dtr_tbl-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -1030,6 +919,22 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       });
     }
   }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+          // default icon
+          link.classList.add("external");
+      }
+    }
 });
 </script>
 <nav class="page-navigation">

@@ -1,4 +1,4 @@
-# Agroclimate Rasters
+# Agroclimate Rasters {#sec-rasters}
 
 This chapter will show how to
 
@@ -8,16 +8,16 @@ This chapter will show how to
 - gridMet
 - PRISM
 
-2) Convert it to stars (see caladaptr)
+2) Convert it to stars (see caladaptr vignette)
 
-3) Teach them how to use sapply to compute the agroclimate metric pixel-by-pixel
+3) Use `stars::sapply()` to compute agroclimate metrics pixel-by-pixel
 
-   - key thing is to reduce the computation to a function that takes a timeseries vector
+   - key thing is to put the computation in a function that takes a timeseries vector
  and spits out the agroclimate metric
  
 Example: Compute the number of days > 105 degF for one growing season (Apr - Sep) for a small county
 
-Visualize multi-year agroclimate metric rasters with animation, or a slideshow kind of thing
+4) Visualize multi-year agroclimate metric rasters with animation, or a slideshow kind of thing
  
  
  

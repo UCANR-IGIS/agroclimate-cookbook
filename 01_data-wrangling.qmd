@@ -1,4 +1,4 @@
-# Data Wrangling Techniques
+# Data Wrangling Methods {#sec-data-wrangling}
 
 In this Chapter, we'll explore some commonly used data wrangling techniques when working with weather data and computing climate metrics.
 
@@ -229,7 +229,7 @@ bkrfld_dtprts_tbl |>
 
 \
 
-Sometimes the time period of interest spans two calendar years. A [water year](https://en.wikipedia.org/wiki/Water_year){target="_blank" rel="noopener"} for example starts on October 1 and goes thru the end of September the following year. Some agricultural periods (such as winter dormancy) may also start in the fall and continue into the new year.
+Sometimes the time period of interest spans two calendar years. A [water year](https://en.wikipedia.org/wiki/Water_year) for example starts on October 1 and goes thru the end of September the following year. Some agricultural periods (such as winter dormancy) may also start in the fall and continue into the new year.
 
 Slicing your data by a time period that spans calendar years is done in the same manner - you add a column to the table for period identifier. Below we add a column for water year (which conventionally are designated by the calendar year in which it ends):
 

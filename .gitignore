@@ -6,5 +6,5 @@
 .quarto
 ~*
 *.bak
-
+*_cache
 /.quarto/

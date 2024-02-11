@@ -1,4 +1,4 @@
-# AgroClimate Analogues
+# AgroClimate Analogues {#sec-analogues}
 
 ## Climate Analogues
 

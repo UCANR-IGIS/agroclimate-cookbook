@@ -1,4 +1,4 @@
-# Degree Days
+# Degree Days {#sec-degree-days}
 
 A common application of weather and climate data is predicting phenological events like egg laying for insects, or fruit ripening for tree crops. These predictions are possible due to research which has modeled the relationship between phenology and accumulated heat, or degree days.
 

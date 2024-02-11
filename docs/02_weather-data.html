@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>AgroClimate Community Cookbook - 2&nbsp; Weather Data</title>
+<title>AgroClimate Cookbook - 2&nbsp; Weather Data</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,7 +20,60 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -62,6 +115,9 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+<link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet">
+<script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
+
 
 </head>
 
@@ -89,7 +145,7 @@ ul.task-list li input[type="checkbox"] {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">AgroClimate Community Cookbook</a> 
+      <a href="./">AgroClimate Cookbook</a> 
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -108,7 +164,7 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./01_data-wrangling.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Data Wrangling Techniques</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Data Wrangling Methods</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -156,7 +212,7 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./99_other.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Other Examples</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Other Content, Future Work</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -171,14 +227,33 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="4">
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#intro" id="toc-intro" class="nav-link active" data-scroll-target="#intro"><span class="header-section-number">2.1</span> Intro</a></li>
-  <li><a href="#cimis-api" id="toc-cimis-api" class="nav-link" data-scroll-target="#cimis-api"><span class="header-section-number">2.2</span> CIMIS API</a></li>
-  <li><a href="#synoptic-api" id="toc-synoptic-api" class="nav-link" data-scroll-target="#synoptic-api"><span class="header-section-number">2.3</span> Synoptic API</a></li>
-  <li><a href="#gridmet" id="toc-gridmet" class="nav-link" data-scroll-target="#gridmet"><span class="header-section-number">2.4</span> gridMet</a></li>
+  <li><a href="#summary-for-co-authors" id="toc-summary-for-co-authors" class="nav-link active" data-scroll-target="#summary-for-co-authors"><span class="header-section-number">2.1</span> Summary (for co-authors)</a></li>
+  <li><a href="#weather-data-intro" id="toc-weather-data-intro" class="nav-link" data-scroll-target="#weather-data-intro"><span class="header-section-number">2.2</span> Intro</a></li>
+  <li><a href="#weather-data-sources" id="toc-weather-data-sources" class="nav-link" data-scroll-target="#weather-data-sources"><span class="header-section-number">2.3</span> Weather Data Sources</a>
+  <ul>
+  <li><a href="#sec-weather-data-cimis-station" id="toc-sec-weather-data-cimis-station" class="nav-link" data-scroll-target="#sec-weather-data-cimis-station"><span class="header-section-number">2.3.1</span> CIMIS Station Data</a>
+  <ul class="collapse">
+  <li><a href="#cimis-api" id="toc-cimis-api" class="nav-link" data-scroll-target="#cimis-api"><span class="header-section-number">2.3.1.1</span> CIMIS API</a></li>
+  <li><a href="#import-cimis-daily-data" id="toc-import-cimis-daily-data" class="nav-link" data-scroll-target="#import-cimis-daily-data"><span class="header-section-number">2.3.1.2</span> Import CIMIS Daily Data</a></li>
+  <li><a href="#cimis-hourly-data" id="toc-cimis-hourly-data" class="nav-link" data-scroll-target="#cimis-hourly-data"><span class="header-section-number">2.3.1.3</span> CIMIS Hourly Data</a></li>
+  </ul></li>
+  <li><a href="#synoptic" id="toc-synoptic" class="nav-link" data-scroll-target="#synoptic"><span class="header-section-number">2.3.2</span> Synoptic</a></li>
+  <li><a href="#sec-weather-data-gridmet" id="toc-sec-weather-data-gridmet" class="nav-link" data-scroll-target="#sec-weather-data-gridmet"><span class="header-section-number">2.3.3</span> gridMet &amp; Prism</a></li>
+  </ul></li>
+  <li><a href="#sec-weather-data-cleaning-data" id="toc-sec-weather-data-cleaning-data" class="nav-link" data-scroll-target="#sec-weather-data-cleaning-data"><span class="header-section-number">2.4</span> Cleaning Weather Data</a>
+  <ul>
+  <li><a href="#dealing-with-bad-measurements" id="toc-dealing-with-bad-measurements" class="nav-link" data-scroll-target="#dealing-with-bad-measurements"><span class="header-section-number">2.4.1</span> Dealing with bad measurements</a></li>
+  <li><a href="#sec-weather-data-missing-data" id="toc-sec-weather-data-missing-data" class="nav-link" data-scroll-target="#sec-weather-data-missing-data"><span class="header-section-number">2.4.2</span> Missing data</a></li>
+  </ul></li>
+  <li><a href="#sec-weather-data-temp-res" id="toc-sec-weather-data-temp-res" class="nav-link" data-scroll-target="#sec-weather-data-temp-res"><span class="header-section-number">2.5</span> Changing the Temporal Resolution of Weather Data</a>
+  <ul>
+  <li><a href="#short-to-long" id="toc-short-to-long" class="nav-link" data-scroll-target="#short-to-long"><span class="header-section-number">2.5.1</span> Short to Long</a></li>
+  <li><a href="#interpolating-shorter-intervals" id="toc-interpolating-shorter-intervals" class="nav-link" data-scroll-target="#interpolating-shorter-intervals"><span class="header-section-number">2.5.2</span> Interpolating Shorter Intervals</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -187,7 +262,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Weather Data</span></h1>
+<h1 class="title"><span id="sec-weather-data" class="quarto-section-identifier"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Weather Data</span></span></h1>
 </div>
 
 
@@ -202,37 +277,451 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>THIS CHAPTER IS AN INTRO TO WEATHER STATION DATA, WITH CODE EXAMPLES FOR IMPORTING STATION DATA.</p>
-<p>INTERPOLTED WEATHER RASTER DATA WILL BE COVERED IN CH 6. AGROCLIMATE RASTERS</p>
-<p>MODELED WEATHER / CLIMATE DATA (RASTER) WILL BE COVERED IN CH 7. MODELED CLIMATE DATA.</p>
-<section id="intro" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="intro"><span class="header-section-number">2.1</span> Intro</h2>
+<section id="summary-for-co-authors" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="summary-for-co-authors"><span class="header-section-number">2.1</span> Summary (for co-authors)</h2>
 <ul>
-<li>see also <a href="https://ucanr-igis.github.io/agroclimR/slides/agclimr_slides01.html#(12)" class="uri">https://ucanr-igis.github.io/agroclimR/slides/agclimr_slides01.html#(12)</a></li>
-</ul>
-<p>To compute metrics you need daily or hourly weather data. Either observed (i.e., from weather stations) or modeled (i.e., from climate models) data will work.</p>
-<p>Mot agroclimate metrics require daily data (daily min temp, daily max temp, daily precip)</p>
-<p>Some require hourly data (e.g., chill portions). If needed, hourly data can be interpolated from daily data (see <a href="https://inresgb-lehre.iaas.uni-bonn.de/chillR_book/making-hourly-temperatures.html" class="uri">https://inresgb-lehre.iaas.uni-bonn.de/chillR_book/making-hourly-temperatures.html</a>)</p>
-<p>Things to remember:</p>
+<li><p>This chapter provides a short intro to weather station data, with code examples for importing station data.</p></li>
+<li><p>The main goal of the chapter is to provide code recipes for importing, cleaning and saving weather data. The data files (csvs) generated by the examples in this chapter will be saved within the repo, for use in other chapters</p></li>
+<li><p>The general data wrangling techniques / R packages used in this chapter are discussed in <a href="01_data-wrangling.html"><span>Chapter&nbsp;1</span></a>.</p></li>
+<li><p>We do not plan to discuss weather variables in any detail. Most of the examples in this book use temperature and precipitation (because those are the most common inputs into agroclimate metrics). This can be expanded in the future. We can provide links to other resources to learn more about weather variables.</p></li>
+<li><p>This chapter focuses on importing station data (i.e., tabular). Interpolted weather raster data will be covered in Chapter 6. Agroclimate rasters. Modeled weather data from climate models (also raster) will be covered in ch 7. modeled climate data.</p></li>
+<li><p>Future topics</p>
 <ul>
-<li><p>date columns should be converted to R Date class</p></li>
-<li><p>date-time columns should be saved as POSIXct objects</p></li>
-<li><p>think about units</p></li>
+<li><p>cleaning weather data (filling in missing values, range checks)</p></li>
+<li><p>see also <a href="https://ucanr-igis.github.io/agroclimR/slides/agclimr_slides01.html#(12)" class="uri">https://ucanr-igis.github.io/agroclimR/slides/agclimr_slides01.html#(12)</a></p></li>
+</ul></li>
 </ul>
 </section>
-<section id="cimis-api" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="cimis-api"><span class="header-section-number">2.2</span> CIMIS API</h2>
-<p>How to get data from CIMIS</p>
+<section id="weather-data-intro" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="weather-data-intro"><span class="header-section-number">2.2</span> Intro</h2>
+<p>Computing agroclimate metrics starts with weather data - a time series of variables such as temperature and precipitation. These could be based on actual measurements from a weather station, or generated from a weather model.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Computing agroclimate metrics from modeled weather data">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Computing agroclimate metrics from modeled weather data
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>It may seem surprising that either observed (i.e., ‘real’) or modeled (i.e., computer generated) weather data can be used to compute agroclimate metrics. What does it mean, and why would someone want to, compute something like degree days with modeled (i.e., computer generated) data?</p>
+<p>For the purposes of computation, the metrics don’t care where the data come from. If you give the degree day equation a record of temperature values, it will give you back the metric. It doesn’t care whether the data are ‘real’ or ‘made up’. But of course what you do with that metric depends a great deal on where the weather data came from.</p>
+<p>Metrics computed from actual measurements, and metrics computed from weather models, are used for different purposes. If you’re a grower, you probably wouldn’t want to schedule your irrigation based on the simulated weather from a climate model. Likewise, if you’re a water control engineer, you probably wouldn’t want to plan the size of your flood infrastructure for the next 50 years based solely on the weather from the past couple of years.</p>
+<p>Each type of weather data has appropriate and inappropriate uses. But the good news is that agroclimate metrics are generally based on plant and insect physiology, so they work for all kinds of data past, present, and future. A metric that predicts nut development for a particular cultivar today is still a pretty good guess for nut development rates in the past as well as 50 years from now.</p>
+</div>
+</div>
+<p>There are a few characteristics of weather data to be aware of:</p>
+<p><strong>Variables</strong>. Weather data typically consists of one or more variables, such as temperature, precipitation, or solar radiation. Some variables are measured directly. Others may be based on models (such as evapotranspiration).</p>
+<div class="callout callout-style-default callout-note callout-titled" title="CIMIS Weather Variables">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+CIMIS Weather Variables
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The weather variables recorded by weather stations in the CIMIS network (<a href="#sec-weather-data-cimis-station"><span>Section&nbsp;2.3.1</span></a> below) include:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>cimir<span class="sc">::</span><span class="fu">cimis_items</span>() <span class="sc">|&gt;</span> dplyr<span class="sc">::</span><span class="fu">pull</span>(Name) <span class="sc">|&gt;</span> <span class="fu">unique</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "Average Air Temperature"   "Maximum Air Temperature"  
+ [3] "Minimum Air Temperature"   "Dew Point"                
+ [5] "CIMIS ETo"                 "ASCE ETo"                 
+ [7] "ASCE ETr"                  "Precipitation"            
+ [9] "Average Relative Humidity" "Maximum Relative Humidity"
+[11] "Minimum Relative Humidity" "Average Soil Temperature" 
+[13] "Maximum Soil Temperature"  "Minimum Soil Temperature" 
+[15] "Average Solar Radiation"   "Net Solar Radiation"      
+[17] "Average Vapor Pressure"    "Maximum Vapor Pressure"   
+[19] "Minimum Vapor Pressure"    "Wind East-North-East"     
+[21] "Wind East-South-East"      "Wind North-North-East"    
+[23] "Wind North-North-West"     "Wind Run"                 
+[25] "Average Wind Speed"        "Wind South-South-East"    
+[27] "Wind South-South-West"     "Wind West-North-West"     
+[29] "Wind West-South-West"      "Air Temperature"          
+[31] "Net Radiation"             "Relative Humidity"        
+[33] "Resultant Wind"            "Soil Temperature"         
+[35] "Solar Radiation"           "Vapor Pressure"           
+[37] "Wind Direction"            "Wind Speed"               </code></pre>
+</div>
+</div>
+</div>
+</div>
+<p><strong>Temporal resolution</strong>. The time resolution of weather data depends on the source. Measurements from a modern weather station could be recorded as often as every 5 minutes. That doesn’t necessarily mean you’ll have access to data every 5 minutes (which is generally overkill anyway), unless of course you manage the station. Organizations that run weather stations typically provide the data in hourly and/or daily time steps, depending on the needs of their customers. Older data are often only available as daily averages.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Are more data always better?">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Are more data always better?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>When it comes to weather data for computing agroclimate metrics, more is not necessarily better. Many agroclimate metrics, and more importantly the decision making models derived from those metrics, were developed based on daily data. Hence, even if you have 5-minute data, to use those decision support models that tell you for example when you can turn down the irrigation, you’ll have to resample the 5-minute data to daily averages anyway.</p>
+<p>In general, try to download the data at the time interval needed for your application.</p>
+<p>Some notable agroclimate metrics that really require hourly data are chill portions and growing degree hours. Changing the time resolution of data is discussed in <a href="#sec-weather-data-temp-res"><span>Section&nbsp;2.5</span></a> below.</p>
+</div>
+</div>
+</div>
 </section>
-<section id="synoptic-api" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="synoptic-api"><span class="header-section-number">2.3</span> Synoptic API</h2>
-<p>Show how to get weather data from a weather station on Synoptic, including how to create daily summaries from hourly data</p>
+<section id="weather-data-sources" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="weather-data-sources"><span class="header-section-number">2.3</span> Weather Data Sources</h2>
+<div class="callout callout-style-default callout-tip callout-titled" title="Best Practices for Importing Weather Data ">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Best Practices for Importing Weather Data
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>Date columns should be converted to R <code>Date</code> class<br>
+</li>
+<li>Date-time columns should be saved as R <code>POSIXct</code> objects, with the timezone assigned (local time is generally preferable)<br>
+</li>
+<li>Units should be indicated in column names, accompanying metadata, or by saving values as a <code>units</code> object.</li>
+</ol>
+</div>
+</div>
+<section id="sec-weather-data-cimis-station" class="level3" data-number="2.3.1">
+<h3 data-number="2.3.1" class="anchored" data-anchor-id="sec-weather-data-cimis-station"><span class="header-section-number">2.3.1</span> CIMIS Station Data</h3>
+<p><a href="https://cimis.water.ca.gov/">CIMIS</a> is a network of about 150 weather stations in California, operated by the CA Dept. of Water Resources. The network was established to inform irrigation management, hence the stations are mostly in agricultural regions.</p>
+<p>CIMIS stations are a bit different from other networks in that:</p>
+<ol type="i">
+<li><p>stations are located on grass fields (a golf course would be a perfect place for a CIMIS station)</p></li>
+<li><p>the stations record evapotranspiration (actually, modeled evapotranspiration) as one of the ‘weather’ variables</p></li>
+</ol>
+<p>They do this because the ‘reference’ evapotranspiration coming off the grass can be used to estimate evapotranspiration of various crops (by multiplying the reference ET by coefficients determined from research). In turn, the estimated crop ET can be used to compute the water replenishment needs.</p>
+<p>CIMIS data are widely used for many other agricultural applications as well. It is a popular dataset in part because its freely available and can be accessed through the CIMIS website as well as an API.</p>
+<section id="cimis-api" class="level4" data-number="2.3.1.1">
+<h4 data-number="2.3.1.1" class="anchored" data-anchor-id="cimis-api"><span class="header-section-number">2.3.1.1</span> CIMIS API</h4>
+<p>To import CIMIS data into R via the API, you can use the <a href="https://hydroecology.net/cimir/">cimir</a> package <span class="citation" data-cites="R-cimir">(<a href="references.html#ref-R-cimir" role="doc-biblioref">Koohafkan 2021</a>)</span>. You’ll also need:</p>
+<ul>
+<li><p>a CIMIS API key (which you can get by creating a free CIMIS account <a href="https://et.water.ca.gov/">here</a>)</p></li>
+<li><p>the id number(s) of the weather station(s) of interest (which you can find on the <a href="https://cimis.water.ca.gov/Stations.aspx">CIMIS website</a>)</p></li>
+<li><p>the abbreviated names of weather variables (see <code>cimis_items()</code>)</p></li>
+</ul>
+<p><a href="https://hydroecology.net/cimir/">cimir</a> provides R functions to import data using the CIMIS API. The main download function is <code>cimir::cimis_data()</code>, which can be used to download a range of weather variables (depending on the <code>items</code> argument) at both daily and hourly intervals.</p>
+</section>
+<section id="import-cimis-daily-data" class="level4" data-number="2.3.1.2">
+<h4 data-number="2.3.1.2" class="anchored" data-anchor-id="import-cimis-daily-data"><span class="header-section-number">2.3.1.2</span> Import CIMIS Daily Data</h4>
+<p>Below, we’ll download one year of daily data for CIMIS Station 227 (located in Plymouth, Amador County). We begin by loading the packages we’ll be using for data wrangling:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cimir)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Below, we’ll use <code>cimis_data()</code> to get daily precipitation and temperature:</p>
+<div class="cell" data-hash="02_weather-data_cache/html/unnamed-chunk-3_95feb9afd77414f86fc8a9aa6c754abb">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Step 1. Load my cimis key</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>my_cimis_key <span class="ot">&lt;-</span> <span class="fu">readLines</span>(<span class="st">"~/My Keys/cimis_webapi.txt"</span>, <span class="at">n=</span><span class="dv">1</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>cimir<span class="sc">::</span><span class="fu">set_key</span>(my_cimis_key)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="do">### Query CIMIS data (Plymouth station #227)</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>cim_ply_lng_tbl <span class="ot">&lt;-</span> cimir<span class="sc">::</span><span class="fu">cimis_data</span>(<span class="at">targets =</span> <span class="dv">227</span>, </span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">start.date =</span> <span class="st">"2023-01-01"</span>, </span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">end.date =</span> <span class="st">"2023-12-31"</span>,</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">measure.unit =</span> <span class="st">"E"</span>,</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">items =</span> <span class="st">"day-precip,day-air-tmp-max,day-air-tmp-min"</span>)</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(cim_ply_lng_tbl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["Name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["Type"],"name":[2],"type":["chr"],"align":["left"]},{"label":["Owner"],"name":[3],"type":["chr"],"align":["left"]},{"label":["Date"],"name":[4],"type":["date"],"align":["right"]},{"label":["Julian"],"name":[5],"type":["int"],"align":["right"]},{"label":["Station"],"name":[6],"type":["chr"],"align":["left"]},{"label":["Standard"],"name":[7],"type":["chr"],"align":["left"]},{"label":["ZipCodes"],"name":[8],"type":["chr"],"align":["left"]},{"label":["Scope"],"name":[9],"type":["chr"],"align":["left"]},{"label":["Item"],"name":[10],"type":["chr"],"align":["left"]},{"label":["Value"],"name":[11],"type":["dbl"],"align":["right"]},{"label":["Qc"],"name":[12],"type":["chr"],"align":["left"]},{"label":["Unit"],"name":[13],"type":["chr"],"align":["left"]}],"data":[{"1":"cimis","2":"station","3":"water.ca.gov","4":"2023-01-01","5":"1","6":"227","7":"english","8":"95669, 95629, 95685","9":"daily","10":"DayAirTmpMax","11":"57.70","12":"","13":"(F)"},{"1":"cimis","2":"station","3":"water.ca.gov","4":"2023-01-01","5":"1","6":"227","7":"english","8":"95669, 95629, 95685","9":"daily","10":"DayAirTmpMin","11":"34.60","12":"","13":"(F)"},{"1":"cimis","2":"station","3":"water.ca.gov","4":"2023-01-01","5":"1","6":"227","7":"english","8":"95669, 95629, 95685","9":"daily","10":"DayPrecip","11":"0.00","12":"","13":"(in)"},{"1":"cimis","2":"station","3":"water.ca.gov","4":"2023-01-02","5":"2","6":"227","7":"english","8":"95669, 95629, 95685","9":"daily","10":"DayAirTmpMax","11":"48.30","12":"","13":"(F)"},{"1":"cimis","2":"station","3":"water.ca.gov","4":"2023-01-02","5":"2","6":"227","7":"english","8":"95669, 95629, 95685","9":"daily","10":"DayAirTmpMin","11":"33.60","12":"","13":"(F)"},{"1":"cimis","2":"station","3":"water.ca.gov","4":"2023-01-02","5":"2","6":"227","7":"english","8":"95669, 95629, 95685","9":"daily","10":"DayPrecip","11":"0.59","12":"","13":"(in)"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<p><br>
+</p>
+<p>As can be seen above, <code>cimir::cimis_data()</code> returns a tibble in a ‘long’ format. R generally likes long data, but for our purposes of saving it as a CSV file, we’ll next use <code>tidyr::pivot_wider()</code> to reshape it in the more traditional wide format:</p>
+<div class="cell" data-hash="02_weather-data_cache/html/unnamed-chunk-4_71d00166803111591f0bc44b8d459ee2">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>cimis227_dly_tbl <span class="ot">&lt;-</span> cim_ply_lng_tbl <span class="sc">|&gt;</span> </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Station, Date, Item, Value) <span class="sc">|&gt;</span> </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">pivot_wider</span>(<span class="at">id_cols =</span> <span class="fu">c</span>(Station, Date), <span class="at">names_from =</span> Item, </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">values_from =</span> Value) <span class="sc">|&gt;</span> </span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">stn_id =</span> Station, <span class="at">date =</span> Date, <span class="at">tmax_f =</span> DayAirTmpMax, <span class="at">tmin_f =</span> DayAirTmpMin, </span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">precip_in =</span> DayPrecip)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(cimis227_dly_tbl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["stn_id"],"name":[1],"type":["chr"],"align":["left"]},{"label":["date"],"name":[2],"type":["date"],"align":["right"]},{"label":["tmax_f"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["tmin_f"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["precip_in"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"227","2":"2023-01-01","3":"57.7","4":"34.6","5":"0.00"},{"1":"227","2":"2023-01-02","3":"48.3","4":"33.6","5":"0.59"},{"1":"227","2":"2023-01-03","3":"51.6","4":"39.6","5":"0.03"},{"1":"227","2":"2023-01-04","3":"63.5","4":"41.4","5":"0.27"},{"1":"227","2":"2023-01-05","3":"54.3","4":"44.0","5":"1.21"},{"1":"227","2":"2023-01-06","3":"56.1","4":"38.6","5":"0.00"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<p><br>
+</p>
+<p>Finally, we can save the tibble to disk:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(cimis227_dly_tbl, <span class="at">file =</span> <span class="st">"./data/cimis227_dly.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="Code to import the daily data CSV file">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Code to import the daily data CSV file
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>To use these data in examples, you can import the CSV file with either of the following:</p>
+<p>Import from online (works from anywhere):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>cimis227_dly_tbl <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">"https://github.com/ucanr-igis/xxx"</span>, </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">col_types =</span> <span class="st">"cDddd"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><br>
+</p>
+<p>If you are working in the RStudio project for this e-book (e.g., authors), use:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>cimis227_dly_tbl <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">"./data/cimis227_dly.csv"</span>, </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">col_types =</span> <span class="st">"cDddd"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+<p><br>
+</p>
+<p><strong>Visualize daily temperature</strong></p>
+<div class="cell" data-hash="02_weather-data_cache/html/unnamed-chunk-8_7ae0adc0eace92319b13220b46814a36">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cimis227_dly_tbl, <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> tmin_f)) <span class="sc">+</span> </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span> </span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"temp (F)"</span>) <span class="sc">+</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Minimum Daily Temperature"</span>,</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"CIMIS Station #227 - Plymouth"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="02_weather-data_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="cimis-hourly-data" class="level4" data-number="2.3.1.3">
+<h4 data-number="2.3.1.3" class="anchored" data-anchor-id="cimis-hourly-data"><span class="header-section-number">2.3.1.3</span> CIMIS Hourly Data</h4>
+<p>CIMIS stations record measurements hourly. You can import hourly data with <code>cimir</code>, but the maximum number of records you can get from the API in one call is 1750 (about 5 months of data if you’re getting two variables every hour). Thus if you wanted an entire year of hourly data, you would have to make multiple calls for shorter periods and stack them together.</p>
+<p>An alternative way to download hourly data is to use the <a href="https://cimis.water.ca.gov/WSNReportCriteria.aspx">CIMIS Station Reports</a> tool on the CIMIS website. This tool allows you to specify station(s), start and end date(s), and weather variables. You can then get the data as a web report, csv, xml, or pdf.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Sign-in before generating CIMIS Station reports">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Sign-in before generating CIMIS Station reports
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>To get the most options with CIMIS Station Reports, be sure to be logged-in with your CIMIS account. If you’re not logged in, you can still create station reports, but you’ll be limited to a few preset “limited reports”, which only go back 7 days and are only available to view in your browser.</p>
+</div>
+</div>
+<p>Below, we’ll import a CIMIS Station Report containing one year of hourly air temperature and precipitation measurements for CIMIS station 227 - Plymouth (Amador County).</p>
+<div class="cell" data-hash="02_weather-data_cache/html/unnamed-chunk-9_bebdff3110efe01c32166044f15058e5">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>station_report_fn <span class="ot">&lt;-</span> <span class="st">"./data/cimis_plymouth_station-report-2023.csv"</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Import the CSV file using readr and dplyr</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>cim_plymouth_hourly_tbl <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(station_report_fn,</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>                                           <span class="at">col_types =</span> <span class="st">"ncccccdcdc"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">stn_id =</span> <span class="st">`</span><span class="at">Stn Id</span><span class="st">`</span>, <span class="at">station_name =</span> <span class="st">`</span><span class="at">Stn Name</span><span class="st">`</span>, <span class="at">region =</span> <span class="st">`</span><span class="at">CIMIS Region</span><span class="st">`</span>,</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">date_chr =</span> Date, <span class="at">hour_pst =</span> <span class="st">`</span><span class="at">Hour (PST)</span><span class="st">`</span>, <span class="at">yday =</span> Jul,</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">precip_in =</span> <span class="st">`</span><span class="at">Precip (in)</span><span class="st">`</span>, <span class="at">precip_qc =</span> <span class="st">`</span><span class="at">qc...8</span><span class="st">`</span>,</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">temp_f =</span> <span class="st">`</span><span class="at">Air Temp (F)</span><span class="st">`</span>, <span class="at">temp_qc =</span> <span class="st">`</span><span class="at">qc...10</span><span class="st">`</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">stn_id =</span> <span class="fu">as.character</span>(stn_id))  <span class="do">## for consistency with other datasets</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>New names:
+• `qc` -&gt; `qc...8`
+• `qc` -&gt; `qc...10`</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(cim_plymouth_hourly_tbl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["stn_id"],"name":[1],"type":["chr"],"align":["left"]},{"label":["station_name"],"name":[2],"type":["chr"],"align":["left"]},{"label":["region"],"name":[3],"type":["chr"],"align":["left"]},{"label":["date_chr"],"name":[4],"type":["chr"],"align":["left"]},{"label":["hour_pst"],"name":[5],"type":["chr"],"align":["left"]},{"label":["yday"],"name":[6],"type":["chr"],"align":["left"]},{"label":["precip_in"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["precip_qc"],"name":[8],"type":["chr"],"align":["left"]},{"label":["temp_f"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["temp_qc"],"name":[10],"type":["chr"],"align":["left"]}],"data":[{"1":"227","2":"Plymouth","3":"Sierra Foothill","4":"1/1/2023","5":"0100","6":"001","7":"0","8":"NA","9":"46.3","10":"NA"},{"1":"227","2":"Plymouth","3":"Sierra Foothill","4":"1/1/2023","5":"0200","6":"001","7":"0","8":"NA","9":"46.5","10":"NA"},{"1":"227","2":"Plymouth","3":"Sierra Foothill","4":"1/1/2023","5":"0300","6":"001","7":"0","8":"NA","9":"46.4","10":"NA"},{"1":"227","2":"Plymouth","3":"Sierra Foothill","4":"1/1/2023","5":"0400","6":"001","7":"0","8":"NA","9":"45.7","10":"NA"},{"1":"227","2":"Plymouth","3":"Sierra Foothill","4":"1/1/2023","5":"0500","6":"001","7":"0","8":"NA","9":"44.3","10":"NA"},{"1":"227","2":"Plymouth","3":"Sierra Foothill","4":"1/1/2023","5":"0600","6":"001","7":"0","8":"NA","9":"42.2","10":"NA"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<p><br>
+</p>
+<p>Next, we’ll create a cleaned-up version that we can save. First thing is to combine the Date and Hour columns into a R date-time class (POSIXct):</p>
+<div class="cell" data-hash="02_weather-data_cache/html/unnamed-chunk-10_de22fcc48d1924853165998c25e23f85">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>cimis227_hrly_tbl <span class="ot">&lt;-</span> cim_plymouth_hourly_tbl <span class="sc">|&gt;</span> </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">datetime =</span> <span class="fu">mdy_h</span>(<span class="fu">paste</span>(date_chr, <span class="fu">as.numeric</span>(hour_pst) <span class="sc">/</span> <span class="dv">100</span>), </span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>                          <span class="at">tz =</span> <span class="st">"America/Los_Angeles"</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: There was 1 warning in `mutate()`.
+ℹ In argument: `datetime = mdy_h(paste(date_chr, as.numeric(hour_pst)/100), tz
+  = "America/Los_Angeles")`.
+Caused by warning:
+!  1 failed to parse.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(cimis227_hrly_tbl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["stn_id"],"name":[1],"type":["chr"],"align":["left"]},{"label":["station_name"],"name":[2],"type":["chr"],"align":["left"]},{"label":["region"],"name":[3],"type":["chr"],"align":["left"]},{"label":["date_chr"],"name":[4],"type":["chr"],"align":["left"]},{"label":["hour_pst"],"name":[5],"type":["chr"],"align":["left"]},{"label":["yday"],"name":[6],"type":["chr"],"align":["left"]},{"label":["precip_in"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["precip_qc"],"name":[8],"type":["chr"],"align":["left"]},{"label":["temp_f"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["temp_qc"],"name":[10],"type":["chr"],"align":["left"]},{"label":["datetime"],"name":[11],"type":["dttm"],"align":["right"]}],"data":[{"1":"227","2":"Plymouth","3":"Sierra Foothill","4":"1/1/2023","5":"0100","6":"001","7":"0","8":"NA","9":"46.3","10":"NA","11":"2023-01-01 01:00:00"},{"1":"227","2":"Plymouth","3":"Sierra Foothill","4":"1/1/2023","5":"0200","6":"001","7":"0","8":"NA","9":"46.5","10":"NA","11":"2023-01-01 02:00:00"},{"1":"227","2":"Plymouth","3":"Sierra Foothill","4":"1/1/2023","5":"0300","6":"001","7":"0","8":"NA","9":"46.4","10":"NA","11":"2023-01-01 03:00:00"},{"1":"227","2":"Plymouth","3":"Sierra Foothill","4":"1/1/2023","5":"0400","6":"001","7":"0","8":"NA","9":"45.7","10":"NA","11":"2023-01-01 04:00:00"},{"1":"227","2":"Plymouth","3":"Sierra Foothill","4":"1/1/2023","5":"0500","6":"001","7":"0","8":"NA","9":"44.3","10":"NA","11":"2023-01-01 05:00:00"},{"1":"227","2":"Plymouth","3":"Sierra Foothill","4":"1/1/2023","5":"0600","6":"001","7":"0","8":"NA","9":"42.2","10":"NA","11":"2023-01-01 06:00:00"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-caution callout-titled" title="Daylight Savings Time">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Daylight Savings Time
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>When you’re switching the time zone of hourly data, you might get a parsing error if the time period includes the night when daylight savings time starts or ends.</p>
+<p>The problem occurs because local time takes into account daylight savings. This is normally a good thing. However when the clock ‘falls back’, an entire hour of UTC time gets mapped onto the same local time. Similiarly on the night when you jump forward, 2:00am doesn’t exist in local time.</p>
+<p>The workaround is to keep your data in UTC, or just ignore the warning.</p>
+</div>
+</div>
+<p><br>
+</p>
+<p>Lastly, we can save the data as a csv file:</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Saving date-times in CSV files">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Saving date-times in CSV files
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>To save date-time values in CSV files (which are just text), a good practice is to format it in ISO8601 format, which is a well-established open standard for formatting time values as text, including timezone.</p>
+<p>lubridate provides a function <code>format_ISO8601()</code> which makes this easy. The <code>usetz</code> argument appends the time offset from UTC, which import functions can use to figure out the time zone.</p>
+<div class="cell" data-hash="02_weather-data_cache/html/unnamed-chunk-11_81575126b947d33b9fac41041c0e55ac">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>lubridate<span class="sc">::</span><span class="fu">format_ISO8601</span>(<span class="fu">Sys.time</span>(), <span class="at">usetz =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "2024-02-10T16:29:13-0800"</code></pre>
+</div>
+</div>
+<p>You can import date-times formatted as ISO8601 back into R using <code>lubridate::ymd_hms()</code>.</p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>cimis227_hrly_tbl <span class="sc">|&gt;</span> </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">dt =</span> <span class="fu">format_ISO8601</span>(datetime, <span class="at">usetz =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(stn_id, dt, temp_f, precip_in) <span class="sc">|&gt;</span> </span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">write_csv</span>(<span class="st">"./data/cimis227_hrly.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="Code to import the hourly data CSV file">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Code to import the hourly data CSV file
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>To import these data into R, you can run one of the following:</p>
+<p>Import from online (works from anywhere):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>cimis227_hrly_tbl <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">"https://github.com/ucanr-igis/xxx"</span>, </span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">col_types =</span> <span class="st">"Dddd"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If you are working in the RStudio project for this e-book (e.g., authors):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>cimis227_hrly_tbl <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">"./data/cimis227_hrly.csv"</span>, </span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">col_types =</span> <span class="st">"Dddd"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+<p><br>
+</p>
+</section>
+</section>
+<section id="synoptic" class="level3" data-number="2.3.2">
+<h3 data-number="2.3.2" class="anchored" data-anchor-id="synoptic"><span class="header-section-number">2.3.2</span> Synoptic</h3>
+<p>Show how to get weather data from a weather station on Synoptic,</p>
 <p><a href="https://ucanr-igis.github.io/sketchbook/synoptic-cimis.html" class="uri">https://ucanr-igis.github.io/sketchbook/synoptic-cimis.html</a></p>
+<p><br>
+</p>
 </section>
-<section id="gridmet" class="level2" data-number="2.4">
-<h2 data-number="2.4" class="anchored" data-anchor-id="gridmet"><span class="header-section-number">2.4</span> gridMet</h2>
+<section id="sec-weather-data-gridmet" class="level3" data-number="2.3.3">
+<h3 data-number="2.3.3" class="anchored" data-anchor-id="sec-weather-data-gridmet"><span class="header-section-number">2.3.3</span> gridMet &amp; Prism</h3>
+<p>PRISM and gridMet are rasters of weather variables, interpolated from observed weather data.</p>
+<p>gridMet is available via the Cal-Adapt API (up thru 2021?)</p>
+<p>PRISM is available as NetCDF (I think). Only the 4k product is free.</p>
+<p>Put these in <a href="06_agroclimate-rasters.html"><span>Chapter&nbsp;6</span></a> (will use <code>stars</code> to work with)</p>
+<p><br>
+</p>
+</section>
+</section>
+<section id="sec-weather-data-cleaning-data" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="sec-weather-data-cleaning-data"><span class="header-section-number">2.4</span> Cleaning Weather Data</h2>
+<section id="dealing-with-bad-measurements" class="level3" data-number="2.4.1">
+<h3 data-number="2.4.1" class="anchored" data-anchor-id="dealing-with-bad-measurements"><span class="header-section-number">2.4.1</span> Dealing with bad measurements</h3>
+<p>range checks</p>
+</section>
+<section id="sec-weather-data-missing-data" class="level3" data-number="2.4.2">
+<h3 data-number="2.4.2" class="anchored" data-anchor-id="sec-weather-data-missing-data"><span class="header-section-number">2.4.2</span> Missing data</h3>
+<p>see <a href="https://inresgb-lehre.iaas.uni-bonn.de/chillR_book/filling-gaps-in-temperature-records.html" class="uri">https://inresgb-lehre.iaas.uni-bonn.de/chillR_book/filling-gaps-in-temperature-records.html</a></p>
+<p><br>
+</p>
+</section>
+</section>
+<section id="sec-weather-data-temp-res" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="sec-weather-data-temp-res"><span class="header-section-number">2.5</span> Changing the Temporal Resolution of Weather Data</h2>
+<section id="short-to-long" class="level3" data-number="2.5.1">
+<h3 data-number="2.5.1" class="anchored" data-anchor-id="short-to-long"><span class="header-section-number">2.5.1</span> Short to Long</h3>
+<p>If you have timeseries data at short intervals (e.g.&nbsp;hourly), summarizing them by longer intervals (e.g., daily) is technically pretty straightforward using <code>group_by()</code> and <code>summarise()</code> from <code>dplyr</code>. However you have to think carefuly about which summary function is appropriate for the variable you’re interested in. The usual suspects are average, min, max.</p>
+<div class="callout callout-style-default callout-important callout-titled" title="Getting the time zone right">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Getting the time zone right
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you’re summarizing hourly data (or shorter) to daily intervals, and you’re using the traditional definition of a ‘day’ as starting and ending at midnight, then you’ll want to make sure your data are in local time. Otherwise you’ll be computing 24-hour summaries that start and end at 2pm (if your station is in the western USA, for example).</p>
+</div>
+</div>
+<p>TODO: Give an example of using dplyr to group hourly CIMIS data into daily. Compare with the daily CIMIS data.</p>
+</section>
+<section id="interpolating-shorter-intervals" class="level3" data-number="2.5.2">
+<h3 data-number="2.5.2" class="anchored" data-anchor-id="interpolating-shorter-intervals"><span class="header-section-number">2.5.2</span> Interpolating Shorter Intervals</h3>
+<p>Going from daily values to hourly values,is less straightforward and requires a model for the downscaling. Most (all) weather variables don’t vary linearly over the course of the day, nor do they vary consistently over the seasons.</p>
+<p>For more info, see:</p>
+<p><a href="https://inresgb-lehre.iaas.uni-bonn.de/chillR_book/making-hourly-temperatures.html" class="uri">https://inresgb-lehre.iaas.uni-bonn.de/chillR_book/making-hourly-temperatures.html</a></p>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-R-cimir" class="csl-entry" role="listitem">
+Koohafkan, Michael. 2021. <em>Cimir: Interface to the CIMIS Web API</em>. <a href="https://github.com/mkoohafkan/cimir">https://github.com/mkoohafkan/cimir</a>.
+</div>
+</div>
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -467,12 +956,28 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       });
     }
   }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+          // default icon
+          link.classList.add("external");
+      }
+    }
 });
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./01_data-wrangling.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Data Wrangling Techniques</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Data Wrangling Methods</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

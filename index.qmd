@@ -1,7 +1,7 @@
 # Preface {.unnumbered}
 
-This is a Quarto book.
+Thank you for checking out our book.
 
-To learn more about Quarto books visit <https://quarto.org/docs/books>.
+We would like to thank...
 
-![](cover.png)
+

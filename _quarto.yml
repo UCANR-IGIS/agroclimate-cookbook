@@ -3,9 +3,13 @@ project:
   output-dir: docs
 
 book:
-  title: "AgroClimate Community Cookbook"
-  author: "Andy Lyons, Chloe Faehndrich"
-  date: "1/31/2024"
+  title: "AgroClimate Cookbook"
+  subtitle: "Code recipes for working with weather-driven agricultural metrics"
+  author:
+   - Andy Lyons
+   - Chloe Faehndrich
+  date: "2/10/2024"
+  cover-image: "cover.png"
   chapters:
     - index.qmd
     - 01_data-wrangling.qmd
@@ -18,13 +22,20 @@ book:
     - 08_climate-analogues.qmd
     - 99_other.qmd
     - references.qmd
+    
 
 bibliography: references.bib
 
 format:
   html:
     theme: cosmo
-  # will add support for epub and pdf when it is a little more developed
+    df-print: paged
+    toc-depth: 4
+    toc-expand: 4
+    link-external-icon: true
+    link-external-newwindow: true
+    
+  # We will add support for epub and pdf when it is a little more developed
   # pdf:
   #   documentclass: scrreprt
 

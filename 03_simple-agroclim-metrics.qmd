@@ -1,4 +1,4 @@
-# Simple AgroClimate Metrics
+# Simple AgroClimate Metrics {#sec-simple-metrics}
 
 @parker_observed_2022 identify a dozen agroclimate metrics derived 100% from weather data and provide physiologically relevant information for growers. This chapter provides R code to compute most of these agroclimate metrics using historic observed data from Cal-Adapt.
 
@@ -83,7 +83,7 @@ colusa_gdd_tbl %>% head()
 
 \
 
-Applying GDD to predict crop development requires 1) a start date (also known as a biofix date), and 2) a crop phenology table. These are not shown here, but are not hard to apply (for an example see the [Pistachio Nut Development Decision Support](https://ucanr-igis.shinyapps.io/pist_gdd/){target="_blank" rel="noopener"} tool).
+Applying GDD to predict crop development requires 1) a start date (also known as a biofix date), and 2) a crop phenology table. These are not shown here, but are not hard to apply (for an example see the [Pistachio Nut Development Decision Support](https://ucanr-igis.shinyapps.io/pist_gdd/) tool).
 
 \
 
@@ -91,7 +91,7 @@ Applying GDD to predict crop development requires 1) a start date (also known as
 
 Chill accumulation is similar to growing degree days, but for cold. In other words, there are a few phenological events that appear to be strongly correlated with the accumulated amount of chill. An example of this is flowering for many tree crops. Apparently, the trees keep an internal ledger of how cold its been during the winter, and for how long. They use this internal record use to decide when it's time to come out of their winter dormancy and start flowering. This mechanism probably evolved to help them avoid frost damage.
 
-Researchers have looked at a number of ways to measure accumulated chill, and the one that does the best job at predicting phenology events is called Chill Portions (CP) [@luedeling_global_2011]. The calculations are a bit complicated, but fortunately there's a R-package that will compute chill portions. For more info, see [here](https://ucanr-igis.github.io/caladaptr-res/notebooks/chill.nb.html){target="_blank" rel="noopener"}.
+Researchers have looked at a number of ways to measure accumulated chill, and the one that does the best job at predicting phenology events is called Chill Portions (CP) [@luedeling_global_2011]. The calculations are a bit complicated, but fortunately there's a R-package that will compute chill portions. For more info, see [here](https://ucanr-igis.github.io/caladaptr-res/notebooks/chill.nb.html).
 
 \
 

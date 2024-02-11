@@ -1,0 +1,99 @@
+# Weather Data - Cutting Room 
+
+## Download hourly CIMIS data via the API. 
+
+This material has been dropped because the API only lets you download 1750 records at a time (so you can only get a month or two of hourly data at a time).
+
+The CIMIS FTP server is also currently not working.
+
+A better method is generating the CSV file from the website
+
+Step 1. Define the CSV file where we'll save the data:
+
+```{r}
+cim_ply_hr_fn <- "./data/cim_ply_hr.csv"
+```
+
+```{r eval = file.exists(cim_ply_hr_fn)}
+## If the local csv file already exists, then just quietly import it.
+## This prevents us from having to call CIMIS every time the ebook is rendered.
+#cim_ply_dly_tbl <- read_csv(cim_ply_dly_fn, col_types = "Dddd")
+```
+
+\
+
+Hourly CIMIS data via the API. 
+
+::: {.callout-note}
+### CIMIS API Limit
+
+The CIMIS API limits the number of records you can retun to 1750. To get hourly data for three variables for an entire year, we need to grab them month-by-month.
+
+:::
+
+\
+
+
+```{r eval = FALSE}
+## Set your CIMIS key - already done (see above)
+
+
+month_num <- 11
+
+start_dt <- make_date(year = 2023, month = month_num, day = 1)
+start_dt
+
+end_dt <- make_date(year = 2023, month = month_num + 1, day = 1) - 1
+end_dt
+
+### Query CIMIS data (Plymouth station #227)
+cimis_plymouth_hourly_tbl <- cimis_data(targets = 227, 
+                                        start.date = "2023-01-01", 
+                                        end.date = "2023-01-31",
+                                        measure.unit = "E",
+                                        items = "hly-air-tmp,hly-precip")
+
+
+cim_ply_lng_tbl <- cimis_data(targets = 227, 
+                         start.date = "2023-01-01", 
+                         end.date = "2023-12-31",
+                         measure.unit = "E",
+                         items = "day-precip,day-air-tmp-max,day-air-tmp-min")
+
+cim_ply_dly_tbl <- cim_ply_lng_tbl |> 
+  select(Date, Item, Value) |> 
+  pivot_wider(id_cols = Date, names_from = Item, values_from = Value) |> 
+  rename(date = Date, tmax_f = DayAirTmpMax, tmin_f = DayAirTmpMin, prec = DayPrecip)
+
+## Save it to disk
+write_csv(cim_ply_dly_tbl, file = cim_ply_dly_fn)
+```
+
+
+```{r eval = FALSE}
+## Define where to save this
+cim_ply_hr_fn <- "./data/cim_ply_hr.csv"
+
+if (file.exists(cim_ply_hr_fn)) {
+  
+  
+
+} else {
+  ## Step 1. Load my cimis key
+  my_cimis_key <- readLines("~/My Keys/cimis_webapi.txt", n=1)
+  cimir::set_key(my_cimis_key)
+
+  
+  ## NEED TO FINISH
+  ##  - CIMIS API only allows 1750 records, so to get 1 year of data we need to loop thru the months
+  ##    (or download from the web)
+  
+  # cim_ply_hr_tbl <- cim_ply_hrlng_tbl |> 
+  #   select(Date, Item, Value) |> 
+  #   pivot_wider(id_cols = Date, names_from = Item, values_from = Value) |> 
+  #   rename(date = Date, tmax = DayAirTmpMax, tmin = DayAirTmpMin, prec = DayPrecip)
+  # 
+  # write_csv(cim_ply_dly_tbl, file = cim_ply_dly_fn)
+  
+}
+```
