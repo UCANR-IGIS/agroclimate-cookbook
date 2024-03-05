@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2024-02-10">
 
-<title>AgroClimate Cookbook</title>
+<title>AgroClimate Cookbook - References</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,7 +20,26 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -31,7 +49,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./01_data-wrangling.html" rel="next">
+<link href="./99_other.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -61,6 +79,13 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script type="application/json" class="js-hypothesis-config">
+{
+  "theme": "clean",
+  "openSidebar": false
+}
+</script>
+<script async="" src="https://hypothes.is/embed.js"></script>
 
 
 </head>
@@ -74,7 +99,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Preface</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./references.html">References</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -101,7 +126,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Preface</span></a>
   </div>
 </li>
@@ -161,7 +186,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link">
+  <a href="./references.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">References</span></a>
   </div>
 </li>
@@ -171,21 +196,14 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="4">
-    <h2 id="toc-title">Table of contents</h2>
-   
-  <ul>
-  <li><a href="#preface" id="toc-preface" class="nav-link active" data-scroll-target="#preface">Preface</a></li>
-  </ul>
-</nav>
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">AgroClimate Cookbook</h1>
-<p class="subtitle lead">Code recipes for working with weather-driven agricultural metrics</p>
+<h1 class="title">References</h1>
 </div>
 
 
@@ -193,12 +211,6 @@ ul.task-list li input[type="checkbox"] {
 <div class="quarto-title-meta">
 
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">February 10, 2024</p>
-    </div>
-  </div>
   
     
   </div>
@@ -206,14 +218,65 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
+<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-allen_crop_1998" class="csl-entry" role="listitem">
+Allen, R. G., and Food and Agriculture Organization of the United
+Nations, eds. 1998. <em>Crop Evapotranspiration: Guidelines for
+Computing Crop Water Requirements</em>. <span>FAO</span> Irrigation and
+Drainage Paper 56. Rome: Food; Agriculture Organization of the United
+Nations.
+</div>
+<div id="ref-jha_climate_2024" class="csl-entry" role="listitem">
+Jha, Prakash Kumar, Ning Zhang, Jhalendra P. Rijal, Lauren E. Parker,
+Steven Ostoja, and Tapan B. Pathak. 2024. <span>“Climate Change Impacts
+on Insect Pests for High Value Specialty Crops in
+<span>California</span>.”</span> <em>Science of The Total
+Environment</em> 906 (January): 167605. <a href="https://doi.org/10.1016/j.scitotenv.2023.167605">https://doi.org/10.1016/j.scitotenv.2023.167605</a>.
+</div>
+<div id="ref-R-cimir" class="csl-entry" role="listitem">
+Koohafkan, Michael. 2021. <em>Cimir: Interface to the CIMIS Web
+API</em>. <a href="https://github.com/mkoohafkan/cimir">https://github.com/mkoohafkan/cimir</a>.
+</div>
+<div id="ref-luedeling_global_2011" class="csl-entry" role="listitem">
+Luedeling, Eike, and Patrick H. Brown. 2011. <span>“A Global Analysis of
+the Comparability of Winter Chill Models for Fruit and Nut
+Trees.”</span> <em>International Journal of Biometeorology</em> 55 (3):
+411–21. <a href="https://doi.org/10.1007/s00484-010-0352-y">https://doi.org/10.1007/s00484-010-0352-y</a>.
+</div>
+<div id="ref-mcbride_impact_2018" class="csl-entry" role="listitem">
+McBride, Joe R., and Igor Laćan. 2018. <span>“The Impact of
+Climate-Change Induced Temperature Increases on the Suitability of
+Street Tree Species in <span>California</span> (<span>USA</span>)
+Cities.”</span> <em>Urban Forestry &amp; Urban Greening</em> 34
+(August): 348–56. <a href="https://doi.org/10.1016/j.ufug.2018.07.020">https://doi.org/10.1016/j.ufug.2018.07.020</a>.
+</div>
+<div id="ref-mcmaster_growing_1997" class="csl-entry" role="listitem">
+McMaster, G, and W Wilhelm. 1997. <span>“Growing Degree-Days: One
+Equation, Two Interpretations.”</span> <em>Agricultural and Forest
+Meteorology</em> 87 (4): 291–300. <a href="https://doi.org/10.1016/S0168-1923(97)00027-0">https://doi.org/10.1016/S0168-1923(97)00027-0</a>.
+</div>
+<div id="ref-parker_climate_2021" class="csl-entry" role="listitem">
+Parker, Lauren E., Tapan Pathak, and Steven Ostoja. 2021. <span>“Climate
+Change Reduces Frost Exposure for High-Value <span>California</span>
+Orchard Crops.”</span> <em>Science of The Total Environment</em> 762
+(March): 143971. <a href="https://doi.org/10.1016/j.scitotenv.2020.143971">https://doi.org/10.1016/j.scitotenv.2020.143971</a>.
+</div>
+<div id="ref-parker_observed_2022" class="csl-entry" role="listitem">
+Parker, Lauren E., Ning Zhang, John T. Abatzoglou, Steven M. Ostoja, and
+Tapan B. Pathak. 2022. <span>“Observed <span>Changes</span> in
+<span>Agroclimate</span> <span>Metrics</span> <span>Relevant</span> for
+<span>Specialty</span> <span>Crop</span> <span>Production</span> in
+<span>California</span>.”</span> <em>Agronomy</em> 12 (1): 205. <a href="https://doi.org/10.3390/agronomy12010205">https://doi.org/10.3390/agronomy12010205</a>.
+</div>
+<div id="ref-pathak_impact_2021" class="csl-entry" role="listitem">
+Pathak, Tapan, Mahesh Maskey, and Jhalendra P. Rijal. 2021.
+<span>“Impact of Climate Change on Navel Orangeworm, a Major Pest of
+Tree Nuts in <span>California</span>.”</span> <em>Science of The Total
+Environment</em> 755 (February): 142657. <a href="https://doi.org/10.1016/j.scitotenv.2020.142657">https://doi.org/10.1016/j.scitotenv.2020.142657</a>.
+</div>
+</div>
 
-<section id="preface" class="level1 unnumbered">
-<h1 class="unnumbered">Preface</h1><p><img src="cover.png" title="AgroClimate Cookbook" class="quarto-cover-image img-fluid"></p>
-<p>Thank you for checking out our book.</p>
-<p>We would like to thank…</p>
 
-
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -467,11 +530,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./99_other.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Other Content, Future Work</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./01_data-wrangling.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Data Wrangling Methods</span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->

@@ -80,7 +80,7 @@ Below, we give examples of weather data that is suited for agriculture.
 
 ### CIMIS Station Data {#sec-weather-data-cimis-station}
 
-[CIMIS](https://cimis.water.ca.gov/) is a network of about 150 weather stations in California, operated by the CA Dept. of Water Resources. The network was established to inform irrigation management, hence the stations are mostly in agricultural regions. 
+[CIMIS](https://cimis.water.ca.gov/) is a network of about 150 weather stations in California ([map](https://cimis.water.ca.gov/Stations.aspx)), operated by the CA Dept. of Water Resources. The network was established to inform irrigation management, hence the stations are mostly in agricultural regions. 
 
 CIMIS stations are a bit different from other networks in that:
 

@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2024-02-10">
 
-<title>AgroClimate Cookbook</title>
+<title>AgroClimate Cookbook - 7&nbsp; Modeled Climate Data</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -31,7 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./01_data-wrangling.html" rel="next">
+<link href="./08_climate-analogues.html" rel="next">
+<link href="./06_agroclimate-rasters.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -61,6 +61,13 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script type="application/json" class="js-hypothesis-config">
+{
+  "theme": "clean",
+  "openSidebar": false
+}
+</script>
+<script async="" src="https://hypothes.is/embed.js"></script>
 
 
 </head>
@@ -74,7 +81,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Preface</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./07_modeled-climate-data.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Modeled Climate Data</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -101,7 +108,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Preface</span></a>
   </div>
 </li>
@@ -143,7 +150,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./07_modeled-climate-data.html" class="sidebar-item-text sidebar-link">
+  <a href="./07_modeled-climate-data.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Modeled Climate Data</span></span></a>
   </div>
 </li>
@@ -171,21 +178,14 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="4">
-    <h2 id="toc-title">Table of contents</h2>
-   
-  <ul>
-  <li><a href="#preface" id="toc-preface" class="nav-link active" data-scroll-target="#preface">Preface</a></li>
-  </ul>
-</nav>
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">AgroClimate Cookbook</h1>
-<p class="subtitle lead">Code recipes for working with weather-driven agricultural metrics</p>
+<h1 class="title"><span id="sec-modeled-data" class="quarto-section-identifier"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Modeled Climate Data</span></span></h1>
 </div>
 
 
@@ -193,12 +193,6 @@ ul.task-list li input[type="checkbox"] {
 <div class="quarto-title-meta">
 
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">February 10, 2024</p>
-    </div>
-  </div>
   
     
   </div>
@@ -206,14 +200,19 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
+<p>Similarities and differences between observed weather data and modeled climate data</p>
+<p>Observed weather data represent a single series of weather outcomes.</p>
+<p>‘Climate’ is the ‘envelope’ or variability of weather. You need at least 30 years of observed weather data to see the envelope.</p>
+<p>Modeled climate data are based on simulations of weather (hourly). Just like observed weather data, you need 30 years of simulated weather to characterize the envelope.</p>
+<p>The simulated weather data from a climate model are not meant to be predictive. But the envelope of many ‘runs’ of the simulation do a good job at predicting the climate envelope.</p>
+<p>You can compute future agroclimate metrics with projected climate data, provided you have access to the simulated weather (e.g., daily temperature). This is basically the same as computing the metric with observed data.</p>
+<p>The tricky part comes when analzing the results, because</p>
+<ol type="1">
+<li><p>There is not one projected climate future, but many (different CGMs, different emissions scenarios, different runs)</p></li>
+<li><p>Therefore you have a range of projected agroclimate metrics. You have to characterize them as a group / probabilistically</p></li>
+</ol>
 
-<section id="preface" class="level1 unnumbered">
-<h1 class="unnumbered">Preface</h1><p><img src="cover.png" title="AgroClimate Cookbook" class="quarto-cover-image img-fluid"></p>
-<p>Thank you for checking out our book.</p>
-<p>We would like to thank…</p>
 
-
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -467,10 +466,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./06_agroclimate-rasters.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Agroclimate Rasters</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./01_data-wrangling.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Data Wrangling Methods</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./08_climate-analogues.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">AgroClimate Analogues</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

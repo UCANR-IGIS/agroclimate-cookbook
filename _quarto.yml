@@ -1,12 +1,14 @@
 project:
   type: book
-  output-dir: docs
+  #output-dir: docs
+  output-dir: "docs/0.2"
 
 book:
   title: "AgroClimate Cookbook"
   subtitle: "Code recipes for working with weather-driven agricultural metrics"
-  author:
+  editor:
    - Andy Lyons
+  contributor:
    - Chloe Faehndrich
   date: "2/10/2024"
   cover-image: "cover.png"
@@ -22,7 +24,6 @@ book:
     - 08_climate-analogues.qmd
     - 99_other.qmd
     - references.qmd
-    
 
 bibliography: references.bib
 
@@ -34,10 +35,14 @@ format:
     toc-expand: 4
     link-external-icon: true
     link-external-newwindow: true
-    
   # We will add support for epub and pdf when it is a little more developed
   # pdf:
   #   documentclass: scrreprt
+
+comments:
+  hypothesis:
+    theme: clean
+    openSidebar: false
 
 editor: source
 

@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2024-02-10">
 
-<title>AgroClimate Cookbook</title>
+<title>AgroClimate Cookbook - 4&nbsp; Degree Days</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -31,7 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./01_data-wrangling.html" rel="next">
+<link href="./05_chill.html" rel="next">
+<link href="./03_simple-agroclim-metrics.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -61,6 +61,13 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script type="application/json" class="js-hypothesis-config">
+{
+  "theme": "clean",
+  "openSidebar": false
+}
+</script>
+<script async="" src="https://hypothes.is/embed.js"></script>
 
 
 </head>
@@ -74,7 +81,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Preface</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./04_degday.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Degree Days</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -101,7 +108,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Preface</span></a>
   </div>
 </li>
@@ -125,7 +132,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./04_degday.html" class="sidebar-item-text sidebar-link">
+  <a href="./04_degday.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Degree Days</span></span></a>
   </div>
 </li>
@@ -175,7 +182,7 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#preface" id="toc-preface" class="nav-link active" data-scroll-target="#preface">Preface</a></li>
+  <li><a href="#which-one-to-use" id="toc-which-one-to-use" class="nav-link active" data-scroll-target="#which-one-to-use"><span class="header-section-number">4.1</span> Which one to use?</a></li>
   </ul>
 </nav>
     </div>
@@ -184,8 +191,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">AgroClimate Cookbook</h1>
-<p class="subtitle lead">Code recipes for working with weather-driven agricultural metrics</p>
+<h1 class="title"><span id="sec-degree-days" class="quarto-section-identifier"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Degree Days</span></span></h1>
 </div>
 
 
@@ -193,12 +199,6 @@ ul.task-list li input[type="checkbox"] {
 <div class="quarto-title-meta">
 
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">February 10, 2024</p>
-    </div>
-  </div>
   
     
   </div>
@@ -206,11 +206,22 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-
-<section id="preface" class="level1 unnumbered">
-<h1 class="unnumbered">Preface</h1><p><img src="cover.png" title="AgroClimate Cookbook" class="quarto-cover-image img-fluid"></p>
-<p>Thank you for checking out our book.</p>
-<p>We would like to thank…</p>
+<p>A common application of weather and climate data is predicting phenological events like egg laying for insects, or fruit ripening for tree crops. These predictions are possible due to research which has modeled the relationship between phenology and accumulated heat, or degree days.</p>
+<p>The researchers who study the relationship between phenology and accumulated heat use several calculations to measure degree days. Many of the most common degree day formulas can be found in the <code>degday</code> R package.</p>
+<p><a href="https://ucanr-igis.github.io/degday/" class="uri">https://ucanr-igis.github.io/degday/</a></p>
+<p>All you need after that are the phenology tables.</p>
+<p>Example: https://ucanr-igis.shinyapps.io/noworm/</p>
+<section id="which-one-to-use" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="which-one-to-use"><span class="header-section-number">4.1</span> Which one to use?</h2>
+<p>If you’re using published phenology tables or a degree day model, use the same method as the author used.</p>
+<p>If you’re a researcher, note:</p>
+<pre><code>"Since no advantages were noted in the more complicated double
+and corrected methods, the single triangle and single sine
+methods are preferred since they are less complicated
+procedures." 
+(Roltsch et al 1999)
+summarized at &lt;https://ipm.ucanr.edu/WEATHER/ddeval.html&gt;</code></pre>
+<p><em>More coming soon…</em></p>
 
 
 </section>
@@ -467,10 +478,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./03_simple-agroclim-metrics.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Simple AgroClimate Metrics</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./01_data-wrangling.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Data Wrangling Methods</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./05_chill.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Chill</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

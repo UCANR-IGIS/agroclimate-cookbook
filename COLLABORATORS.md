@@ -24,7 +24,7 @@ For more info see <https://quarto.org/docs/authoring/callouts.html>
 
 ### Cross-References
 
-We plan to make the book available as PDF, ePub, and HTML. Therefore, avoid the use of hyperlinks for cross-references to other parts of the book. (Hyperlinke are of course fine for external websites). 
+We plan to make the book available as PDF, ePub, and HTML. Therefore, avoid the use of hyperlinks for cross-references to other parts of the book. (Hyperlinks are of course fine for external websites). 
 
 For cross references within the book, use the methods descrbibed [here](https://quarto.org/docs/books/book-crossrefs.html)
 
@@ -67,4 +67,8 @@ becomes
 Many variations:
 
 https://inbo.github.io/tutorials/tutorials/r_citations_markdown/#syntax
+
+See also how to document the dependencies
+
+https://docs.google.com/presentation/d/1aookDrahyh683uwC-F8uxmeH-JAG9HVFDUVjec6ilgs/edit#slide=id.g2b72e0d2a93_0_124
 
