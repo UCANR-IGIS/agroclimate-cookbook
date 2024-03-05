@@ -3,6 +3,11 @@ project:
   #output-dir: docs
   output-dir: "docs/0.2"
 
+comments:
+  hypothesis:
+    theme: clean
+    openSidebar: true
+
 book:
   title: "AgroClimate Cookbook"
   subtitle: "Code recipes for working with weather-driven agricultural metrics"
@@ -39,10 +44,6 @@ format:
   # pdf:
   #   documentclass: scrreprt
 
-comments:
-  hypothesis:
-    theme: clean
-    openSidebar: false
 
 editor: source
 
