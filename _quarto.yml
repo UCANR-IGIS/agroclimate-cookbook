@@ -1,12 +1,8 @@
 project:
   type: book
-  #output-dir: docs
-  output-dir: "docs/0.2"
+  output-dir: "docs"
 
-comments:
-  hypothesis:
-    theme: clean
-    openSidebar: true
+editor: source
 
 book:
   title: "AgroClimate Cookbook"
@@ -30,7 +26,15 @@ book:
     - 99_other.qmd
     - references.qmd
 
+  # repo-url: https://github.com/jjallaire/hopr/
+  # repo-actions: [edit]    
+
 bibliography: references.bib
+
+# comments:
+#   hypothesis:
+#     theme: clean
+#     openSidebar: false
 
 format:
   html:
@@ -40,10 +44,12 @@ format:
     toc-expand: 4
     link-external-icon: true
     link-external-newwindow: true
+    # include-before-body:
+    #   - text: This is a review copy
+    
+    
   # We will add support for epub and pdf when it is a little more developed
   # pdf:
   #   documentclass: scrreprt
 
-
-editor: source
 
