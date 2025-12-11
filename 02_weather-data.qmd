@@ -124,7 +124,7 @@ Below, we'll use `cimis_data()` to get daily precipitation and temperature:
 library(cimir)
 
 ## Step 1. Load my cimis key
-my_cimis_key <- readLines("~/My Keys/cimis_webapi.txt", n=1)
+my_cimis_key <- Sys.getenv("MY_CIMIS_KEY")
 cimir::set_key(my_cimis_key)
 
 ### Query CIMIS data (Plymouth station #227)
@@ -311,7 +311,7 @@ First, let's look at the metadata for this station:
 library(httr2)
 
 ## Load token
-my_public_token <- readLines("~/My Keys/synoptic-api.txt", n=1)
+my_public_token <- Sys.getenv("MY_SYNOPTIC_PUBLIC_TOKEN")
 
 ## You have to know the station id.
 ## Campo station ID: CPOSD

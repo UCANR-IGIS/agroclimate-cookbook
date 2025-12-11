@@ -5,9 +5,29 @@
 [@parker_climate_2021] computed frost exposure based on the number of hours within temperature ranges defined by each crop (e.g., 28-30, 30-32, 32-34). They used this metric to compare changes over time.
 
 > The frequency of frost temperatures under observed contemporary and projected future climate conditions were assessed in units of hours of exposure, quantified using daily maximum and minimum temperatures temporally disaggregated to hourly data using a modified sine curve approach (Linvill, 1990)...In assessing frost exposure that is not crop-specific, we highlight the frost exposure (in hours) for three threshold temperatures (T) – -2 °C, 0 °C, and 2 °C – that encapsulate the most frost-tender phase of development for many high-value fruit and nut trees (e.g., Gholipour, 2006; WSU, 2020).
-    
 
-## Pest Development - Chained Analyses
+## Evapotranspiration
+
+See [PMEvapotranspiration](https://cran.r-project.org/web/packages/PMEvapotranspiration/index.html). 	Calculation of the Penman-Monteith Evapotranspiration using Weather Variables
+
+## Other
+
+[`weathermetrics`](https://cran.r-project.org/web/packages/weathermetrics/index.html) - includes functions to compute a variety of metrics, including heat index from air temperature and air moisture
+
+[`weatherindices`](https://cran.r-project.org/package=weatherindices). This package contains functions that can convert the weekly weather data into yearly weighted Weather indices with weights being the correlation coefficient between weekly weather data over the years and crop yield over the years. Appears to have been developed for a specific paper / research.
+
+
+## Chained Analyses
+
+### Pistachio Bloom Calculator
+
+Pistachio Bloom is predicted by i) chill , followed by ii) degree days
+
+See UCD Fruit and Nut Information Center
+
+
+
+### Chained Analysis for Pest Development
 
 These authors looked at generation times, number of generations per season, biofix events, and phenology stages. These analyses are based on chaining degree day models. 
 

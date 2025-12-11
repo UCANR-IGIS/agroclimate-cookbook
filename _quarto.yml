@@ -11,7 +11,7 @@ book:
    - Andy Lyons
   contributor:
    - Chloe Faehndrich
-  date: "2/10/2024"
+  date: today
   cover-image: "cover.png"
   chapters:
     - index.qmd
@@ -25,16 +25,17 @@ book:
     - 08_climate-analogues.qmd
     - 99_other.qmd
     - references.qmd
-
-  # repo-url: https://github.com/jjallaire/hopr/
-  # repo-actions: [edit]    
+  repo-url: https://github.com/ucanr-igis/agroclimate-cookbook/
+  repo-actions: 
+    - issue
+    - edit
 
 bibliography: references.bib
 
-# comments:
-#   hypothesis:
-#     theme: clean
-#     openSidebar: false
+comments:
+  hypothesis:
+    theme: clean
+    openSidebar: false
 
 format:
   html:
@@ -44,10 +45,8 @@ format:
     toc-expand: 4
     link-external-icon: true
     link-external-newwindow: true
-    # include-before-body:
-    #   - text: This is a review copy
-    
-    
+    code-link: true
+
   # We will add support for epub and pdf when it is a little more developed
   # pdf:
   #   documentclass: scrreprt
